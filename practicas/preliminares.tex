@@ -1,0 +1,81 @@
+\documentclass{article}
+% Text Packages
+\usepackage[spanish]{babel}
+
+% Math Packages
+\usepackage{mathtools}
+\usepackage{amssymb, amsthm}
+\usepackage{physics}
+\usepackage{bbm}
+
+\newcommand{\placeholderParameter}{-}
+\newcommand{\characteristic}{\mathbbm{1}}
+\newcommand{\realNumbers}{\mathbb{R}}
+\newtheorem{definition}{Definición}
+\newtheorem{exercise}{Ejercicio}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Observación}
+
+\title{Práctica 0 \\ Preliminares de Análisis}
+\author{Pablo Brianese}
+\begin{document}
+\maketitle
+  \begin{definition}
+    Dadas \(f, g : \realNumbers^n \rightarrow \realNumbers\) ambas en \(L(\realNumbers^n)\), definimos la convolución de la siguiente manera
+    \begin{align}
+      (f * g) (x)
+      =
+      \int_{\realNumbers^n} f(y) g(x - y) \dd y
+    \end{align}
+  \end{definition}
+
+  \begin{exercise}
+    Probar que si \(f, g, h \in L^1(\realNumbers^n)\) y \(\lambda \in \realNumbers\), entonces valen:
+    \begin{enumerate}
+      \item 
+        \label{exercise:convolutionConmutativity}
+        \(f * g = g * f\)
+      \item \(f * (g + h) = f * g + f * h\)
+      \item \(f * (g * h) = (f * g) * h\)
+      \item \(\lambda (f * g) = f * (\lambda g)\)
+      \item \(\norm{f * g}_1 \leq \norm{f}_1 \norm{g}_1\)
+    \end{enumerate}
+  \end{exercise}
+
+  \begin{remark}
+    Las propiedades anteriores se pueden resumir diciendo que \((L^1(\realNumbers^n), \norm{\placeholderParameter}_1)\) es un álgebra de Banach conmutativa con la convolución como producto.
+  \end{remark}
+
+  \begin{proof}[Solución]
+    \ref{exercise:convolutionConmutativity}
+    Supongamos \(f \geq 0\).
+    Y pensemos en el caso en que \(g\) es la función característica, \(g = \characteristic_A\), de un conjunto boreliano \(A \subseteq \realNumbers^n\).
+    Observemos que \(\characteristic_A (x - y) = \characteristic_{x - A} (y)\) para todo \(y \in \realNumbers\).
+    Esto nos permite calcular, para todo \(x \in \realNumbers^n\), fórmulas muy similares para ambas convoluciones
+    \begin{align}
+      f * \characteristic_A (x)
+      &=
+      \int_{\realNumbers^n} f(y) \characteristic_A (x - y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} f(y) \characteristic_{x - A} (y) \dd y
+      \\
+      \characteristic_A * f (x)
+      &=
+      \int_{\realNumbers^n} f(x - y) \characteristic_A (y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} f(x - y) \characteristic_A (x - (x - y)) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} f(x - y) \characteristic_{x - A} (x - y) \dd y
+    \end{align}
+    Sea \(\{f_n\}_n\) una sucesión de funciones simples nonegativas que convergen puntualmente a \(f\).
+    Por el teorema de convergencia dominada
+    \begin{align}
+      \lim_{n \rightarrow \infty} \int_{\realNumbers^n}
+    \end{align}
+    
+  \end{proof}
+\end{document}
