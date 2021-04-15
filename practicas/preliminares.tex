@@ -14,6 +14,8 @@
 \newtheorem{definition}{Definición}
 \newtheorem{exercise}{Ejercicio}
 
+\DeclareMathOperator{\lebesgueMeasure}{\lambda}
+
 \theoremstyle{remark}
 \newtheorem{remark}{Observación}
 
@@ -49,9 +51,51 @@
 
   \begin{proof}[Solución]
     \ref{exercise:convolutionConmutativity}
+    Haremos un argumento por clases crecientes.
+
+    Supongamos que \(f\), \(g\) son las funciones características de subconjuntos medibles \(A, B \subseteq \realNumbers^n\).
+    Observemos que \(\characteristic_C (x - y) = \characteristic_{x - C} (y)\) para todo par \(x, y \in \realNumbers^n\) y todo subconjunto \(C \subseteq \realNumbers^n\).
+    Luego para todo \(x \in \realNumbers^n\)
+    \begin{align}
+      f * g (x)
+      &=
+      \int_{\realNumbers^n} \characteristic_A(y) \characteristic_B(x - y) \dd y
+      =
+      \int_{\realNumbers^n} \characteristic_A(y) \characteristic_{x - B} (y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} \characteristic_{A \cap (x - B)}(y) \dd y
+      =
+      \lebesgueMeasure(A \cap (x - B))
+      \\
+      g * f(x)
+      &=
+      \int_{\realNumbers^n} \characteristic_A(x - y) \characteristic_B(y) \dd y
+      =
+      \int_{\realNumbers^n} \characteristic_A(x - y) \characteristic_B(x - (x - y)) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} \characteristic_A(x - y) \characteristic_{x - B} (x - y) \dd y
+      =
+      \int_{\realNumbers^n} \characteristic_{A \cap (x - B)}(x - y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} \characteristic_{x - A \cap (x - B)}(y) \dd y
+      =
+      \lebesgueMeasure(x - A \cap (x - B))
+    \end{align}
+    Ahora la ecuación que necesitamos se sigue de la invarianza por traslaciones (\(+ x\)) y reflexiones (\(-\)) de la medida de Lebesgue, algo que es facil de ver en el caso de los rectángulos que generan su \(\sigma\)--álgebra.
+    Concretamente, para todo \(x \in \realNumbers^n\)
+    \begin{align}
+      \lebesgueMeasure(A \cap (x - B))
+      =
+      \lebesgueMeasure(x - A \cap (x - B))
+    \end{align}
+    En conclusión \(f * g = g * f\), al menos en el caso de las funciones características.
+    
     Supongamos \(f \geq 0\).
     Y pensemos en el caso en que \(g\) es la función característica, \(g = \characteristic_A\), de un conjunto boreliano \(A \subseteq \realNumbers^n\).
-    Observemos que \(\characteristic_A (x - y) = \characteristic_{x - A} (y)\) para todo \(y \in \realNumbers\).
+    
     Esto nos permite calcular, para todo \(x \in \realNumbers^n\), fórmulas muy similares para ambas convoluciones
     \begin{align}
       f * \characteristic_A (x)
@@ -74,8 +118,27 @@
     Sea \(\{f_n\}_n\) una sucesión de funciones simples nonegativas que convergen puntualmente a \(f\).
     Por el teorema de convergencia dominada
     \begin{align}
-      \lim_{n \rightarrow \infty} \int_{\realNumbers^n}
-    \end{align}
-    
+      \lim_{n \rightarrow \infty} f_n * \characteristic_A (x)
+      &=
+      \lim_{n \rightarrow \infty} \int_{\realNumbers^n} f_n(y)\characteristic_{x - A}(y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} f(y) \characteristic_{x - A}(y) \dd y
+      \\
+      &=
+      f * \characteristic_A (x)
+      && (\forall x \in \realNumbers^n)
+      \\
+      \lim_{n \rightarrow \infty} \characteristic_A * f_n (x)
+      &=
+      \lim_{n \rightarrow \infty} \int_{\realNumbers^n} f_n(x - y)\characteristic_{x - A}(x - y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} f(x - y) \characteristic_{x - A}(x - y) \dd y
+      \\
+      &=
+      \characteristic_A * f (x)
+      && (\forall x \in \realNumbers^n)
+    \end{align}    
   \end{proof}
 \end{document}
