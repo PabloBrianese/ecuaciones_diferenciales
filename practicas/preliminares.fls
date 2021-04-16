@@ -14,6 +14,8 @@ INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\arabi\bblopts.cfg
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\arabi\bblopts.cfg
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\babel-spanish\spanish.ldf
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\babel-spanish\spanish.ldf
+INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\enumitem\enumitem.sty
+INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\enumitem\enumitem.sty
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\mathtools\mathtools.sty
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\mathtools\mathtools.sty
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\graphics\keyval.sty
@@ -100,13 +102,13 @@ INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\sym
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
+OUTPUT c:\Users\Pablo\Documents\GitHub\ecuaciones_diferenciales\practicas\preliminares.pdf
+INPUT C:\Users\Pablo\AppData\Local\MiKTeX\pdftex\config\pdftex.map
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\bbm\ubbm.fd
 INPUT C:\Users\Pablo\AppData\Local\Programs\MiKTeX\tex\latex\bbm\ubbm.fd
 INPUT C:\Users\Pablo\AppData\Local\MiKTeX\fonts\tfm\public\bbm\bbm10.tfm
 INPUT C:\Users\Pablo\AppData\Local\MiKTeX\fonts\tfm\public\bbm\bbm7.tfm
 INPUT C:\Users\Pablo\AppData\Local\MiKTeX\fonts\tfm\public\bbm\bbm5.tfm
-OUTPUT c:\Users\Pablo\Documents\GitHub\ecuaciones_diferenciales\practicas\preliminares.pdf
-INPUT C:\Users\Pablo\AppData\Local\MiKTeX\pdftex\config\pdftex.map
 INPUT c:\Users\Pablo\Documents\GitHub\ecuaciones_diferenciales\practicas\preliminares.aux
 INPUT C:\Users\Pablo\AppData\Local\MiKTeX\fonts\pk\ljfour\public\bbm\dpi600\bbm10.pk
 INPUT C:\Users\Pablo\AppData\Local\MiKTeX\fonts\pk\ljfour\public\bbm\dpi600\bbm10.pk
