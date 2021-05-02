@@ -15,6 +15,7 @@
 \newcommand{\naturalNumbers}{\mathbb{N}}
 \newcommand{\realNumbers}{\mathbb{R}}
 \newcommand{\integrableFunctions}{L^1(\realNumbers^n)}
+\newcommand{\locallyIntegrableFunctions}{L^1_{\textnormal{loc}}(\realNumbers^n)}
 \newcommand{\local}{\textnormal{loc}}
 \newcommand{\closure}[1]{\bar{1}}
 \newtheorem{definition}{Definición}
@@ -22,6 +23,7 @@
 \newtheorem{myLemma}{Lema propio}
 
 \DeclareMathOperator{\lebesgueMeasure}{\lambda}
+\DeclareMathOperator{\support}{\textnormal{sop}}
 
 \theoremstyle{remark}
 \newtheorem{remark}{Observación}
@@ -253,7 +255,6 @@
     \end{align}
     
   \end{proof}
-% \end{}
 
 \begin{myLemma}
   \label{myLemma:convolutionWithCompactlySupportedFunction}
@@ -324,5 +325,115 @@
   Queda probada la convergencia uniforme en compactos.
   Pero el límite, en este caso \(f * \psi\), uniforme en compactos de una sucesión de funciones uniformemente continuas, aquí las \(f_m\), es continuo.
   Por lo tanto \(f * \psi\) es una función continua.
-  \end{proof}
+\end{proof}
+% \end{}
+
+\begin{exercise}
+  Probar que si \(f \in \locallyIntegrableFunctions\) y \(\psi \in C^{\infty}_c(\realNumbers^n)\) entonces \(\partial_{x_i} (\psi * f) = f * \partial_{x_i} \psi\).
+\end{exercise}
+\begin{remark}
+  Como consecuencia \(f * \psi \in C^{\infty}(\realNumbers^n)\).
+\end{remark}
+
+\begin{proof}
+  Sea \(x \in \realNumbers^n\) un vector fijo.
+  Calculamos
+  \begin{align}
+    \partial_{x_i} (f * \psi)(x)
+    &=
+    \lim_{h \rightarrow 0} h^{- 1} ((f * \psi)(x + h e_i) - (f * \psi)(x))
+    \\
+    &=
+    \lim_{h \rightarrow 0}
+      \int_{\realNumbers^n} f(y)  
+      \frac{\psi(x + h e_i - y) - \psi(x - y)}{h}
+      \dd y
+  \end{align}
+  El análisis de este límite constará de tres partes.
+  Primero acotamos la región de integración.
+  Definimos \(\phi_h(y) = h^{- 1} (\psi(x + h e_i - y) - \psi(x - y))\) para \(y \in \realNumbers^n\) y \(h \in \realNumbers \setminus 0\).
+  Podemos probar que el soporte de las todas las funciones \(\phi_h\) está contenido en una bola si nos restringimos a los desplazamientos \(h \in [-1, 1]\).
+  Sabemos que \(\psi\) tiene soporte compacto, por lo cual se anula en \(\realNumbers^n \setminus B_r\), el complemento de la bola centrada en 0 de radio \(r\).
+  Escogiendo \(r' = r + \norm{x} + 1\) podemos asegurar que \(\norm{y} \geq r'\) implica 
+  \begin{align}
+    r
+    &=
+    r' - \norm{x} - 1
+      &&& 
+      r
+      &=
+      r' - \norm{x} - 1
+    \\
+    &\leq
+    \norm {y} - \norm{x} - 1 
+      &&&
+      &\leq
+      \norm{y} - \norm{x} - 1
+    \\
+    &\leq 
+    \norm{y} - \norm{x + h e_i} 
+      &&&
+      &\leq
+      \norm{y} - \norm{x}
+    \\
+    &\leq 
+    \abs{\norm{x + h e_i} - \norm{y}} 
+      &&&
+      &\leq
+      \abs{\norm{x} - \norm{y}}
+    \\
+    &\leq 
+    \norm{x + h e_i - y}
+      &&&
+      &\leq
+      \norm{x - y}
+  \end{align}
+  y estas desigualdades a su vez nos permiten deducir
+  \(
+    \psi(x + h e_i - y)
+    =
+    \psi(x - y)
+    =
+    0
+  \).
+  En conclusión, las funciones \(\phi_h\) con \(h \in [-1, 1]\) se anulan sobre el conjunto \(\realNumbers^n \setminus B_{r'}\).
+  
+  En segundo lugar controlamos el integrando.
+  Por el teorema del valor medio
+  \(
+    \abs{\psi(x + h e_i - y) - \psi(x - y)}
+    \leq
+    \norm{\partial_{x_i} \psi}_{\infty} \abs{h}
+  \)
+  para todo \(y \in \realNumbers^n\).
+  Pero \(\partial_{x_i} \psi \in C^{\infty}_c(\realNumbers^n)\) porque \(\psi \in C^{\infty}_c(\realNumbers^n)\).
+  Luego \(C = \norm{\partial_{x_i} \psi}_{\infty} < \infty\).
+  Esto asegura \(\abs{\phi_h} \leq C\) para todo \(h \in \realNumbers \setminus 0\).
+  
+  En tercer y último lugar, aplicamos el teorema de convergencia dominada.
+  En el primer y segundo paso probamos que \(\abs{\phi_h} \leq C \characteristic_{B_{r'}}\) para todo \(h \in [- 1, 1]\).
+  Partiendo de esto, el integrando \(f \phi_h\) está dominado por una función \(g = C \abs{f} \characteristic_{B_{r'}}\).
+  Esta \(g\) resulta integrable porque \(f\) es localmente integrable.
+  Luego el teorema de la convergencia dominada implica
+  \begin{align}
+    \lim_{h \rightarrow 0}
+      \int_{\realNumbers^n} f(y) \phi_h(y) \dd y
+    =
+    \int_{\realNumbers^n}
+      f(y)
+      \lim_{h \rightarrow 0} \phi_h(y) \dd y
+  \end{align}
+  Pero \(\psi \in C^{\infty}(\realNumbers^n)\), entonces
+  \begin{align}
+    &\lim_{h \rightarrow 0} \phi_h(y) = \partial_{x_i} \psi (x - y)
+    && (\forall y \in \realNumbers^n)
+  \end{align}
+  Es decir
+  \begin{align}
+    \partial_{x_i} (f * \psi) (x)
+    =
+    f * (\partial_{x_i} \psi) (x)
+  \end{align}
+  Con la conmutatividad de la convolución podemos llegar al enunciado preciso del ejercicio.
+\end{proof}
 \end{document}
