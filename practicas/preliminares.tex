@@ -326,7 +326,6 @@
   Pero el límite, en este caso \(f * \psi\), uniforme en compactos de una sucesión de funciones uniformemente continuas, aquí las \(f_m\), es continuo.
   Por lo tanto \(f * \psi\) es una función continua.
 \end{proof}
-% \end{}
 
 \begin{exercise}
   Probar que si \(f \in \locallyIntegrableFunctions\) y \(\psi \in C^{\infty}_c(\realNumbers^n)\) entonces \(\partial_{x_i} (\psi * f) = f * \partial_{x_i} \psi\).
@@ -436,4 +435,106 @@
   \end{align}
   Con la conmutatividad de la convolución podemos llegar al enunciado preciso del ejercicio.
 \end{proof}
+% \end{}
+
+\begin{definition}
+  Dada una función \(\phi\) diremos que es un mollifier si satisface las siguientes propiedades
+  \begin{enumerate}[label=\alph*)]
+    \item \(\phi(x) \geq 0\);
+    \item \(\phi \in C^{\infty}(\realNumbers^n)\);
+    \item \(\support(\phi) = \overline{B_1(0)}\).
+    \item \(\int_{\realNumbers^n} \phi \dd x = 1\).
+  \end{enumerate}
+  Denotamos \(\phi_{\delta}(x) = \delta^{- n} \phi(x / \delta)\), donde \(\delta > 0\).
+\end{definition}
+
+\begin{exercise}
+  ¿Cuáles son las propiedades que satisface \(\phi_{\delta}\)?
+\end{exercise}
+\begin{proof}[Respuesta]
+  Las propiedades que podemos observar son
+  \begin{enumerate}[label=\alph*)]
+    \item 
+      \label{property:mollifierNonnegativity}
+      \(\phi_{\delta} \geq 0\);
+    \item 
+      \label{property:mollifierSmoothness}
+      \(\phi_{\delta} \in C^{\infty}(\realNumbers^n)\);
+    \item 
+      \label{property:mollifierSupport}
+      \(\support(\phi_{\delta}) = \overline{B_{\delta}(0)}\);
+    \item 
+      \label{property:mollifierIntegral}
+      \(\int_{\realNumbers^n} \phi_{\delta} \dd x = 1\).
+  \end{enumerate}
+  Sea \(T : \realNumbers^n \rightarrow \realNumbers^n\) la transformación lineal dada por \(T x = \delta x\) para todo \(x \in \realNumbers^n\).
+  La propiedad
+  \ref{property:mollifierNonnegativity}
+  se debe a que el producto de números nonegativos es un número nonegativo.
+  \ref{property:mollifierSmoothness}
+  se debe a la regla de la cadena, y a la suavidad de las funciones \(\phi\) y la aplicación \(T^{- 1}\).
+  \ref{property:mollifierSupport}
+  se debe a que \(T\) es un homeomorfismo, y en consecuencia se puede calcular
+  \begin{align}
+    \support(\phi_{\delta})
+    &=
+    \{y \in \realNumbers : \phi_{\delta}(y) = 0\}^-
+    \\
+    &=
+    \{y \in \realNumbers : \delta^{- n} \phi(y / \delta) = 0\}^-
+    \\
+    &=
+    \{y \in \realNumbers : \phi(y / \delta) = 0\}^-
+    \\
+    &=
+    \{\delta (y / \delta) :, y \in \realNumbers^n, \phi(y / \delta) = 0\}^-
+    \\
+    &=
+    \{\delta x : x \in \realNumbers^n, \phi(x) = 0\}^-
+    \\
+    &=
+    \left(
+      \delta \cdot
+      \{x \in \realNumbers^n: \phi(x) = 0\}
+    \right)^-
+    \\
+    &=
+    \delta \cdot 
+    \{x \in \realNumbers^n: \phi(x) = 0\}^-
+    \\
+    &=
+    \delta \cdot 
+    \support(\phi)
+  \end{align}
+  además de la ecuación \(\overline{B_{\delta}(0)} = \delta \cdot \overline{B_1(0)}\) particular a las bolas.
+  \ref{property:mollifierIntegral}
+  se debe al teorema de cambio de variable aplicado a la transformación lineal \(T\)
+  \begin{align}
+    \int_{\realNumbers^n} \phi_{\delta}(x) \dd x
+    &=
+    \int_{\realNumbers^n} \delta^{- n} \phi(x / \delta) \dd x
+    \\
+    &=
+    \delta^{- n}
+    \int_{\realNumbers^n}\phi(T^{- 1} x) \dd x
+    \\
+    &=
+    \delta^{- n}
+    \int_{\realNumbers^n}\phi(y) \abs{\det T} \dd y
+    \\
+    &=
+    \delta^{- n}
+    \int_{\realNumbers^n}\phi(y) \delta^n \dd y
+    \\
+    &=
+    \delta^{- n} \delta^n 
+    \int_{\realNumbers^n}\phi(y) \dd y
+    \\
+    &=
+    1 
+    \cdot 1
+  \end{align}
+  
+\end{proof}
+
 \end{document}
