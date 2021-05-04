@@ -1,15 +1,24 @@
 \documentclass{article}
 % \begin{}
-% Text Packages
+
+% LaTeX Packages %
+%%%%%%%%%%%%%%%%%%
+\usepackage{etoolbox}
+
+% Text Packages %
+%%%%%%%%%%%%%%%%%
 \usepackage[spanish]{babel}
 \usepackage[inline]{enumitem}
 
-% Math Packages
+% Math Packages %
+%%%%%%%%%%%%%%%%%
 \usepackage{mathtools}
 \usepackage{amssymb, amsthm}
 \usepackage{physics}
 \usepackage{bbm}
 
+% Math symbols %
+%%%%%%%%%%%%%%%%
 \newcommand{\placeholderParameter}{-}
 \newcommand{\characteristic}{\mathbbm{1}}
 \newcommand{\naturalNumbers}{\mathbb{N}}
@@ -24,6 +33,33 @@
 
 \DeclareMathOperator{\lebesgueMeasure}{\lambda}
 \DeclareMathOperator{\support}{\textnormal{sop}}
+
+% Math intervals %
+%%%%%%%%%%%%%%%%%%
+\newcommand{\leftOpenInterval}{\left]}
+\newcommand{\rightOpenInterval}{\right[}
+\newcommand{\leftClosedInterval}{\left[}
+\newcommand{\rightClosedInterval}{\right]}
+\newcommand{\interval}[3]{%
+  \ifstrequal{#1}{oo}{%
+    \leftOpenInterval #2, #3 \rightOpenInterval%
+  }{%
+    \ifstrequal{#1}{co}{%
+      \leftClosedInterval #2, #3 \rightOpenInterval%
+    }{%
+      \ifstrequal{#1}{oc}{
+        \leftOpenInterval #2, #3 \rightClosedInterval%
+      }{%
+        \ifstrequal{#1}{cc}{
+          \leftClosedInterval #2, #3 \rightClosedInterval
+        }{%
+        }%
+      }%
+    }%
+  }%
+}
+% End math intervals %
+%%%%%%%%%%%%%%%%%%%%%%
 
 \theoremstyle{remark}
 \newtheorem{remark}{Observación}
@@ -297,6 +333,7 @@
 \end{proof}
 
 \begin{exercise}
+  \label{exercise:continuousConvolutions}
   Probar que si \(f \in L^1_{\local}(\realNumbers^n)\) y \(\psi \in C_c(\realNumbers^n)\) entonces \(f * \psi\) es continua.
 \end{exercise}
 \begin{proof}
@@ -328,9 +365,11 @@
 \end{proof}
 
 \begin{exercise}
+  \label{exercise:convolutionDerivative}
   Probar que si \(f \in \locallyIntegrableFunctions\) y \(\psi \in C^{\infty}_c(\realNumbers^n)\) entonces \(\partial_{x_i} (\psi * f) = f * \partial_{x_i} \psi\).
 \end{exercise}
 \begin{remark}
+  \label{remark:smoothConvolutions}
   Como consecuencia \(f * \psi \in C^{\infty}(\realNumbers^n)\).
 \end{remark}
 
@@ -435,7 +474,6 @@
   \end{align}
   Con la conmutatividad de la convolución podemos llegar al enunciado preciso del ejercicio.
 \end{proof}
-% \end{}
 
 \begin{definition}
   Dada una función \(\phi\) diremos que es un mollifier si satisface las siguientes propiedades
@@ -443,12 +481,13 @@
     \item \(\phi(x) \geq 0\);
     \item \(\phi \in C^{\infty}(\realNumbers^n)\);
     \item \(\support(\phi) = \overline{B_1(0)}\).
-    \item \(\int_{\realNumbers^n} \phi \dd x = 1\).
+    \item \(\int_{\realNumbers^n} \phi(x) \dd x = 1\).
   \end{enumerate}
   Denotamos \(\phi_{\delta}(x) = \delta^{- n} \phi(x / \delta)\), donde \(\delta > 0\).
 \end{definition}
 
 \begin{exercise}
+  \label{exercise:deltaMollifierProperties}
   ¿Cuáles son las propiedades que satisface \(\phi_{\delta}\)?
 \end{exercise}
 \begin{proof}[Respuesta]
@@ -465,7 +504,7 @@
       \(\support(\phi_{\delta}) = \overline{B_{\delta}(0)}\);
     \item 
       \label{property:mollifierIntegral}
-      \(\int_{\realNumbers^n} \phi_{\delta} \dd x = 1\).
+      \(\int_{\realNumbers^n} \phi_{\delta}(x) \dd x = 1\).
   \end{enumerate}
   Sea \(T : \realNumbers^n \rightarrow \realNumbers^n\) la transformación lineal dada por \(T x = \delta x\) para todo \(x \in \realNumbers^n\).
   La propiedad
@@ -534,7 +573,89 @@
     1 
     \cdot 1
   \end{align}
-  
 \end{proof}
+% \end{}
+
+\begin{exercise}
+  Si \(f : \realNumbers^n \rightarrow \realNumbers^n\) es continua luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) uniformemente en compactos de \(\realNumbers^n\).
+\end{exercise}
+
+\begin{proof}
+  Sea \(x \in \realNumbers^n\) un vector.
+  Calculamos usando la conmutatividad de la convolución
+  \begin{align}
+    f(x) - f * \phi_{\delta} (x)
+    =
+    f(x) - \phi_{\delta} * f (x)
+    =
+    f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
+  \end{align}
+  Usando la propiedad \(\int_{\realNumbers^n} \phi_{\delta}(y) \dd y = 1\), que mostramos en el ejercicio \ref{exercise:deltaMollifierProperties}, vemos
+  \begin{align}
+    f(x) - f * \phi_{\delta}(x)
+    &=
+    \int_{\realNumbers^n} \phi_{\delta}(y) \dd y \cdot f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
+    \\
+    &=
+    \int_{\realNumbers^n} \phi_{\delta}(y) f(x) \dd y - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
+    \\
+    &=
+    \int_{\realNumbers^n} \phi_{\delta}(y) (f(x) - f(x - y)) \dd y
+  \end{align}
+  También en el ejercicio \ref{exercise:deltaMollifierProperties}, probamos que \(\support(\phi_{\delta}) = \overline{B_{\delta}}\).
+  Luego
+  \begin{align}
+    f(x) - f * \phi_{\delta}(x)
+    =
+    \int_{\overline{B_{\delta}}} \phi_{\delta}(y) (f(x) - f(x - y)) \dd y
+  \end{align}
+  Esto dice que la diferencia \(f(x) - f * \phi_{\delta}(x)\) en la izquierda depende del control que tengamos sobre el cambio de \(f\) sobre el conjunto \(x + \overline{B_{\delta}}\).
+
+  Sabiendo esto, consideremos un compacto \(K \subseteq \realNumbers^n\) y restrinjamos \(x \in K\).
+  Este conjunto \(K\) está contenido en una bola \(B_r \subseteq \realNumbers^n\) centrada en 0.
+  Luego \(x + \overline{B_{\delta}} \subseteq \overline{B_{r + \delta}}\) para todo \(\delta > 0\).
+  Si imponemos \(\delta \leq 1\), entonces \(x + \overline{B_{\delta}} \subseteq \overline{B_{r + 1}}\).
+  Pero \(f\), al ser continua, es uniformemente continua en la bola compacta \(\overline{B_{r'}}\) donde \(r' = r + 1\).
+  Luego, para todo \(\varepsilon > 0\), podemos elegir \(\delta \in \interval{oc}{0}{1}\) de modo tal que para todo \(\delta' \in \left]0, \delta \right]\) y todo \(y \in \overline{B_{\delta'}}\) se verifica la cota \(\abs{f(x) - f(x - y)} < \varepsilon\) independientemente de \(x \in K\).
+  Con esta información estimamos
+  \begin{align}
+    \abs{
+      f(x) - f * \phi_{\delta} (x)
+    }
+    &=
+    \abs{
+      \int_{\overline{B_{\delta}}} 
+        \phi_{\delta}(y) (f(x) - f(x - y)) 
+      \dd y
+    }
+    \\
+    &\leq
+    \int_{\overline{B_{\delta}}}
+      \abs{\phi_{\delta}(y)} \abs{f(x) - f(x - y)}
+    \dd y
+    \\
+    &\leq
+    \varepsilon
+    \int_{\overline{B_{\delta}}}
+      \abs{\phi_{\delta}(y)}
+    \dd y
+  \end{align}
+  Rematamos el cálculo usando las propiedades de nonegatividad \(\phi_{\delta} \geq 0\), del soporte \(\support(\phi_{\delta}) = \overline{B_{\delta}}\), y la integral \(\int_{\realNumbers^n} \phi_{\delta}(y) \dd y = 1\), todas vistas en el ejercicio \ref{exercise:deltaMollifierProperties}.
+  A partir de estas 
+  \(
+    \int_{\overline{B_{\delta}}}
+      \abs{\phi_{\delta}(y)}
+    \dd y
+    =
+    1
+  \)
+  .
+  En conclusión, dado un conjunto compacto \(K \subseteq \realNumbers^n\) y un \(\varepsilon > 0\), existe un \(\delta > 0\) tal que para todo \(\delta' \in \interval{oc}{0}{\delta}\) y todo \(x \in K\), se verifica la cota \(\abs{f(x) - f * \phi_{\delta}(x)} \leq \varepsilon\).
+  Es decir, \(f * \phi_{\delta} \rightarrow f\) uniformemente en compactos.
+\end{proof}
+
+\begin{exercise}
+  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
+\end{exercise}
 
 \end{document}
