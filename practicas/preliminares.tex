@@ -657,5 +657,43 @@
 \begin{exercise}
   Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
 \end{exercise}
+\begin{proof}
+  \(f_{\delta} \in L^p(\realNumbers^n)\)??? Sí
+
+  \begin{align}
+    \int_{\realNumbers^n} \abs{f_{\delta}(x)}^p \dd x
+    &=
+    \int_{\realNumbers^n} \abs{\int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y}^p \dd x
+    \\
+    &\leq
+    \int_{\realNumbers^n} \int_{\realNumbers^n} \phi_{\delta}(y)^p \abs{f(x - y)}^p \dd y \dd x
+    \\
+    &=
+    \int_{\realNumbers^n} \phi_{\delta}(y)^p \int_{\realNumbers^n} \abs{f(x - y)}^p \dd x \dd y
+    \\
+    &=
+    \int_{\realNumbers^n} \phi_{\delta}(y)^p \norm{f}_p^p \dd y
+    \\
+    &=
+    \int_{\realNumbers^n} \phi_{\delta}(y)^p \dd y \norm{f}_p^p
+    \\
+    &<
+    \infty
+  \end{align}
+  
+
+
+  \begin{align}
+    \int_{\realNumbers^n} \abs{f(x) - f_{\delta}(x)}^p \dd x
+    &=
+    \int_{\realNumbers^n} \abs{f(x) - \phi_{\delta} * f(x)}^p \dd x
+    \\
+    &=
+    \int_{\realNumbers^n} \abs{f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y}^p \dd x
+    \\
+    &=
+    \int_{\realNumbers^n} \abs{f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y}^p \dd x
+  \end{align}
+\end{proof}
 
 \end{document}
