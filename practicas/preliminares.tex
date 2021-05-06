@@ -654,6 +654,25 @@
   Es decir, \(f * \phi_{\delta} \rightarrow f\) uniformemente en compactos.
 \end{proof}
 
+\begin{myLemma}
+  Si \(0 < p < \infty\), entonces \(\norm{\phi_{\delta}}_p = \delta^{- n (p - 1) / p} \norm{\phi}_p\) donde cometemos algun tipo de abuso, al escribir \(\norm{\cdot}_p\) cuando este objeto no es siquiera una seminorma en el caso \(p < 1\).
+  Observamos que la atractiva fórmula \((p - 1) / p = 1 / q\) tiene sentido cuando \(p > 1\) tiene conjugado de Hölder q.
+\end{myLemma}
+\begin{proof}
+  Resulta un símple cálculo similar al que usamos para probar \(\int \phi_{\delta} = 1\).
+  \begin{align}
+    \int_{\realNumbers^n} \phi_{\delta}(x)^p \dd x
+    &=
+    \int_{\realNumbers^n} \delta^{- n p} \phi(x / \delta)^p \dd x
+    \\
+    &=
+    \delta^{- n p} \int_{\realNumbers^n} \phi(y)^p \delta^n \dd y
+    \\
+    &=
+    \delta^{n (1 - p)} \int_{\realNumbers^n} \phi(y)^p \dd y
+  \end{align}
+\end{proof}
+
 \begin{exercise}
   Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
 \end{exercise}
@@ -675,12 +694,13 @@
     \int_{\realNumbers^n} \phi_{\delta}(y)^p \norm{f}_p^p \dd y
     \\
     &=
-    \int_{\realNumbers^n} \phi_{\delta}(y)^p \dd y \norm{f}_p^p
+    \norm{\phi_{\delta}}_p^p \norm{f}_p^p
     \\
     &<
     \infty
   \end{align}
   
+  PENSAR \(\norm{\phi_{\delta}}_p^p = \norm{\phi}_p^p\) ??? 
 
 
   \begin{align}
