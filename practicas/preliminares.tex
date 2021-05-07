@@ -655,6 +655,7 @@
 \end{proof}
 
 \begin{myLemma}
+  \label{myLemma:mollifierpNorm}
   Si \(0 < p < \infty\), entonces \(\norm{\phi_{\delta}}_p = \delta^{- n (p - 1) / p} \norm{\phi}_p\) donde cometemos algun tipo de abuso, al escribir \(\norm{\cdot}_p\) cuando este objeto no es siquiera una seminorma en el caso \(p < 1\).
   Observamos que la atractiva fórmula \((p - 1) / p = 1 / q\) tiene sentido cuando \(p > 1\) tiene conjugado de Hölder q.
 \end{myLemma}
@@ -673,12 +674,11 @@
   \end{align}
 \end{proof}
 
-\begin{exercise}
-  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
-\end{exercise}
+\begin{myLemma}
+  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \in L^p(\realNumbers^n)\).
+\end{myLemma}
 \begin{proof}
-  \(f_{\delta} \in L^p(\realNumbers^n)\)??? Sí
-
+  Por la conmutatividad de la convolución y la desigualdad de convexidad
   \begin{align}
     \int_{\realNumbers^n} \abs{f_{\delta}(x)}^p \dd x
     &=
@@ -686,23 +686,31 @@
     \\
     &\leq
     \int_{\realNumbers^n} \int_{\realNumbers^n} \phi_{\delta}(y)^p \abs{f(x - y)}^p \dd y \dd x
-    \\
+  \end{align}
+  Por el Teorema de Tonelli
+  \begin{align}
+    \int_{\realNumbers^n} \int_{\realNumbers^n} \phi_{\delta}(y)^p \abs{f(x - y)}^p \dd y \dd x
     &=
     \int_{\realNumbers^n} \phi_{\delta}(y)^p \int_{\realNumbers^n} \abs{f(x - y)}^p \dd x \dd y
-    \\
+  \end{align}
+  Por una traslación de la integral trivial \(\int \abs{f}^p = \norm{f}_p^p\) y la que probamos en el lema \ref{myLemma:mollifierpNorm}, \(\int \phi_{\delta}^p = \delta^{- n (p - 1)} \norm{\phi}_p^p\) 
+  \begin{align}
+    \int_{\realNumbers^n} \phi_{\delta}(y)^p \int_{\realNumbers^n} \abs{f(x - y)}^p \dd x \dd y
     &=
     \int_{\realNumbers^n} \phi_{\delta}(y)^p \norm{f}_p^p \dd y
     \\
     &=
-    \norm{\phi_{\delta}}_p^p \norm{f}_p^p
-    \\
-    &<
-    \infty
+    \delta^{- n (p - 1)} \norm{\phi}_p^p \norm{f}_p^p
   \end{align}
+\end{proof}
+
+\begin{exercise}
+  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
+\end{exercise}
+\begin{proof}
+  \(f_{\delta} \in L^p(\realNumbers^n)\)??? Sí
+
   
-  PENSAR \(\norm{\phi_{\delta}}_p^p = \norm{\phi}_p^p\) ??? 
-
-
   \begin{align}
     \int_{\realNumbers^n} \abs{f(x) - f_{\delta}(x)}^p \dd x
     &=
