@@ -294,7 +294,7 @@
 
 \begin{myLemma}
   \label{myLemma:convolutionWithCompactlySupportedFunction}
-  Si \(g \in L^1(\realNumbers^n)\) y \(\psi \in C_c(\realNumbers^n)\) entonces \(f * \psi\) es uniformemente continua.
+  Si \(f \in L^1(\realNumbers^n)\) y \(\psi \in C_c(\realNumbers^n)\) entonces \(f * \psi\) es uniformemente continua.
 \end{myLemma}
 \begin{proof}
   Sean \(x, x' \in \realNumbers^n\).
@@ -577,6 +577,7 @@
 % \end{}
 
 \begin{exercise}
+  \label{exercise:convolutionCompactUniformConvergence}
   Si \(f : \realNumbers^n \rightarrow \realNumbers^n\) es continua luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) uniformemente en compactos de \(\realNumbers^n\).
 \end{exercise}
 
@@ -675,7 +676,8 @@
 \end{proof}
 
 \begin{myLemma}
-  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \in L^p(\realNumbers^n)\).
+  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(\norm{f_{\delta}}_p \leq \delta^{- n (p - 1) / p} \norm{\phi}_p \norm{f}_p\), donde \(f_{\delta} = f * \phi_{\delta}\).
+  En particular \(f_{\delta} \in L^p(\realNumbers^n)\).
 \end{myLemma}
 \begin{proof}
   Por la conmutatividad de la convolución y la desigualdad de convexidad
@@ -704,24 +706,69 @@
   \end{align}
 \end{proof}
 
+\begin{myLemma}
+  Si \(1 \leq p < \infty\) y \(f \in C_c(\realNumbers^n) \subseteq L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
+\end{myLemma}
+\begin{proof}
+  Con lo probado en el ejercicio \ref{exercise:convolutionCompactUniformConvergence}, deducimos que \(f_{\delta} \rightarrow f\) uniformemente sobre conjuntos compactos cuando \(\delta \rightarrow 0\).
+  Si el soporte de \(f\), un conjunto compacto, está contenido en una bola de radio \(r\), entonces
+
+  Por lo probado en \ref{myLemma:convolutionWithCompactlySupportedFunction}, \(f * \phi_{\delta}\) es uniformemente continua.
+  Además, una modificación del cálculo que allí realizamos da el siguiente resultado.
+  Dado \(\varepsilon > 0\), existe un \(\rho > 0\) tal que \(\abs{f(u) - f(u')} < \varepsilon\) si \(\norm{u - u'} < \rho\) porque \(f\), al ser continua de soporte compacto, es uniformemente continua.
+  Luego \(\norm{x - x'} < \rho\) implica
+  \begin{align}
+    \abs{f * \phi_{\delta} (x) - f * \phi_{\delta} (x')}
+    &=
+    \abs{\phi_{\delta} * f (x) - \phi_{\delta} * f (x')}
+    \\
+    &\leq
+    \int_{\realNumbers^n} \phi_{\delta}(y) \abs{f(x - y) - f(x' - y)} \dd y
+    \\
+    &<
+    \varepsilon \int_{\realNumbers^n} \phi_{\delta}(y) \dd y
+    \\
+    &=
+    \varepsilon
+  \end{align}
+  para todo \(\delta > 0\).
+\end{proof}
+
 \begin{exercise}
   Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
 \end{exercise}
 \begin{proof}
-  \(f_{\delta} \in L^p(\realNumbers^n)\)??? Sí
-
+  Sea \(f^k\) una sucesión de funciones continuas que convergen,  en el sentido de \(L^p\), a \(f\).
+  Con lo probado en el ejercicio \ref{exercise:convolutionCompactUniformConvergence}, deducimos que \(f^k_{\delta} \rightarrow f^k\) uniformemente sobre conjuntos compactos cuando \(\delta \rightarrow 0\).
   
+  Sea \(K \subseteq \realNumbers^n\) compacto.
+  Sea \(M = \max_{x \in K} \abs{f^k(x)}\).
+  Por convergencia uniforme existe un \(\delta_0 > 0\) tal que \(\norm{f^k - f^k_\delta}_{\infty, K} \leq 1\) para todo \(\delta \in \interval{oo}{0}{\delta_0}\).
+  Por eso \(\norm{f^k_{\delta}}_{\infty, K} \leq M + 1\) para todo \(\delta \in \interval{oo}{0}{\delta_0}\).
+  Eso nos pone en un régimen de convergencia dominada, e implica \(\int_K \abs{f^k - f^k_{\delta}}^p \rightarrow 0\) cuando \(\delta \rightarrow 0\).
+
   \begin{align}
-    \int_{\realNumbers^n} \abs{f(x) - f_{\delta}(x)}^p \dd x
-    &=
-    \int_{\realNumbers^n} \abs{f(x) - \phi_{\delta} * f(x)}^p \dd x
-    \\
-    &=
-    \int_{\realNumbers^n} \abs{f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y}^p \dd x
-    \\
-    &=
-    \int_{\realNumbers^n} \abs{f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y}^p \dd x
+    \int_{\realNumbers^n} \abs{f^k(x)}^p \dd x
+    =
+    \sum_{m = 0}^{\infty} \int_{B_{m + 1} \setminus B_m} \abs{f^k(x)}^p \dd x
   \end{align}
+  
 \end{proof}
 
+\begin{remark}
+  \(f^k_m \in C^{\infty}\) porque \(f^k \in L^1_{\local}\) y \(\phi_{\delta_m} \in C^{\infty}_{\local}\).
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+asd
 \end{document}
