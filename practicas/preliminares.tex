@@ -27,6 +27,8 @@
 \newcommand{\locallyIntegrableFunctions}{L^1_{\textnormal{loc}}(\realNumbers^n)}
 \newcommand{\local}{\textnormal{loc}}
 \newcommand{\closure}[1]{\bar{1}}
+
+\newtheorem{theorem}{Teorema}
 \newtheorem{definition}{Definición}
 \newtheorem{exercise}{Ejercicio}
 \newtheorem{myLemma}{Lema propio}
@@ -655,120 +657,45 @@
   Es decir, \(f * \phi_{\delta} \rightarrow f\) uniformemente en compactos.
 \end{proof}
 
-\begin{myLemma}
-  \label{myLemma:mollifierpNorm}
-  Si \(0 < p < \infty\), entonces \(\norm{\phi_{\delta}}_p = \delta^{- n (p - 1) / p} \norm{\phi}_p\) donde cometemos algun tipo de abuso, al escribir \(\norm{\cdot}_p\) cuando este objeto no es siquiera una seminorma en el caso \(p < 1\).
-  Observamos que la atractiva fórmula \((p - 1) / p = 1 / q\) tiene sentido cuando \(p > 1\) tiene conjugado de Hölder q.
-\end{myLemma}
-\begin{proof}
-  Resulta un símple cálculo similar al que usamos para probar \(\int \phi_{\delta} = 1\).
-  \begin{align}
-    \int_{\realNumbers^n} \phi_{\delta}(x)^p \dd x
-    &=
-    \int_{\realNumbers^n} \delta^{- n p} \phi(x / \delta)^p \dd x
-    \\
-    &=
-    \delta^{- n p} \int_{\realNumbers^n} \phi(y)^p \delta^n \dd y
-    \\
-    &=
-    \delta^{n (1 - p)} \int_{\realNumbers^n} \phi(y)^p \dd y
-  \end{align}
-\end{proof}
-
-\begin{myLemma}
-  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(\norm{f_{\delta}}_p \leq \delta^{- n (p - 1) / p} \norm{\phi}_p \norm{f}_p\), donde \(f_{\delta} = f * \phi_{\delta}\).
-  En particular \(f_{\delta} \in L^p(\realNumbers^n)\).
-\end{myLemma}
-\begin{proof}
-  Por la conmutatividad de la convolución y la desigualdad de convexidad
-  \begin{align}
-    \int_{\realNumbers^n} \abs{f_{\delta}(x)}^p \dd x
-    &=
-    \int_{\realNumbers^n} \abs{\int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y}^p \dd x
-    \\
-    &\leq
-    \int_{\realNumbers^n} \int_{\realNumbers^n} \phi_{\delta}(y)^p \abs{f(x - y)}^p \dd y \dd x
-  \end{align}
-  Por el Teorema de Tonelli
-  \begin{align}
-    \int_{\realNumbers^n} \int_{\realNumbers^n} \phi_{\delta}(y)^p \abs{f(x - y)}^p \dd y \dd x
-    &=
-    \int_{\realNumbers^n} \phi_{\delta}(y)^p \int_{\realNumbers^n} \abs{f(x - y)}^p \dd x \dd y
-  \end{align}
-  Por una traslación de la integral trivial \(\int \abs{f}^p = \norm{f}_p^p\) y la que probamos en el lema \ref{myLemma:mollifierpNorm}, \(\int \phi_{\delta}^p = \delta^{- n (p - 1)} \norm{\phi}_p^p\) 
-  \begin{align}
-    \int_{\realNumbers^n} \phi_{\delta}(y)^p \int_{\realNumbers^n} \abs{f(x - y)}^p \dd x \dd y
-    &=
-    \int_{\realNumbers^n} \phi_{\delta}(y)^p \norm{f}_p^p \dd y
-    \\
-    &=
-    \delta^{- n (p - 1)} \norm{\phi}_p^p \norm{f}_p^p
-  \end{align}
-\end{proof}
-
-\begin{myLemma}
-  Si \(1 \leq p < \infty\) y \(f \in C_c(\realNumbers^n) \subseteq L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
-\end{myLemma}
-\begin{proof}
-  Con lo probado en el ejercicio \ref{exercise:convolutionCompactUniformConvergence}, deducimos que \(f_{\delta} \rightarrow f\) uniformemente sobre conjuntos compactos cuando \(\delta \rightarrow 0\).
-  Si el soporte de \(f\), un conjunto compacto, está contenido en una bola de radio \(r\), entonces
-
-  Por lo probado en \ref{myLemma:convolutionWithCompactlySupportedFunction}, \(f * \phi_{\delta}\) es uniformemente continua.
-  Además, una modificación del cálculo que allí realizamos da el siguiente resultado.
-  Dado \(\varepsilon > 0\), existe un \(\rho > 0\) tal que \(\abs{f(u) - f(u')} < \varepsilon\) si \(\norm{u - u'} < \rho\) porque \(f\), al ser continua de soporte compacto, es uniformemente continua.
-  Luego \(\norm{x - x'} < \rho\) implica
-  \begin{align}
-    \abs{f * \phi_{\delta} (x) - f * \phi_{\delta} (x')}
-    &=
-    \abs{\phi_{\delta} * f (x) - \phi_{\delta} * f (x')}
-    \\
-    &\leq
-    \int_{\realNumbers^n} \phi_{\delta}(y) \abs{f(x - y) - f(x' - y)} \dd y
-    \\
-    &<
-    \varepsilon \int_{\realNumbers^n} \phi_{\delta}(y) \dd y
-    \\
-    &=
-    \varepsilon
-  \end{align}
-  para todo \(\delta > 0\).
-\end{proof}
-
 \begin{exercise}
   Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
 \end{exercise}
-\begin{proof}
-  Sea \(f^k\) una sucesión de funciones continuas que convergen,  en el sentido de \(L^p\), a \(f\).
-  Con lo probado en el ejercicio \ref{exercise:convolutionCompactUniformConvergence}, deducimos que \(f^k_{\delta} \rightarrow f^k\) uniformemente sobre conjuntos compactos cuando \(\delta \rightarrow 0\).
-  
-  Sea \(K \subseteq \realNumbers^n\) compacto.
-  Sea \(M = \max_{x \in K} \abs{f^k(x)}\).
-  Por convergencia uniforme existe un \(\delta_0 > 0\) tal que \(\norm{f^k - f^k_\delta}_{\infty, K} \leq 1\) para todo \(\delta \in \interval{oo}{0}{\delta_0}\).
-  Por eso \(\norm{f^k_{\delta}}_{\infty, K} \leq M + 1\) para todo \(\delta \in \interval{oo}{0}{\delta_0}\).
-  Eso nos pone en un régimen de convergencia dominada, e implica \(\int_K \abs{f^k - f^k_{\delta}}^p \rightarrow 0\) cuando \(\delta \rightarrow 0\).
 
+\begin{theorem}
+  Suponiendo \(\phi \in L^1\) y \(\int \phi(x) \dd x = a\).
+  Para cada \(\varepsilon > 0\), definimos \(\phi_{\varepsilon}\) mediante \(\phi_{\varepsilon}(x) = \varepsilon^{- n} \phi(\varepsilon^{- 1} x)\).
+  Si \(f \in L^p\), \(1 \leq p < \varepsilon\), entonces \(f * \phi_{\varepsilon} \rightarrow a f\) en norma \(L^p\) cuando \(\varepsilon \rightarrow 0\).
+  Si \(f \in L^{\infty}\) y \(f\) es uniformemente continua en un conjunto \(V\), entonces \(f * \phi_{\varepsilon} \rightarrow a f\) uniformemente en \(V\) cuando \(\varepsilon \rightarrow 0\).
+\end{theorem}
+\begin{proof}
+  Por el cambio de variable \(x \rightarrow \varepsilon x\) vemos que \(\int \phi_{\varepsilon}(x) \dd x = a\) para todo \(\varepsilon > 0\).
+  Luego,
   \begin{align}
-    \int_{\realNumbers^n} \abs{f^k(x)}^p \dd x
-    =
-    \sum_{m = 0}^{\infty} \int_{B_{m + 1} \setminus B_m} \abs{f^k(x)}^p \dd x
+    f * \phi_{\varepsilon} (x) - a f(x)
+    &=
+    \int (f(x - y) - f(x)) \phi_{\varepsilon}(y) \dd y
+    \\
+    &=
+    \int (f(x - \varepsilon y) - f(x)) \phi(y) \dd y
   \end{align}
-  
+  Si \(f \in L^p\) y \(p < \infty\), aplicamos la desigualdad triangular para integrales (llamada desigualdad de Minkowski) para obtener
+  \begin{align}
+    \norm{f * \phi_{\varepsilon} - a f}_p
+    \leq
+    \int \norm{f_{- \varepsilon y} - f}_p \abs{\phi(y)} \dd y
+  \end{align}
+  Pero \(\norm{f_{- \varepsilon y} - f}_p\) está acotada por \(2 \norm{f}_p\) y tiende a cero cuando \(\varepsilon \rightarrow 0\) para cada \(y\), por el lema \ref{}.
+  Por lo tanto, el resultado deseado se sigue del teorema de convergencia dominada.
+
+  Por otra parte, supongamos que \(f \in L^{\infty}\) y \(f\) es uniformemente continua en un conjunto \(V\).
+  Dado \(\delta > 0\), elegimos un conjunto compacto \(W\) tal que \(\int_{\realNumbers^n \setminus W} \abs{\phi} < \delta\).
+  Entonces
+  \begin{align}
+    \sup_{x \in V} \abs{f * \phi_{\varepsilon} - a f(x)}
+    \leq
+    \sup_{x \in V, y \in W} \abs{f(x - \varepsilon y) - f(x)} \int_W \abs{\phi} + 2 \norm{f}_{\infty} \delta
+  \end{align}
+  El primer término desde la derecha tiende a cero cuando \(\varepsilon \rightarrow 0\), y \(\delta\) es arbitrario, de modo que \(f * \phi_{\varepsilon}\) tiende uniformemente a \(a f\) en \(V\).
 \end{proof}
 
-\begin{remark}
-  \(f^k_m \in C^{\infty}\) porque \(f^k \in L^1_{\local}\) y \(\phi_{\delta_m} \in C^{\infty}_{\local}\).
-\end{remark}
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-asd
 \end{document}
