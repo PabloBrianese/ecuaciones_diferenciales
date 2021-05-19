@@ -30,6 +30,7 @@
 
 \newtheorem{theorem}{Teorema}
 \newtheorem{definition}{Definición}
+\newtheorem{myDefinition}{Definición propia}
 \newtheorem{exercise}{Ejercicio}
 \newtheorem{myLemma}{Lema propio}
 
@@ -661,28 +662,87 @@
   Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
 \end{exercise}
 
-\begin{theorem}
-  Suponiendo \(\phi \in L^1\) y \(\int \phi(x) \dd x = a\).
-  Para cada \(\varepsilon > 0\), definimos \(\phi_{\varepsilon}\) mediante \(\phi_{\varepsilon}(x) = \varepsilon^{- n} \phi(\varepsilon^{- 1} x)\).
-  Si \(f \in L^p\), \(1 \leq p < \varepsilon\), entonces \(f * \phi_{\varepsilon} \rightarrow a f\) en norma \(L^p\) cuando \(\varepsilon \rightarrow 0\).
-  Si \(f \in L^{\infty}\) y \(f\) es uniformemente continua en un conjunto \(V\), entonces \(f * \phi_{\varepsilon} \rightarrow a f\) uniformemente en \(V\) cuando \(\varepsilon \rightarrow 0\).
-\end{theorem}
-\begin{proof}
-  Por el cambio de variable \(x \rightarrow \varepsilon x\) vemos que \(\int \phi_{\varepsilon}(x) \dd x = a\) para todo \(\varepsilon > 0\).
-  Luego,
+\begin{myDefinition}
+  Si \(f\) es una función sobre \(\realNumbers^n\) y \(x \in \realNumbers^n\), defninimos la función \(T_x f\) mediante \(T_x f (y) = f(x + y)\).
+\end{myDefinition}
+
+\begin{myLemma}
+  Si \(f \in L^p(\realNumbers^n)\), \(1 \leq p < \infty\), entonces 
   \begin{align}
-    f * \phi_{\varepsilon} (x) - a f(x)
-    &=
-    \int (f(x - y) - f(x)) \phi_{\varepsilon}(y) \dd y
+    \norm{f - f_{\delta}}_p^p 
+    \leq 
+    \int_{\realNumbers^n} \norm{f - T_{- \delta w} f}_p^p \phi(w)^p \dd w
+  \end{align}
+\end{myLemma}
+\begin{proof}
+  Primero observamos que la integral \(\int \phi_{\delta} = 1\) implica
+  \begin{align}
+    (f - f_{\delta}) (x)
+    =
+    \int_{\realNumbers^n} (f(x) - f(x - y)) \phi_{\delta}(y) \dd y
+  \end{align}
+  Luego el cambio de variable \(y \mapsto \delta w\) nos lleva a
+  \begin{align}
+    (f - f_{\delta}) (x)
+    =
+    \int_{\realNumbers^n} (f(x) - f(x - \delta w)) \phi(w) \dd w
+    =
+    \int_{\realNumbers^n} (f - T_ {- \delta w} f) (x) \phi(w) \dd w
+  \end{align}
+  Por la convexidad de la aplicación \(t \mapsto \abs{t}^p\) cuando \(p \geq 1\), la desigualdad de Jensen nos dice que
+  \begin{align}
+    \abs{f - f_{\delta}}^p (x)
+    \leq
+    \int_{\realNumbers^n} \abs{f - T_{- \delta w} f}^p (x) \phi(w)^p \dd w
+  \end{align}
+  Integramos sobre \(x\) y aplicamos el Teorema de Tonelli del lado derecho para intercambiar el orden de la integración.
+  Obtenemos
+  \begin{align}
+    \norm{f - f_{\delta}}_p^p
+    &\leq
+    \int_{\realNumbers^n} 
+      \int_{\realNumbers^n} 
+        \abs{f - T_{- \delta w} f}^p (x) \phi(w)^p 
+      \dd w
+    \dd x
     \\
     &=
-    \int (f(x - \varepsilon y) - f(x)) \phi(y) \dd y
+    \int_{\realNumbers^n}
+      \int_{\realNumbers^n}
+        \abs{f - T_{- \delta w} f}^p (x)
+      \dd x 
+      \phi(w)^p 
+    \dd w
+    \\
+    &=
+    \int_{\realNumbers^n}
+      \norm{f - T_{- \delta w} f}_p^p 
+      \phi(w)^p 
+    \dd w
+  \end{align}
+  
+\end{proof}
+
+
+\begin{theorem}
+  Si \(f \in L^p\), \(1 \leq p < \infty\), entonces \(f * \phi_{\delta} \rightarrow f\) en norma \(L^p\) cuando \(\delta \rightarrow 0\).
+  Si \(f \in L^{\infty}\) y \(f\) es uniformemente continua en un conjunto \(V\), entonces \(f * \phi_{\delta} \rightarrow f\) uniformemente en \(V\) cuando \(\delta \rightarrow 0\).
+\end{theorem}
+\begin{proof}
+  Primero observamos que la integral \(\int \phi_{\delta} = 1\) implica
+  \begin{align}
+    f * \phi_{\delta} (x) - f(x)
+    &=
+    \int_{\realNumbers^n} (f(x - y) - f(x)) \phi_{\delta}(y) \dd y
+    \\
+    &=
+    \int_{\realNumbers^n} (f(x - \varepsilon w) - f(x)) \phi(w) \dd w
   \end{align}
   Si \(f \in L^p\) y \(p < \infty\), aplicamos la desigualdad triangular para integrales (llamada desigualdad de Minkowski) para obtener
   \begin{align}
-    \norm{f * \phi_{\varepsilon} - a f}_p
+    \norm{f * \phi_{\delta} - f}_p
     \leq
-    \int \norm{f_{- \varepsilon y} - f}_p \abs{\phi(y)} \dd y
+    \int_{\realNumbers^n} \norm{f_{- \delta w} - f}_p \abs{\phi(w)} \dd w
   \end{align}
   Pero \(\norm{f_{- \varepsilon y} - f}_p\) está acotada por \(2 \norm{f}_p\) y tiende a cero cuando \(\varepsilon \rightarrow 0\) para cada \(y\), por el lema \ref{}.
   Por lo tanto, el resultado deseado se sigue del teorema de convergencia dominada.
