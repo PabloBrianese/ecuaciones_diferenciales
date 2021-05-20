@@ -659,6 +659,21 @@
     Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
   \end{exercise}
 
+  % Book: Real and Complex Analysis
+  % Authors: Walter Rudin
+  % 2.14 Theorem <- Riesz Representation
+  % 3.13
+  % 3.14 Theorem <- C_c(X) is dense in L^p
+  Sea \(S\) el conjunto de las funciones simples medibles definidas en \(X\) tales que \(\mu(\{x : s(x) \neq 0\}) < \infty\).
+
+  \begin{theorem}
+    Sea \(X\) un espacio topológico Hausdorff localmente compacto, entonces \(C_c(X)\) es denso en \(L^p(\mu)\) para \(1 \leq p < \infty\).
+  \end{theorem}
+  \begin{proof}
+    Si \(s \in S\) y \(\varepsilon > 0\), existe una función \(g \in C_c(X)\) tal que \(g(x) = s(x)\) excepto en un conjunto de medida menor a \(\varepsilon\), y \(\abs{g} \leq \norm{s}_{\infty}\) (Teorema de Lusin).
+    Por lo tanto \(\norm{g - s}_p \leq 2 \varepsilon^{1 / p} \norm{s}_{\infty}\).
+    Dado que \(S\) es denso en \(L^p(\mu)\), esto completa la prueba. 
+  \end{proof}
 
   \begin{myDefinition}
     Si \(f\) es una función sobre \(\realNumbers^n\) y \(x \in \realNumbers^n\), defninimos la función \(T_x f\) mediante \(T_x f (y) = f(x + y)\).
