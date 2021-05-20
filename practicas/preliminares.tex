@@ -223,7 +223,6 @@
     \label{myLemma:convolutionMonotoneConvergence}
     Si \(f \in \integrableFunctions\), y \(\{g_m\}_m\) es una sucesión nodecreciente de funciones nonegativas que convergen puntualmente a una \(g \in \integrableFunctions\), entonces \(\lim_{m \rightarrow \infty} f * g_m =f * g\) y de forma similar \(\lim_{m \rightarrow \infty} g_m * f = g * f\).
   \end{myLemma}
-
   \begin{proof}
     Sea \(x \in \realNumbers^n\) arbitrario.
     Si \(f^+\) y \(f^-\) son las partes nonegativa y negativa de \(f\), y \(f^{\pm}\) es cualquiera de ellas entonces por el teorema de convergencia monótona
@@ -295,467 +294,475 @@
     
   \end{proof}
 
-\begin{myLemma}
-  \label{myLemma:convolutionWithCompactlySupportedFunction}
-  Si \(f \in L^1(\realNumbers^n)\) y \(\psi \in C_c(\realNumbers^n)\) entonces \(f * \psi\) es uniformemente continua.
-\end{myLemma}
-\begin{proof}
-  Sean \(x, x' \in \realNumbers^n\).
-  Una primera desigualdad es sencilla
-  \begin{align}
-    \abs{f * \psi (x) - f * \psi (x')}
-    &=
-    \abs{
-      \int_{\realNumbers^n} f(y) \psi(x - y) \dd y
-      -
-      \int_{\realNumbers^n} f(y) \psi(x' - y) \dd y
-    }
-    \\
-    &=
-    \abs{
-      \int_{\realNumbers^n} f(y) (\psi(x - y) - \psi(x' - y)) \dd y
-    }
-    \\
-    &\leq
-    \int_{\realNumbers^n} \abs{f(y)} \abs{\psi(x - y) - \psi(x' - y)} \dd y
-  \end{align}
-  Ahora bien, dado \(\varepsilon > 0\), existe un \(\delta > 0\) tal que \(\abs{\psi(u) - \psi(u')} < \varepsilon\) si \(\norm{u - u'} < \delta\) porque \(\psi\), al ser continua de soporte compacto, es uniformemente continua.
-  Luego \(\norm{x - x'} < \delta\) implica
-  \begin{align}
-    \abs{f * \psi (x) - f * \psi (x')}
-    &\leq
-    \int_{\realNumbers^n} \abs{f(y)} \abs{\psi(x - y) - \psi(x' - y)} \dd y
-    \\
-    &<
-    \varepsilon \int_{\realNumbers^n} \abs{f(y)} \dd y
-    \\
-    &=
-    \varepsilon \norm{f}_1
-  \end{align}
-  Siendo que \(\norm{f}_1 < \infty\), podemos conluir que \(f * \psi\) es uniformemente continua.
-\end{proof}
+  \begin{myLemma}
+    \label{myLemma:convolutionWithCompactlySupportedFunction}
+    Si \(f \in L^1(\realNumbers^n)\) y \(\psi \in C_c(\realNumbers^n)\) entonces \(f * \psi\) es uniformemente continua.
+  \end{myLemma}
+  \begin{proof}
+    Sean \(x, x' \in \realNumbers^n\).
+    Una primera desigualdad es sencilla
+    \begin{align}
+      \abs{f * \psi (x) - f * \psi (x')}
+      &=
+      \abs{
+        \int_{\realNumbers^n} f(y) \psi(x - y) \dd y
+        -
+        \int_{\realNumbers^n} f(y) \psi(x' - y) \dd y
+      }
+      \\
+      &=
+      \abs{
+        \int_{\realNumbers^n} f(y) (\psi(x - y) - \psi(x' - y)) \dd y
+      }
+      \\
+      &\leq
+      \int_{\realNumbers^n} \abs{f(y)} \abs{\psi(x - y) - \psi(x' - y)} \dd y
+    \end{align}
+    Ahora bien, dado \(\varepsilon > 0\), existe un \(\delta > 0\) tal que \(\abs{\psi(u) - \psi(u')} < \varepsilon\) si \(\norm{u - u'} < \delta\) porque \(\psi\), al ser continua de soporte compacto, es uniformemente continua.
+    Luego \(\norm{x - x'} < \delta\) implica
+    \begin{align}
+      \abs{f * \psi (x) - f * \psi (x')}
+      &\leq
+      \int_{\realNumbers^n} \abs{f(y)} \abs{\psi(x - y) - \psi(x' - y)} \dd y
+      \\
+      &<
+      \varepsilon \int_{\realNumbers^n} \abs{f(y)} \dd y
+      \\
+      &=
+      \varepsilon \norm{f}_1
+    \end{align}
+    Siendo que \(\norm{f}_1 < \infty\), podemos conluir que \(f * \psi\) es uniformemente continua.
+  \end{proof}
 
-\begin{exercise}
-  \label{exercise:continuousConvolutions}
-  Probar que si \(f \in L^1_{\local}(\realNumbers^n)\) y \(\psi \in C_c(\realNumbers^n)\) entonces \(f * \psi\) es continua.
-\end{exercise}
-\begin{proof}
-  Sean \(B_m = \bar{B}_m(0)\) las bolas cerradas de radio \(m\) centradas en \(0\).
-  Aproximamos \(f\) mediante \(f_m = f \characteristic_{B_m}\) \((m \in \naturalNumbers)\).
-  La integrabilidad local de \(f\) hace de cada \(f_m\) una función integrable.
-  Por el lema \ref{myLemma:convolutionWithCompactlySupportedFunction}, las funciones \(f_m * \psi\) son uniformemente continuas.
-  Además, se da la convergencia uniforme en compactos \(f_m * \psi \rightarrow f * \psi\).
-  Para verlo fijemos un conjunto compacto \(K \subseteq \realNumbers^n\).
-  Existe un \(M \in \naturalNumbers\) lo suficientemente grande, dependiendo de \(K\), tal que \(K \subseteq B_M\).
-  Luego, para todo \(x \in K\) y para todo \(m \geq M\)
-  \begin{align}
-    f_m * \psi (x)
-    &=
-    \int_{\realNumbers^n} f_m (y) \psi(x - y) \dd y
-    \\
-    &=
-    \int_{\realNumbers^n} f (y) \characteristic_{B_m} (y) \psi(x - y) \dd y
-    \\
-    &=
-    \int_{\realNumbers^n} f (y) \psi(x - y) \dd y
-    \\
-    &=
-    f * \psi (x)
-  \end{align}
-  Queda probada la convergencia uniforme en compactos.
-  Pero el límite, en este caso \(f * \psi\), uniforme en compactos de una sucesión de funciones uniformemente continuas, aquí las \(f_m\), es continuo.
-  Por lo tanto \(f * \psi\) es una función continua.
-\end{proof}
+  \begin{exercise}
+    \label{exercise:continuousConvolutions}
+    Probar que si \(f \in L^1_{\local}(\realNumbers^n)\) y \(\psi \in C_c(\realNumbers^n)\) entonces \(f * \psi\) es continua.
+  \end{exercise}
+  \begin{proof}
+    Sean \(B_m = \bar{B}_m(0)\) las bolas cerradas de radio \(m\) centradas en \(0\).
+    Aproximamos \(f\) mediante \(f_m = f \characteristic_{B_m}\) \((m \in \naturalNumbers)\).
+    La integrabilidad local de \(f\) hace de cada \(f_m\) una función integrable.
+    Por el lema \ref{myLemma:convolutionWithCompactlySupportedFunction}, las funciones \(f_m * \psi\) son uniformemente continuas.
+    Además, se da la convergencia uniforme en compactos \(f_m * \psi \rightarrow f * \psi\).
+    Para verlo fijemos un conjunto compacto \(K \subseteq \realNumbers^n\).
+    Existe un \(M \in \naturalNumbers\) lo suficientemente grande, dependiendo de \(K\), tal que \(K \subseteq B_M\).
+    Luego, para todo \(x \in K\) y para todo \(m \geq M\)
+    \begin{align}
+      f_m * \psi (x)
+      &=
+      \int_{\realNumbers^n} f_m (y) \psi(x - y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} f (y) \characteristic_{B_m} (y) \psi(x - y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} f (y) \psi(x - y) \dd y
+      \\
+      &=
+      f * \psi (x)
+    \end{align}
+    Queda probada la convergencia uniforme en compactos.
+    Pero el límite, en este caso \(f * \psi\), uniforme en compactos de una sucesión de funciones uniformemente continuas, aquí las \(f_m\), es continuo.
+    Por lo tanto \(f * \psi\) es una función continua.
+  \end{proof}
 
-\begin{exercise}
-  \label{exercise:convolutionDerivative}
-  Probar que si \(f \in \locallyIntegrableFunctions\) y \(\psi \in C^{\infty}_c(\realNumbers^n)\) entonces \(\partial_{x_i} (\psi * f) = f * \partial_{x_i} \psi\).
-\end{exercise}
-\begin{remark}
-  \label{remark:smoothConvolutions}
-  Como consecuencia \(f * \psi \in C^{\infty}(\realNumbers^n)\).
-\end{remark}
-
-\begin{proof}
-  Sea \(x \in \realNumbers^n\) un vector fijo.
-  Calculamos
-  \begin{align}
-    \partial_{x_i} (f * \psi)(x)
-    &=
-    \lim_{h \rightarrow 0} h^{- 1} ((f * \psi)(x + h e_i) - (f * \psi)(x))
-    \\
-    &=
-    \lim_{h \rightarrow 0}
-      \int_{\realNumbers^n} f(y)  
-      \frac{\psi(x + h e_i - y) - \psi(x - y)}{h}
-      \dd y
-  \end{align}
-  El análisis de este límite constará de tres partes.
-  Primero acotamos la región de integración.
-  Definimos \(\phi_h(y) = h^{- 1} (\psi(x + h e_i - y) - \psi(x - y))\) para \(y \in \realNumbers^n\) y \(h \in \realNumbers \setminus 0\).
-  Podemos probar que el soporte de las todas las funciones \(\phi_h\) está contenido en una bola si nos restringimos a los desplazamientos \(h \in [-1, 1]\).
-  Sabemos que \(\psi\) tiene soporte compacto, por lo cual se anula en \(\realNumbers^n \setminus B_r\), el complemento de la bola centrada en 0 de radio \(r\).
-  Escogiendo \(r' = r + \norm{x} + 1\) podemos asegurar que \(\norm{y} \geq r'\) implica 
-  \begin{align}
-    r
-    &=
-    r' - \norm{x} - 1
-      &&& 
+  \begin{exercise}
+    \label{exercise:convolutionDerivative}
+    Probar que si \(f \in \locallyIntegrableFunctions\) y \(\psi \in C^{\infty}_c(\realNumbers^n)\) entonces \(\partial_{x_i} (\psi * f) = f * \partial_{x_i} \psi\).
+  \end{exercise}
+  \begin{remark}
+    \label{remark:smoothConvolutions}
+    Como consecuencia \(f * \psi \in C^{\infty}(\realNumbers^n)\).
+  \end{remark}
+  \begin{proof}
+    Sea \(x \in \realNumbers^n\) un vector fijo.
+    Calculamos
+    \begin{align}
+      \partial_{x_i} (f * \psi)(x)
+      &=
+      \lim_{h \rightarrow 0} h^{- 1} ((f * \psi)(x + h e_i) - (f * \psi)(x))
+      \\
+      &=
+      \lim_{h \rightarrow 0}
+        \int_{\realNumbers^n} f(y)  
+        \frac{\psi(x + h e_i - y) - \psi(x - y)}{h}
+        \dd y
+    \end{align}
+    El análisis de este límite constará de tres partes.
+    Primero acotamos la región de integración.
+    Definimos \(\phi_h(y) = h^{- 1} (\psi(x + h e_i - y) - \psi(x - y))\) para \(y \in \realNumbers^n\) y \(h \in \realNumbers \setminus 0\).
+    Podemos probar que el soporte de las todas las funciones \(\phi_h\) está contenido en una bola si nos restringimos a los desplazamientos \(h \in [-1, 1]\).
+    Sabemos que \(\psi\) tiene soporte compacto, por lo cual se anula en \(\realNumbers^n \setminus B_r\), el complemento de la bola centrada en 0 de radio \(r\).
+    Escogiendo \(r' = r + \norm{x} + 1\) podemos asegurar que \(\norm{y} \geq r'\) implica 
+    \begin{align}
       r
       &=
       r' - \norm{x} - 1
-    \\
-    &\leq
-    \norm {y} - \norm{x} - 1 
-      &&&
+        &&& 
+        r
+        &=
+        r' - \norm{x} - 1
+      \\
       &\leq
-      \norm{y} - \norm{x} - 1
-    \\
-    &\leq 
-    \norm{y} - \norm{x + h e_i} 
-      &&&
-      &\leq
-      \norm{y} - \norm{x}
-    \\
-    &\leq 
-    \abs{\norm{x + h e_i} - \norm{y}} 
-      &&&
-      &\leq
-      \abs{\norm{x} - \norm{y}}
-    \\
-    &\leq 
-    \norm{x + h e_i - y}
-      &&&
-      &\leq
-      \norm{x - y}
-  \end{align}
-  y estas desigualdades a su vez nos permiten deducir
-  \(
-    \psi(x + h e_i - y)
-    =
-    \psi(x - y)
-    =
-    0
-  \).
-  En conclusión, las funciones \(\phi_h\) con \(h \in [-1, 1]\) se anulan sobre el conjunto \(\realNumbers^n \setminus B_{r'}\).
-  
-  En segundo lugar controlamos el integrando.
-  Por el teorema del valor medio
-  \(
-    \abs{\psi(x + h e_i - y) - \psi(x - y)}
-    \leq
-    \norm{\partial_{x_i} \psi}_{\infty} \abs{h}
-  \)
-  para todo \(y \in \realNumbers^n\).
-  Pero \(\partial_{x_i} \psi \in C^{\infty}_c(\realNumbers^n)\) porque \(\psi \in C^{\infty}_c(\realNumbers^n)\).
-  Luego \(C = \norm{\partial_{x_i} \psi}_{\infty} < \infty\).
-  Esto asegura \(\abs{\phi_h} \leq C\) para todo \(h \in \realNumbers \setminus 0\).
-  
-  En tercer y último lugar, aplicamos el teorema de convergencia dominada.
-  En el primer y segundo paso probamos que \(\abs{\phi_h} \leq C \characteristic_{B_{r'}}\) para todo \(h \in [- 1, 1]\).
-  Partiendo de esto, el integrando \(f \phi_h\) está dominado por una función \(g = C \abs{f} \characteristic_{B_{r'}}\).
-  Esta \(g\) resulta integrable porque \(f\) es localmente integrable.
-  Luego el teorema de la convergencia dominada implica
-  \begin{align}
-    \lim_{h \rightarrow 0}
-      \int_{\realNumbers^n} f(y) \phi_h(y) \dd y
-    =
-    \int_{\realNumbers^n}
-      f(y)
-      \lim_{h \rightarrow 0} \phi_h(y) \dd y
-  \end{align}
-  Pero \(\psi \in C^{\infty}(\realNumbers^n)\), entonces
-  \begin{align}
-    &\lim_{h \rightarrow 0} \phi_h(y) = \partial_{x_i} \psi (x - y)
-    && (\forall y \in \realNumbers^n)
-  \end{align}
-  Es decir
-  \begin{align}
-    \partial_{x_i} (f * \psi) (x)
-    =
-    f * (\partial_{x_i} \psi) (x)
-  \end{align}
-  Con la conmutatividad de la convolución podemos llegar al enunciado preciso del ejercicio.
-\end{proof}
+      \norm {y} - \norm{x} - 1 
+        &&&
+        &\leq
+        \norm{y} - \norm{x} - 1
+      \\
+      &\leq 
+      \norm{y} - \norm{x + h e_i} 
+        &&&
+        &\leq
+        \norm{y} - \norm{x}
+      \\
+      &\leq 
+      \abs{\norm{x + h e_i} - \norm{y}} 
+        &&&
+        &\leq
+        \abs{\norm{x} - \norm{y}}
+      \\
+      &\leq 
+      \norm{x + h e_i - y}
+        &&&
+        &\leq
+        \norm{x - y}
+    \end{align}
+    y estas desigualdades a su vez nos permiten deducir
+    \(
+      \psi(x + h e_i - y)
+      =
+      \psi(x - y)
+      =
+      0
+    \).
+    En conclusión, las funciones \(\phi_h\) con \(h \in [-1, 1]\) se anulan sobre el conjunto \(\realNumbers^n \setminus B_{r'}\).
+    
+    En segundo lugar controlamos el integrando.
+    Por el teorema del valor medio
+    \(
+      \abs{\psi(x + h e_i - y) - \psi(x - y)}
+      \leq
+      \norm{\partial_{x_i} \psi}_{\infty} \abs{h}
+    \)
+    para todo \(y \in \realNumbers^n\).
+    Pero \(\partial_{x_i} \psi \in C^{\infty}_c(\realNumbers^n)\) porque \(\psi \in C^{\infty}_c(\realNumbers^n)\).
+    Luego \(C = \norm{\partial_{x_i} \psi}_{\infty} < \infty\).
+    Esto asegura \(\abs{\phi_h} \leq C\) para todo \(h \in \realNumbers \setminus 0\).
+    
+    En tercer y último lugar, aplicamos el teorema de convergencia dominada.
+    En el primer y segundo paso probamos que \(\abs{\phi_h} \leq C \characteristic_{B_{r'}}\) para todo \(h \in [- 1, 1]\).
+    Partiendo de esto, el integrando \(f \phi_h\) está dominado por una función \(g = C \abs{f} \characteristic_{B_{r'}}\).
+    Esta \(g\) resulta integrable porque \(f\) es localmente integrable.
+    Luego el teorema de la convergencia dominada implica
+    \begin{align}
+      \lim_{h \rightarrow 0}
+        \int_{\realNumbers^n} f(y) \phi_h(y) \dd y
+      =
+      \int_{\realNumbers^n}
+        f(y)
+        \lim_{h \rightarrow 0} \phi_h(y) \dd y
+    \end{align}
+    Pero \(\psi \in C^{\infty}(\realNumbers^n)\), entonces
+    \begin{align}
+      &\lim_{h \rightarrow 0} \phi_h(y) = \partial_{x_i} \psi (x - y)
+      && (\forall y \in \realNumbers^n)
+    \end{align}
+    Es decir
+    \begin{align}
+      \partial_{x_i} (f * \psi) (x)
+      =
+      f * (\partial_{x_i} \psi) (x)
+    \end{align}
+    Con la conmutatividad de la convolución podemos llegar al enunciado preciso del ejercicio.
+  \end{proof}
 
-\begin{definition}
-  Dada una función \(\phi\) diremos que es un mollifier si satisface las siguientes propiedades
-  \begin{enumerate}[label=\alph*)]
-    \item \(\phi(x) \geq 0\);
-    \item \(\phi \in C^{\infty}(\realNumbers^n)\);
-    \item \(\support(\phi) = \overline{B_1(0)}\).
-    \item \(\int_{\realNumbers^n} \phi(x) \dd x = 1\).
-  \end{enumerate}
-  Denotamos \(\phi_{\delta}(x) = \delta^{- n} \phi(x / \delta)\), donde \(\delta > 0\).
-\end{definition}
+  \begin{definition}
+    Dada una función \(\phi\) diremos que es un mollifier si satisface las siguientes propiedades
+    \begin{enumerate}[label=\alph*)]
+      \item \(\phi(x) \geq 0\);
+      \item \(\phi \in C^{\infty}(\realNumbers^n)\);
+      \item \(\support(\phi) = \overline{B_1(0)}\).
+      \item \(\int_{\realNumbers^n} \phi(x) \dd x = 1\).
+    \end{enumerate}
+    Denotamos \(\phi_{\delta}(x) = \delta^{- n} \phi(x / \delta)\), donde \(\delta > 0\).
+  \end{definition}
 
-\begin{exercise}
-  \label{exercise:deltaMollifierProperties}
-  ¿Cuáles son las propiedades que satisface \(\phi_{\delta}\)?
-\end{exercise}
-\begin{proof}[Respuesta]
-  Las propiedades que podemos observar son
-  \begin{enumerate}[label=\alph*)]
-    \item 
-      \label{property:mollifierNonnegativity}
-      \(\phi_{\delta} \geq 0\);
-    \item 
-      \label{property:mollifierSmoothness}
-      \(\phi_{\delta} \in C^{\infty}(\realNumbers^n)\);
-    \item 
-      \label{property:mollifierSupport}
-      \(\support(\phi_{\delta}) = \overline{B_{\delta}(0)}\);
-    \item 
-      \label{property:mollifierIntegral}
-      \(\int_{\realNumbers^n} \phi_{\delta}(x) \dd x = 1\).
-  \end{enumerate}
-  Sea \(T : \realNumbers^n \rightarrow \realNumbers^n\) la transformación lineal dada por \(T x = \delta x\) para todo \(x \in \realNumbers^n\).
-  La propiedad
-  \ref{property:mollifierNonnegativity}
-  se debe a que el producto de números nonegativos es un número nonegativo.
-  \ref{property:mollifierSmoothness}
-  se debe a la regla de la cadena, y a la suavidad de las funciones \(\phi\) y la aplicación \(T^{- 1}\).
-  \ref{property:mollifierSupport}
-  se debe a que \(T\) es un homeomorfismo, y en consecuencia se puede calcular
-  \begin{align}
-    \support(\phi_{\delta})
-    &=
-    \{y \in \realNumbers : \phi_{\delta}(y) = 0\}^-
-    \\
-    &=
-    \{y \in \realNumbers : \delta^{- n} \phi(y / \delta) = 0\}^-
-    \\
-    &=
-    \{y \in \realNumbers : \phi(y / \delta) = 0\}^-
-    \\
-    &=
-    \{\delta (y / \delta) :, y \in \realNumbers^n, \phi(y / \delta) = 0\}^-
-    \\
-    &=
-    \{\delta x : x \in \realNumbers^n, \phi(x) = 0\}^-
-    \\
-    &=
-    \left(
-      \delta \cdot
-      \{x \in \realNumbers^n: \phi(x) = 0\}
-    \right)^-
-    \\
-    &=
-    \delta \cdot 
-    \{x \in \realNumbers^n: \phi(x) = 0\}^-
-    \\
-    &=
-    \delta \cdot 
-    \support(\phi)
-  \end{align}
-  además de la ecuación \(\overline{B_{\delta}(0)} = \delta \cdot \overline{B_1(0)}\) particular a las bolas.
-  \ref{property:mollifierIntegral}
-  se debe al teorema de cambio de variable aplicado a la transformación lineal \(T\)
-  \begin{align}
-    \int_{\realNumbers^n} \phi_{\delta}(x) \dd x
-    &=
-    \int_{\realNumbers^n} \delta^{- n} \phi(x / \delta) \dd x
-    \\
-    &=
-    \delta^{- n}
-    \int_{\realNumbers^n}\phi(T^{- 1} x) \dd x
-    \\
-    &=
-    \delta^{- n}
-    \int_{\realNumbers^n}\phi(y) \abs{\det T} \dd y
-    \\
-    &=
-    \delta^{- n}
-    \int_{\realNumbers^n}\phi(y) \delta^n \dd y
-    \\
-    &=
-    \delta^{- n} \delta^n 
-    \int_{\realNumbers^n}\phi(y) \dd y
-    \\
-    &=
-    1 
-    \cdot 1
-  \end{align}
-\end{proof}
+  \begin{exercise}
+    \label{exercise:deltaMollifierProperties}
+    ¿Cuáles son las propiedades que satisface \(\phi_{\delta}\)?
+  \end{exercise}
+  \begin{proof}[Respuesta]
+    Las propiedades que podemos observar son
+    \begin{enumerate}[label=\alph*)]
+      \item 
+        \label{property:mollifierNonnegativity}
+        \(\phi_{\delta} \geq 0\);
+      \item 
+        \label{property:mollifierSmoothness}
+        \(\phi_{\delta} \in C^{\infty}(\realNumbers^n)\);
+      \item 
+        \label{property:mollifierSupport}
+        \(\support(\phi_{\delta}) = \overline{B_{\delta}(0)}\);
+      \item 
+        \label{property:mollifierIntegral}
+        \(\int_{\realNumbers^n} \phi_{\delta}(x) \dd x = 1\).
+    \end{enumerate}
+    Sea \(T : \realNumbers^n \rightarrow \realNumbers^n\) la transformación lineal dada por \(T x = \delta x\) para todo \(x \in \realNumbers^n\).
+    La propiedad
+    \ref{property:mollifierNonnegativity}
+    se debe a que el producto de números nonegativos es un número nonegativo.
+    \ref{property:mollifierSmoothness}
+    se debe a la regla de la cadena, y a la suavidad de las funciones \(\phi\) y la aplicación \(T^{- 1}\).
+    \ref{property:mollifierSupport}
+    se debe a que \(T\) es un homeomorfismo, y en consecuencia se puede calcular
+    \begin{align}
+      \support(\phi_{\delta})
+      &=
+      \{y \in \realNumbers : \phi_{\delta}(y) = 0\}^-
+      \\
+      &=
+      \{y \in \realNumbers : \delta^{- n} \phi(y / \delta) = 0\}^-
+      \\
+      &=
+      \{y \in \realNumbers : \phi(y / \delta) = 0\}^-
+      \\
+      &=
+      \{\delta (y / \delta) :, y \in \realNumbers^n, \phi(y / \delta) = 0\}^-
+      \\
+      &=
+      \{\delta x : x \in \realNumbers^n, \phi(x) = 0\}^-
+      \\
+      &=
+      \left(
+        \delta \cdot
+        \{x \in \realNumbers^n: \phi(x) = 0\}
+      \right)^-
+      \\
+      &=
+      \delta \cdot 
+      \{x \in \realNumbers^n: \phi(x) = 0\}^-
+      \\
+      &=
+      \delta \cdot 
+      \support(\phi)
+    \end{align}
+    además de la ecuación \(\overline{B_{\delta}(0)} = \delta \cdot \overline{B_1(0)}\) particular a las bolas.
+    \ref{property:mollifierIntegral}
+    se debe al teorema de cambio de variable aplicado a la transformación lineal \(T\)
+    \begin{align}
+      \int_{\realNumbers^n} \phi_{\delta}(x) \dd x
+      &=
+      \int_{\realNumbers^n} \delta^{- n} \phi(x / \delta) \dd x
+      \\
+      &=
+      \delta^{- n}
+      \int_{\realNumbers^n}\phi(T^{- 1} x) \dd x
+      \\
+      &=
+      \delta^{- n}
+      \int_{\realNumbers^n}\phi(y) \abs{\det T} \dd y
+      \\
+      &=
+      \delta^{- n}
+      \int_{\realNumbers^n}\phi(y) \delta^n \dd y
+      \\
+      &=
+      \delta^{- n} \delta^n 
+      \int_{\realNumbers^n}\phi(y) \dd y
+      \\
+      &=
+      1 
+      \cdot 1
+    \end{align}
+  \end{proof}
+
+  \begin{exercise}
+    \label{exercise:convolutionCompactUniformConvergence}
+    Si \(f : \realNumbers^n \rightarrow \realNumbers^n\) es continua luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) uniformemente en compactos de \(\realNumbers^n\).
+  \end{exercise}
+  \begin{proof}
+    Sea \(x \in \realNumbers^n\) un vector.
+    Calculamos usando la conmutatividad de la convolución
+    \begin{align}
+      f(x) - f * \phi_{\delta} (x)
+      =
+      f(x) - \phi_{\delta} * f (x)
+      =
+      f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
+    \end{align}
+    Usando la propiedad \(\int_{\realNumbers^n} \phi_{\delta}(y) \dd y = 1\), que mostramos en el ejercicio \ref{exercise:deltaMollifierProperties}, vemos
+    \begin{align}
+      f(x) - f * \phi_{\delta}(x)
+      &=
+      \int_{\realNumbers^n} \phi_{\delta}(y) \dd y \cdot f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} \phi_{\delta}(y) f(x) \dd y - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
+      \\
+      &=
+      \int_{\realNumbers^n} \phi_{\delta}(y) (f(x) - f(x - y)) \dd y
+    \end{align}
+    También en el ejercicio \ref{exercise:deltaMollifierProperties}, probamos que \(\support(\phi_{\delta}) = \overline{B_{\delta}}\).
+    Luego
+    \begin{align}
+      f(x) - f * \phi_{\delta}(x)
+      =
+      \int_{\overline{B_{\delta}}} \phi_{\delta}(y) (f(x) - f(x - y)) \dd y
+    \end{align}
+    Esto dice que la diferencia \(f(x) - f * \phi_{\delta}(x)\) en la izquierda depende del control que tengamos sobre el cambio de \(f\) sobre el conjunto \(x + \overline{B_{\delta}}\).
+
+    Sabiendo esto, consideremos un compacto \(K \subseteq \realNumbers^n\) y restrinjamos \(x \in K\).
+    Este conjunto \(K\) está contenido en una bola \(B_r \subseteq \realNumbers^n\) centrada en 0.
+    Luego \(x + \overline{B_{\delta}} \subseteq \overline{B_{r + \delta}}\) para todo \(\delta > 0\).
+    Si imponemos \(\delta \leq 1\), entonces \(x + \overline{B_{\delta}} \subseteq \overline{B_{r + 1}}\).
+    Pero \(f\), al ser continua, es uniformemente continua en la bola compacta \(\overline{B_{r'}}\) donde \(r' = r + 1\).
+    Luego, para todo \(\varepsilon > 0\), podemos elegir \(\delta \in \interval{oc}{0}{1}\) de modo tal que para todo \(\delta' \in \left]0, \delta \right]\) y todo \(y \in \overline{B_{\delta'}}\) se verifica la cota \(\abs{f(x) - f(x - y)} < \varepsilon\) independientemente de \(x \in K\).
+    Con esta información estimamos
+    \begin{align}
+      \abs{
+        f(x) - f * \phi_{\delta} (x)
+      }
+      &=
+      \abs{
+        \int_{\overline{B_{\delta}}} 
+          \phi_{\delta}(y) (f(x) - f(x - y)) 
+        \dd y
+      }
+      \\
+      &\leq
+      \int_{\overline{B_{\delta}}}
+        \abs{\phi_{\delta}(y)} \abs{f(x) - f(x - y)}
+      \dd y
+      \\
+      &\leq
+      \varepsilon
+      \int_{\overline{B_{\delta}}}
+        \abs{\phi_{\delta}(y)}
+      \dd y
+    \end{align}
+    Rematamos el cálculo usando las propiedades de nonegatividad \(\phi_{\delta} \geq 0\), del soporte \(\support(\phi_{\delta}) = \overline{B_{\delta}}\), y la integral \(\int_{\realNumbers^n} \phi_{\delta}(y) \dd y = 1\), todas vistas en el ejercicio \ref{exercise:deltaMollifierProperties}.
+    A partir de estas 
+    \(
+      \int_{\overline{B_{\delta}}}
+        \abs{\phi_{\delta}(y)}
+      \dd y
+      =
+      1
+    \)
+    .
+    En conclusión, dado un conjunto compacto \(K \subseteq \realNumbers^n\) y un \(\varepsilon > 0\), existe un \(\delta > 0\) tal que para todo \(\delta' \in \interval{oc}{0}{\delta}\) y todo \(x \in K\), se verifica la cota \(\abs{f(x) - f * \phi_{\delta}(x)} \leq \varepsilon\).
+    Es decir, \(f * \phi_{\delta} \rightarrow f\) uniformemente en compactos.
+  \end{proof}
 % \end{}
 
-\begin{exercise}
-  \label{exercise:convolutionCompactUniformConvergence}
-  Si \(f : \realNumbers^n \rightarrow \realNumbers^n\) es continua luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) uniformemente en compactos de \(\realNumbers^n\).
-\end{exercise}
+  \begin{exercise}
+    Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
+  \end{exercise}
 
-\begin{proof}
-  Sea \(x \in \realNumbers^n\) un vector.
-  Calculamos usando la conmutatividad de la convolución
-  \begin{align}
-    f(x) - f * \phi_{\delta} (x)
-    =
-    f(x) - \phi_{\delta} * f (x)
-    =
-    f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
-  \end{align}
-  Usando la propiedad \(\int_{\realNumbers^n} \phi_{\delta}(y) \dd y = 1\), que mostramos en el ejercicio \ref{exercise:deltaMollifierProperties}, vemos
-  \begin{align}
-    f(x) - f * \phi_{\delta}(x)
-    &=
-    \int_{\realNumbers^n} \phi_{\delta}(y) \dd y \cdot f(x) - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
-    \\
-    &=
-    \int_{\realNumbers^n} \phi_{\delta}(y) f(x) \dd y - \int_{\realNumbers^n} \phi_{\delta}(y) f(x - y) \dd y
-    \\
-    &=
-    \int_{\realNumbers^n} \phi_{\delta}(y) (f(x) - f(x - y)) \dd y
-  \end{align}
-  También en el ejercicio \ref{exercise:deltaMollifierProperties}, probamos que \(\support(\phi_{\delta}) = \overline{B_{\delta}}\).
-  Luego
-  \begin{align}
-    f(x) - f * \phi_{\delta}(x)
-    =
-    \int_{\overline{B_{\delta}}} \phi_{\delta}(y) (f(x) - f(x - y)) \dd y
-  \end{align}
-  Esto dice que la diferencia \(f(x) - f * \phi_{\delta}(x)\) en la izquierda depende del control que tengamos sobre el cambio de \(f\) sobre el conjunto \(x + \overline{B_{\delta}}\).
 
-  Sabiendo esto, consideremos un compacto \(K \subseteq \realNumbers^n\) y restrinjamos \(x \in K\).
-  Este conjunto \(K\) está contenido en una bola \(B_r \subseteq \realNumbers^n\) centrada en 0.
-  Luego \(x + \overline{B_{\delta}} \subseteq \overline{B_{r + \delta}}\) para todo \(\delta > 0\).
-  Si imponemos \(\delta \leq 1\), entonces \(x + \overline{B_{\delta}} \subseteq \overline{B_{r + 1}}\).
-  Pero \(f\), al ser continua, es uniformemente continua en la bola compacta \(\overline{B_{r'}}\) donde \(r' = r + 1\).
-  Luego, para todo \(\varepsilon > 0\), podemos elegir \(\delta \in \interval{oc}{0}{1}\) de modo tal que para todo \(\delta' \in \left]0, \delta \right]\) y todo \(y \in \overline{B_{\delta'}}\) se verifica la cota \(\abs{f(x) - f(x - y)} < \varepsilon\) independientemente de \(x \in K\).
-  Con esta información estimamos
-  \begin{align}
-    \abs{
-      f(x) - f * \phi_{\delta} (x)
-    }
-    &=
-    \abs{
-      \int_{\overline{B_{\delta}}} 
-        \phi_{\delta}(y) (f(x) - f(x - y)) 
-      \dd y
-    }
-    \\
-    &\leq
-    \int_{\overline{B_{\delta}}}
-      \abs{\phi_{\delta}(y)} \abs{f(x) - f(x - y)}
-    \dd y
-    \\
-    &\leq
-    \varepsilon
-    \int_{\overline{B_{\delta}}}
-      \abs{\phi_{\delta}(y)}
-    \dd y
-  \end{align}
-  Rematamos el cálculo usando las propiedades de nonegatividad \(\phi_{\delta} \geq 0\), del soporte \(\support(\phi_{\delta}) = \overline{B_{\delta}}\), y la integral \(\int_{\realNumbers^n} \phi_{\delta}(y) \dd y = 1\), todas vistas en el ejercicio \ref{exercise:deltaMollifierProperties}.
-  A partir de estas 
-  \(
-    \int_{\overline{B_{\delta}}}
-      \abs{\phi_{\delta}(y)}
-    \dd y
-    =
-    1
-  \)
-  .
-  En conclusión, dado un conjunto compacto \(K \subseteq \realNumbers^n\) y un \(\varepsilon > 0\), existe un \(\delta > 0\) tal que para todo \(\delta' \in \interval{oc}{0}{\delta}\) y todo \(x \in K\), se verifica la cota \(\abs{f(x) - f * \phi_{\delta}(x)} \leq \varepsilon\).
-  Es decir, \(f * \phi_{\delta} \rightarrow f\) uniformemente en compactos.
-\end{proof}
+  \begin{myDefinition}
+    Si \(f\) es una función sobre \(\realNumbers^n\) y \(x \in \realNumbers^n\), defninimos la función \(T_x f\) mediante \(T_x f (y) = f(x + y)\).
+  \end{myDefinition}
 
-\begin{exercise}
-  Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
-\end{exercise}
+  \begin{myLemma}
+    \label{myLemma:LpContinuityOfTranslationsForCompactlySupportedFunctions}
+    Si \(g \in C_c(\realNumbers^n)\), entonces \(T_x g \rightarrow g\) en norma \(L^p\) cuando \(x \rightarrow 0\).
+  \end{myLemma}
+  \begin{proof}
+    Porque \(g \in C_c(\realNumbers^n)\), también es uniformemente continua.
+    Entonces \(T_x g \rightarrow g\) uniformemente cuando \(x \rightarrow 0\).
+    Dado que \(g\) y \(g_x\) donde \(\abs{x} \leq 1\) estan soportadas en un conjunto compacto que les es común, también se sigue que \(\norm{g - T_x g}_p \rightarrow 0\).
+  \end{proof}
 
-\begin{myDefinition}
-  Si \(f\) es una función sobre \(\realNumbers^n\) y \(x \in \realNumbers^n\), defninimos la función \(T_x f\) mediante \(T_x f (y) = f(x + y)\).
-\end{myDefinition}
+  \begin{myLemma}
+    \label{myLemma:LpContinuityOfTranslationsForLpFunctions}
+    Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\), entonces \(\lim_{x \rightarrow 0} \norm{f - T_x}_p = 0\).
+  \end{myLemma}
+  \begin{proof}
+    Dada \(f \in L^p(\realNumbers^n)\) y \(\varepsilon > 0\), usando el resultado de densidad \ref{} elegimos una \(g\) continua de soporte compacto tal que \(\norm{f - g}_p < \varepsilon / 3\).
+    Entonces también \(\norm{T_x f - T_x g}_p < \varepsilon / 3\), de modo que para la norma \(L^p\)
+    \begin{align}
+      \norm{f - T_x f}
+      \leq
+      \norm{f - g} + \norm{g - T_x g} + \norm{T_x f - T_x g}
+      <
+      \norm{g - T_x g} + \frac{2}{3} \varepsilon    \end{align}
+    Pero por el lema \ref{myLemma:LpContinuityOfTranslationsForCompactlySupportedFunctions}, \(\norm{g - T_x g}_p < \varepsilon / 3\) para \(x\) lo suficientemente pequeño.
+    Luego \(\norm{f - T_x f}_p < \varepsilon\).
+  \end{proof}
 
-\begin{myLemma}
-  Si \(f \in L^p(\realNumbers^n)\), \(1 \leq p < \infty\), entonces 
-  \begin{align}
-    \norm{f - f_{\delta}}_p^p 
-    \leq 
-    \int_{\realNumbers^n} \norm{f - T_{- \delta w} f}_p^p \phi(w)^p \dd w
-  \end{align}
-\end{myLemma}
-\begin{proof}
-  Primero observamos que la integral \(\int \phi_{\delta} = 1\) implica
-  \begin{align}
-    (f - f_{\delta}) (x)
-    =
-    \int_{\realNumbers^n} (f(x) - f(x - y)) \phi_{\delta}(y) \dd y
-  \end{align}
-  Luego el cambio de variable \(y \mapsto \delta w\) nos lleva a
-  \begin{align}
-    (f - f_{\delta}) (x)
-    =
-    \int_{\realNumbers^n} (f(x) - f(x - \delta w)) \phi(w) \dd w
-    =
-    \int_{\realNumbers^n} (f - T_ {- \delta w} f) (x) \phi(w) \dd w
-  \end{align}
-  Por la convexidad de la aplicación \(t \mapsto \abs{t}^p\) cuando \(p \geq 1\), la desigualdad de Jensen nos dice que
-  \begin{align}
-    \abs{f - f_{\delta}}^p (x)
-    \leq
-    \int_{\realNumbers^n} \abs{f - T_{- \delta w} f}^p (x) \phi(w)^p \dd w
-  \end{align}
-  Integramos sobre \(x\) y aplicamos el Teorema de Tonelli del lado derecho para intercambiar el orden de la integración.
-  Obtenemos
-  \begin{align}
-    \norm{f - f_{\delta}}_p^p
-    &\leq
-    \int_{\realNumbers^n} 
+  \begin{myLemma}
+    \label{myLemma:convolutionDominationByTranslation}
+    Si \(f \in L^p(\realNumbers^n)\), \(1 \leq p < \infty\), entonces 
+    \begin{align}
+      \norm{f - f_{\delta}}_p^p 
+      \leq 
+      \int_{\realNumbers^n} \norm{f - T_{- \delta w} f}_p^p \phi(w)^p \dd w
+    \end{align}
+  \end{myLemma}
+  \begin{proof}
+    Primero observamos que la integral \(\int \phi_{\delta} = 1\) implica
+    \begin{align}
+      (f - f_{\delta}) (x)
+      =
+      \int_{\realNumbers^n} (f(x) - f(x - y)) \phi_{\delta}(y) \dd y
+    \end{align}
+    Luego el cambio de variable \(y \mapsto \delta w\) nos lleva a
+    \begin{align}
+      (f - f_{\delta}) (x)
+      =
+      \int_{\realNumbers^n} (f(x) - f(x - \delta w)) \phi(w) \dd w
+      =
+      \int_{\realNumbers^n} (f - T_ {- \delta w} f) (x) \phi(w) \dd w
+    \end{align}
+    Por la convexidad de la aplicación \(t \mapsto \abs{t}^p\) cuando \(p \geq 1\), la desigualdad de Jensen nos dice que
+    \begin{align}
+      \abs{f - f_{\delta}}^p (x)
+      \leq
+      \int_{\realNumbers^n} \abs{f - T_{- \delta w} f}^p (x) \phi(w)^p \dd w
+    \end{align}
+    Integramos sobre \(x\) y aplicamos el Teorema de Tonelli del lado derecho para intercambiar el orden de la integración.
+    Obtenemos
+    \begin{align}
+      \norm{f - f_{\delta}}_p^p
+      &\leq
       \int_{\realNumbers^n} 
-        \abs{f - T_{- \delta w} f}^p (x) \phi(w)^p 
-      \dd w
-    \dd x
-    \\
-    &=
-    \int_{\realNumbers^n}
+        \int_{\realNumbers^n} 
+          \abs{f - T_{- \delta w} f}^p (x) \phi(w)^p 
+        \dd w
+      \dd x
+      \\
+      &=
       \int_{\realNumbers^n}
-        \abs{f - T_{- \delta w} f}^p (x)
-      \dd x 
-      \phi(w)^p 
-    \dd w
-    \\
-    &=
-    \int_{\realNumbers^n}
-      \norm{f - T_{- \delta w} f}_p^p 
-      \phi(w)^p 
-    \dd w
-  \end{align}
-  
-\end{proof}
+        \int_{\realNumbers^n}
+          \abs{f - T_{- \delta w} f}^p (x)
+        \dd x 
+        \phi(w)^p 
+      \dd w
+      \\
+      &=
+      \int_{\realNumbers^n}
+        \norm{f - T_{- \delta w} f}_p^p 
+        \phi(w)^p 
+      \dd w
+    \end{align}
+    
+  \end{proof}
 
 
-\begin{theorem}
-  Si \(f \in L^p\), \(1 \leq p < \infty\), entonces \(f * \phi_{\delta} \rightarrow f\) en norma \(L^p\) cuando \(\delta \rightarrow 0\).
-  Si \(f \in L^{\infty}\) y \(f\) es uniformemente continua en un conjunto \(V\), entonces \(f * \phi_{\delta} \rightarrow f\) uniformemente en \(V\) cuando \(\delta \rightarrow 0\).
-\end{theorem}
-\begin{proof}
-  Primero observamos que la integral \(\int \phi_{\delta} = 1\) implica
-  \begin{align}
-    f * \phi_{\delta} (x) - f(x)
-    &=
-    \int_{\realNumbers^n} (f(x - y) - f(x)) \phi_{\delta}(y) \dd y
-    \\
-    &=
-    \int_{\realNumbers^n} (f(x - \varepsilon w) - f(x)) \phi(w) \dd w
-  \end{align}
-  Si \(f \in L^p\) y \(p < \infty\), aplicamos la desigualdad triangular para integrales (llamada desigualdad de Minkowski) para obtener
-  \begin{align}
-    \norm{f * \phi_{\delta} - f}_p
-    \leq
-    \int_{\realNumbers^n} \norm{f_{- \delta w} - f}_p \abs{\phi(w)} \dd w
-  \end{align}
-  Pero \(\norm{f_{- \varepsilon y} - f}_p\) está acotada por \(2 \norm{f}_p\) y tiende a cero cuando \(\varepsilon \rightarrow 0\) para cada \(y\), por el lema \ref{}.
-  Por lo tanto, el resultado deseado se sigue del teorema de convergencia dominada.
-
-  Por otra parte, supongamos que \(f \in L^{\infty}\) y \(f\) es uniformemente continua en un conjunto \(V\).
-  Dado \(\delta > 0\), elegimos un conjunto compacto \(W\) tal que \(\int_{\realNumbers^n \setminus W} \abs{\phi} < \delta\).
-  Entonces
-  \begin{align}
-    \sup_{x \in V} \abs{f * \phi_{\varepsilon} - a f(x)}
-    \leq
-    \sup_{x \in V, y \in W} \abs{f(x - \varepsilon y) - f(x)} \int_W \abs{\phi} + 2 \norm{f}_{\infty} \delta
-  \end{align}
-  El primer término desde la derecha tiende a cero cuando \(\varepsilon \rightarrow 0\), y \(\delta\) es arbitrario, de modo que \(f * \phi_{\varepsilon}\) tiende uniformemente a \(a f\) en \(V\).
-\end{proof}
+  \begin{theorem}
+    Si \(f \in L^p\), \(1 \leq p < \infty\), entonces \(f * \phi_{\delta} \rightarrow f\) en norma \(L^p\) cuando \(\delta \rightarrow 0\).
+  \end{theorem}
+  \begin{proof}
+    Por el lema \ref{myLemma:convolutionDominationByTranslation}
+    \begin{align}
+      \norm{f - f_{\delta}}_p^p 
+      \leq 
+      \int_{\realNumbers^n} \norm{f - T_{- \delta w} f}_p^p \phi(w)^p \dd w
+    \end{align}
+    Pero \(\norm{f_{- \delta y} - f}_p\) está acotada por \(2 \norm{f}_p\) y tiende a cero cuando \(\delta \rightarrow 0\) para cada \(y\), por el lema \ref{}.
+    Además \(\norm{\phi}_p^p < \infty\) porque \(\phi \in C^{\infty}_c(\realNumbers^n)\).
+    Por lo tanto, la convergencia \(\norm{f - f_{\delta}}_p \rightarrow 0\) cuando \(\delta \rightarrow 0\) se sigue del Teorema de Convergencia Dominada.
+  \end{proof}
 
 \end{document}
