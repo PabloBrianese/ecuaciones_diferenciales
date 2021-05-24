@@ -22,7 +22,9 @@
 \newcommand{\placeholderParameter}{-}
 \newcommand{\characteristic}{\mathbbm{1}}
 \newcommand{\naturalNumbers}{\mathbb{N}}
+\newcommand{\integerNumbers}{\mathbb{Z}}
 \newcommand{\realNumbers}{\mathbb{R}}
+\newcommand{\complexNumbers}{\mathbb{C}}
 \newcommand{\integrableFunctions}{L^1(\realNumbers^n)}
 \newcommand{\locallyIntegrableFunctions}{L^1_{\textnormal{loc}}(\realNumbers^n)}
 \newcommand{\local}{\textnormal{loc}}
@@ -778,6 +780,18 @@
 % \end{}
 
 \section{Series de Fourier}
+
+Dada una función \(f \in L^1(\interval{cc}{- \pi}{\pi})\) le asociamos una serie de Fourier
+\begin{align}
+  f(x)
+  \sim
+  \sum_{n \in \integerNumbers} c_n e^{i n x}
+\end{align}
+donde \(c_n = \frac{1}{2 \pi} \int_{- \pi}^{\pi} f(x) e^{- i n x} \dd x\), llamados coeficientes de Fourier, también notados \(\hat{f}(n)\).
+Se ha estudiado qué condiciones debe satisfacer una función para que la serie converja a la función en cuestión y los distintos tipos de convergencia.
+
+Este tipo de problema surge de forma natural cuando se utiliza el método de separación de variables para resolver una ecuación en derivadas parciales.
+
 
 \section{Espacio de Schwartz}
 
