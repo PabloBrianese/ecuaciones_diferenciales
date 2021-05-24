@@ -655,24 +655,21 @@
   \end{proof}
 % \end{}
 
-  \begin{exercise}
-    Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\) luego \(f_{\delta} = f * \phi_{\delta} \rightarrow f\) en \(L^p(\realNumbers^n)\).
-  \end{exercise}
-
   % Book: Real and Complex Analysis
   % Authors: Walter Rudin
   % 2.14 Theorem <- Riesz Representation
   % 3.13
   % 3.14 Theorem <- C_c(X) is dense in L^p
-  Sea \(S\) el conjunto de las funciones simples medibles definidas en \(X\) tales que \(\mu(\{x : s(x) \neq 0\}) < \infty\).
 
   \begin{theorem}
+    \label{theorem:compactlySupportedFunctionsAreDenseInLp}
     Sea \(X\) un espacio topológico Hausdorff localmente compacto, entonces \(C_c(X)\) es denso en \(L^p(\mu)\) para \(1 \leq p < \infty\).
   \end{theorem}
   \begin{proof}
-    Si \(s \in S\) y \(\varepsilon > 0\), existe una función \(g \in C_c(X)\) tal que \(g(x) = s(x)\) excepto en un conjunto de medida menor a \(\varepsilon\), y \(\abs{g} \leq \norm{s}_{\infty}\) (Teorema de Lusin).
+    Sea \(s\) una función medible simple definida en \(X\) tal que \(\mu(\{x : s(x) \neq 0\}) < \infty\).
+    Dado \(\varepsilon > 0\), existe una función \(g \in C_c(X)\) tal que \(g(x) = s(x)\) excepto en un conjunto de medida menor a \(\varepsilon\), y \(\abs{g} \leq \norm{s}_{\infty}\) (Teorema de Lusin).
     Por lo tanto \(\norm{g - s}_p \leq 2 \varepsilon^{1 / p} \norm{s}_{\infty}\).
-    Dado que \(S\) es denso en \(L^p(\mu)\), esto completa la prueba. 
+    Dado que la familia de las funciones \(s\) es densa en \(L^p(\mu)\), esto completa la prueba.
   \end{proof}
 
   \begin{myDefinition}
@@ -691,10 +688,10 @@
 
   \begin{myLemma}
     \label{myLemma:LpContinuityOfTranslationsForLpFunctions}
-    Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\), entonces \(\lim_{x \rightarrow 0} \norm{f - T_x}_p = 0\).
+    Si \(1 \leq p < \infty\) y \(f \in L^p(\realNumbers^n)\), entonces \(\lim_{x \rightarrow 0} \norm{f - T_x f}_p = 0\).
   \end{myLemma}
   \begin{proof}
-    Dada \(f \in L^p(\realNumbers^n)\) y \(\varepsilon > 0\), usando el resultado de densidad \ref{} elegimos una \(g\) continua de soporte compacto tal que \(\norm{f - g}_p < \varepsilon / 3\).
+    Dada \(f \in L^p(\realNumbers^n)\) y \(\varepsilon > 0\), usando el resultado de densidad \ref{theorem:compactlySupportedFunctionsAreDenseInLp} elegimos una \(g\) continua de soporte compacto tal que \(\norm{f - g}_p < \varepsilon / 3\).
     Entonces también \(\norm{T_x f - T_x g}_p < \varepsilon / 3\), de modo que para la norma \(L^p\)
     \begin{align}
       \norm{f - T_x f}
@@ -761,13 +758,11 @@
         \phi(w)^p 
       \dd w
     \end{align}
-    
   \end{proof}
 
-
-  \begin{theorem}
+  \begin{exercise}
     Si \(f \in L^p\), \(1 \leq p < \infty\), entonces \(f * \phi_{\delta} \rightarrow f\) en norma \(L^p\) cuando \(\delta \rightarrow 0\).
-  \end{theorem}
+  \end{exercise}
   \begin{proof}
     Por el lema \ref{myLemma:convolutionDominationByTranslation}
     \begin{align}
@@ -775,7 +770,7 @@
       \leq 
       \int_{\realNumbers^n} \norm{f - T_{- \delta w} f}_p^p \phi(w)^p \dd w
     \end{align}
-    Pero \(\norm{f_{- \delta y} - f}_p\) está acotada por \(2 \norm{f}_p\) y tiende a cero cuando \(\delta \rightarrow 0\) para cada \(y\), por el lema \ref{}.
+    Pero \(\norm{f_{- \delta y} - f}_p\) está acotada por \(2 \norm{f}_p\) y tiende a cero cuando \(\delta \rightarrow 0\) para cada \(y\), por el lema \ref{myLemma:LpContinuityOfTranslationsForLpFunctions}.
     Además \(\norm{\phi}_p^p < \infty\) porque \(\phi \in C^{\infty}_c(\realNumbers^n)\).
     Por lo tanto, la convergencia \(\norm{f - f_{\delta}}_p \rightarrow 0\) cuando \(\delta \rightarrow 0\) se sigue del Teorema de Convergencia Dominada.
   \end{proof}
