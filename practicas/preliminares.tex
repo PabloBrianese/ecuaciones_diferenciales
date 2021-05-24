@@ -73,6 +73,8 @@
 \begin{document}
 \maketitle
 % \begin{}
+  \section{Convolución y Mollifiers}
+
   \begin{definition}
     Dadas \(f, g : \realNumbers^n \rightarrow \realNumbers\) ambas en \(L(\realNumbers^n)\), definimos la convolución de la siguiente manera
     \begin{align}
@@ -653,7 +655,6 @@
     En conclusión, dado un conjunto compacto \(K \subseteq \realNumbers^n\) y un \(\varepsilon > 0\), existe un \(\delta > 0\) tal que para todo \(\delta' \in \interval{oc}{0}{\delta}\) y todo \(x \in K\), se verifica la cota \(\abs{f(x) - f * \phi_{\delta}(x)} \leq \varepsilon\).
     Es decir, \(f * \phi_{\delta} \rightarrow f\) uniformemente en compactos.
   \end{proof}
-% \end{}
 
   % Book: Real and Complex Analysis
   % Authors: Walter Rudin
@@ -774,5 +775,10 @@
     Además \(\norm{\phi}_p^p < \infty\) porque \(\phi \in C^{\infty}_c(\realNumbers^n)\).
     Por lo tanto, la convergencia \(\norm{f - f_{\delta}}_p \rightarrow 0\) cuando \(\delta \rightarrow 0\) se sigue del Teorema de Convergencia Dominada.
   \end{proof}
+% \end{}
+
+\section{Series de Fourier}
+
+\section{Espacio de Schwartz}
 
 \end{document}
