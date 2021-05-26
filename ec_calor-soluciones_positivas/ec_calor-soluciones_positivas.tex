@@ -71,150 +71,152 @@
 \author{Pablo Brianese}
 % \end{}
 \begin{document}
-\maketitle
+  \maketitle
 
-% Libro: Primer curso de ecuaciones en derivadas parciales
-% Página: 310
+  % Libro: Primer curso de ecuaciones en derivadas parciales
+  % Página: 310
 
-Esta sección está dedicada a un resultado muy interesante por razones matemáticas y por su significado físico.
+  Esta sección está dedicada a un resultado muy interesante por razones matemáticas y por su significado físico.
 
-Una de las consecuencias de \emph{Segundo Principio de la Termidinámica} es que la \emph{temperatura absoluta} es siempre positiva.
-Este hecho sugiere que la condición natural a verificar por las soluciones de la ecuación del calor es la condición \emph{unilateral}, \(u \geq 0\).
-Evidentemente es lo mismo suponer \(u \geq H\), pues el cambio en la escala de temperaturas \(v = u - H\), conduce al caso \(v \geq 0\).
+  Una de las consecuencias de \emph{Segundo Principio de la Termidinámica} es que la \emph{temperatura absoluta} es siempre positiva.
+  Este hecho sugiere que la condición natural a verificar por las soluciones de la ecuación del calor es la condición \emph{unilateral}, \(u \geq 0\).
+  Evidentemente es lo mismo suponer \(u \geq H\), pues el cambio en la escala de temperaturas \(v = u - H\), conduce al caso \(v \geq 0\).
 
-Sugerimos al lector recordar las leyes de la termodinámica, para lo cual una hermosa referencia puede ser el celebérrimo curso de R.P. Feynman.
+  Sugerimos al lector recordar las leyes de la termodinámica, para lo cual una hermosa referencia puede ser el celebérrimo curso de R.P. Feynman.
 
-Presentaremos un resultado obtenido en 1944 por D. Widder, profesor de Harvard.
-Widder prueba que con la condición físicamente natural de que la temperatura sea positiva, el problema de Cauchy para la ecuación del calor tiene una única solución.
-Desde el punto de vista matemático este resultado es muy interesante, dado que se establece la unicidad con una condición unilateral solamente, es decir, \(u(x, t) \geq 0\).
+  Presentaremos un resultado obtenido en 1944 por D. Widder, profesor de Harvard.
+  Widder prueba que con la condición físicamente natural de que la temperatura sea positiva, el problema de Cauchy para la ecuación del calor tiene una única solución.
+  Desde el punto de vista matemático este resultado es muy interesante, dado que se establece la unicidad con una condición unilateral solamente, es decir, \(u(x, t) \geq 0\).
 
-En realidad, D. Widder probó más cosas, por ejemplo, que una solución de la ecuación sea positiva y continua, se puede expresar en tiempo \(t\) por la integral de la solución fundamental por el valor de dicha solución en un tiempo anterior.
-Es decir, la fórmula
-\begin{align}
-  u(x, t)
-  =
-  \frac{1}{\sqrt{4 \pi t}^N} \int_{\realNumbers^N} \exp\!\left(- \frac{\abs{x - y}^2}{4 t}\right) u(y, 0) \dd y
-\end{align}
-caracteriza las soluciones positivas.
-
-Precisaremos estos enunciados en su momento.
-Antes de nada diremos que la referencia que seguiremos es el trabajo del propio Widder, que se recoge en el libro: \textit{D. Widder, ” The heat equation”, Academic Press, 1975.}.
-
-Empezaremos estableciendo otro resultado de unicidad, que tiene interés por sí mismo al recoger una hipótesis natural de crecimiento del dato y la solución, y que se usará a continuación.
-Dicho resultado está en el espíritu del teorema
-\ref{} % 6.2.3
-cambiando la acotación por la ley de crecimiento \(\abs{u(x, t)} \leq A e^{a \abs{x}^2}\).
-Este crecimiento es el natural, teniendo en cuenta el decaimiento en el infinito de la solución fundamental.
-
-Más precisamente se tiene el siguiente enunciado.
-
-\begin{theorem}
-  Sea \(u \in C(\realNumbers^N \times \interval{oo}{0}{T})\), verificando el problema
+  En realidad, D. Widder probó más cosas, por ejemplo, que una solución de la ecuación sea positiva y continua, se puede expresar en tiempo \(t\) por la integral de la solución fundamental por el valor de dicha solución en un tiempo anterior.
+  Es decir, la fórmula
   \begin{align}
-    \left(
-      \begin{aligned}        
-        &u_t - \laplacian u = 0
-          && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
-        \\
-        & \abs{u(x, t)} < M e^{a \abs{x}^2}
-          && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
-        \\
-        &u(x, 0) = 0
-          && x \in \realNumbers^N
-      \end{aligned}
-    \right.
-  \end{align}
-  para ciertas constantes positivas \(M, a\).
-  Entonces \(u(x, t) = 0\) para todo \((x, t) \in \realNumbers^N \times \interval{oo}{0}{T}\).
-\end{theorem}
-\begin{proof}
-  La demostración se hace iterando el resultado sobre intervalos del tiempo de longitud convenientemente pequeña.
-  Para empezar elegimos \(A\) tal que \(A > a\) y \(A > 1 / (4 T)\).
-  Consideramos la función
-  \begin{align}
-    v(x, t) = \frac{1}{\sqrt{1 - 4 A t}^N} \exp\!\left(\frac{A \abs{x}^2}{1 - 4 A t}\right)
-  \end{align}
-  que como se observa es precisamente
-  \begin{align}
-    \label{equation:shortTimeHeatEquationSolution}
-    &v(x, t)
+    u(x, t)
     =
-    \sqrt{4 \pi}^N K_{1 + \lambda^2 t} (\lambda x)
-    && \text{donde } \lambda = i \sqrt{4A}
+    \frac{1}{\sqrt{4 \pi t}^N} \int_{\realNumbers^N} \exp\!\left(- \frac{\abs{x - y}^2}{4 t}\right) u(y, 0) \dd y
   \end{align}
-  y \(K_t(x)\) es la solución fundamental de la ecuación del calor como se obtuvo en la sección 
-  \ref{}  % 6.1
-  .
-  Simplemente la regla de la cadena y la expresión
-  \ref{equation:shortTimeHeatEquationSolution}
-  demuestran que \(v(x, t)\) es solución de la ecuación del calor en \(\realNumbers^N \times \interval{oo}{0}{1 / (4 A)}\).
-  Además, como para cada \(x \in \realNumbers^N\), \(v(x, t)\) es una función creciente en \(t\), se concluye que
-  \begin{align}
-    &v(x, t)
-    \geq
-    v(x, 0)
-    =
-    e^{A \abs{x}^2}
-    && (x, t) \in \realNumbers^N \times \interval{oo}{0}{1 / (4 A)}
-  \end{align}
-  Fijando un punto \((x_0, t_0)\) en la banda \(\realNumbers^N \times \interval{oo}{0}{1 / (4 A)}\), elegimos \(R > \abs{x_0}\) y tomamos un múltiplo de la función \(v\).
-  Exactamente tomamos
-  \begin{align}
-    w(x, t)
-    =
-    M e^{(a - A) R^2} v(x, t)
-  \end{align}
-  Sea ahora el cilindro \(D = \{(x, t) | \abs{x} < R, 0 < t < 1 / (4 A)\}\) y comparemos las funciones \(\abs{u(x, t)}\) y \(w(x, t)\) sobre la frontera parabólica de \(D\), es decir, sobre los puntos \((x, 0)\), con \(\abs{x} < R\) y los puntos \((x, t)\), con \(\abs{x} = R\) y \(0 \leq t \leq 1 / (4 A)\).
-  Sobre los primeros, es decir, la base, se tiene 
-  \begin{align}
-    \abs{u(x, 0)}
-    =
-    0
-    <
-    w(x, 0)
-    =
-    M e^{(a - A) R^2} e^{A \abs{x}^2}
-  \end{align}
-  y sobre la superficie lateral, es decir si \(\abs{x} = R\)
-  \begin{align}
-    \abs{u(x, t)}
-    <
-    M e^{a R^2}
-    \leq
-    M e^{(a - A) R^2 v(x, 0)}
-    \leq
-    M e {(a - A) R^2} v(x, t)
-    =
-    w(x, t)
-  \end{align}
-  Por tanto, aplicando el principio del máximo, teorema 
-  \ref{}  % 6.2.1
-  , se concluye que
-  \begin{align}
-    &- w(x, t) \leq u(x, t) \leq w(x, t)
-    && \text{para } (x, t) \in D
-  \end{align}
-  En particular,
-  \begin{align}
-    \label{inequality:fundamentalSolutionBound}
-    \abs{u(x_0, t_0)}
-    <
-    M e^{(a - A) R^2} v(x_0, t_0)
-  \end{align}
-  que se verifica para todo \(R > \abs{x}\).
-  Tomando límites en \ref{inequality:fundamentalSolutionBound} cuando \(R \rightarrow \infty\), obtenemos
-  \begin{align}
-    &u(x_0, t_0) = 0
-    && (x_0, t_0) \in \realNumbers^N \times \interval{oo}{0}{1 / (4 A)}
-  \end{align}
-  ya que hemos elegido \(A > a\).
-  Para acabar, repetimos el argumento anterior a la función \(u(x, t + \tau)\), con \(0 < \tau < 1 / (4 A)\);
-  de esta forma concluimos que \(u(x, y) \equiv 0\) en \(\realNumbers^N \times \interval{oo}{0}{ 2 / (4 A)}\).
-  Repitiendo el argumento una cantidad finita de veces, concluímos la prueba.
-  
-  
-  
-\end{proof}
-%Lema 6.4.2 al Teorema 6.4.6
+  caracteriza las soluciones positivas.
+
+  Precisaremos estos enunciados en su momento.
+  Antes de nada diremos que la referencia que seguiremos es el trabajo del propio Widder, que se recoge en el libro: \textit{D. Widder, ” The heat equation”, Academic Press, 1975.}.
+
+  Empezaremos estableciendo otro resultado de unicidad, que tiene interés por sí mismo al recoger una hipótesis natural de crecimiento del dato y la solución, y que se usará a continuación.
+  Dicho resultado está en el espíritu del teorema
+  \ref{} % 6.2.3
+  cambiando la acotación por la ley de crecimiento \(\abs{u(x, t)} \leq A e^{a \abs{x}^2}\).
+  Este crecimiento es el natural, teniendo en cuenta el decaimiento en el infinito de la solución fundamental.
+
+  Más precisamente se tiene el siguiente enunciado.
+
+  \begin{theorem}
+    Sea \(u \in C(\realNumbers^N \times \interval{oo}{0}{T})\), verificando el problema
+    \begin{align}
+      \left(
+        \begin{aligned}        
+          &u_t - \laplacian u = 0
+            && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
+          \\
+          & \abs{u(x, t)} < M e^{a \abs{x}^2}
+            && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
+          \\
+          &u(x, 0) = 0
+            && x \in \realNumbers^N
+        \end{aligned}
+      \right.
+    \end{align}
+    para ciertas constantes positivas \(M, a\).
+    Entonces \(u(x, t) = 0\) para todo \((x, t) \in \realNumbers^N \times \interval{oo}{0}{T}\).
+  \end{theorem}
+  \begin{proof}
+    La demostración se hace iterando el resultado sobre intervalos del tiempo de longitud convenientemente pequeña.
+    Para empezar elegimos \(A\) tal que \(A > a\) y \(A > 1 / (4 T)\).
+    Consideramos la función
+    \begin{align}
+      v(x, t) = \frac{1}{\sqrt{1 - 4 A t}^N} \exp\!\left(\frac{A \abs{x}^2}{1 - 4 A t}\right)
+    \end{align}
+    que como se observa es precisamente
+    \begin{align}
+      \label{equation:shortTimeHeatEquationSolution}
+      &v(x, t)
+      =
+      \sqrt{4 \pi}^N K_{1 + \lambda^2 t} (\lambda x)
+      && \text{donde } \lambda = i \sqrt{4A}
+    \end{align}
+    y \(K_t(x)\) es la solución fundamental de la ecuación del calor como se obtuvo en la sección 
+    \ref{}  % 6.1
+    .
+    Simplemente la regla de la cadena y la expresión
+    \ref{equation:shortTimeHeatEquationSolution}
+    demuestran que \(v(x, t)\) es solución de la ecuación del calor en \(\realNumbers^N \times \interval{oo}{0}{1 / (4 A)}\).
+    Además, como para cada \(x \in \realNumbers^N\), \(v(x, t)\) es una función creciente en \(t\), se concluye que
+    \begin{align}
+      &v(x, t)
+      \geq
+      v(x, 0)
+      =
+      e^{A \abs{x}^2}
+      && (x, t) \in \realNumbers^N \times \interval{oo}{0}{1 / (4 A)}
+    \end{align}
+    Fijando un punto \((x_0, t_0)\) en la banda \(\realNumbers^N \times \interval{oo}{0}{1 / (4 A)}\), elegimos \(R > \abs{x_0}\) y tomamos un múltiplo de la función \(v\).
+    Exactamente tomamos
+    \begin{align}
+      w(x, t)
+      =
+      M e^{(a - A) R^2} v(x, t)
+    \end{align}
+    Sea ahora el cilindro \(D = \{(x, t) | \abs{x} < R, 0 < t < 1 / (4 A)\}\) y comparemos las funciones \(\abs{u(x, t)}\) y \(w(x, t)\) sobre la frontera parabólica de \(D\), es decir, sobre los puntos \((x, 0)\), con \(\abs{x} < R\) y los puntos \((x, t)\), con \(\abs{x} = R\) y \(0 \leq t \leq 1 / (4 A)\).
+    Sobre los primeros, es decir, la base, se tiene 
+    \begin{align}
+      \abs{u(x, 0)}
+      =
+      0
+      <
+      w(x, 0)
+      =
+      M e^{(a - A) R^2} e^{A \abs{x}^2}
+    \end{align}
+    y sobre la superficie lateral, es decir si \(\abs{x} = R\)
+    \begin{align}
+      \abs{u(x, t)}
+      <
+      M e^{a R^2}
+      \leq
+      M e^{(a - A) R^2 v(x, 0)}
+      \leq
+      M e {(a - A) R^2} v(x, t)
+      =
+      w(x, t)
+    \end{align}
+    Por tanto, aplicando el principio del máximo, teorema 
+    \ref{}  % 6.2.1
+    , se concluye que
+    \begin{align}
+      &- w(x, t) \leq u(x, t) \leq w(x, t)
+      && \text{para } (x, t) \in D
+    \end{align}
+    En particular,
+    \begin{align}
+      \label{inequality:fundamentalSolutionBound}
+      \abs{u(x_0, t_0)}
+      <
+      M e^{(a - A) R^2} v(x_0, t_0)
+    \end{align}
+    que se verifica para todo \(R > \abs{x}\).
+    Tomando límites en \ref{inequality:fundamentalSolutionBound} cuando \(R \rightarrow \infty\), obtenemos
+    \begin{align}
+      &u(x_0, t_0) = 0
+      && (x_0, t_0) \in \realNumbers^N \times \interval{oo}{0}{1 / (4 A)}
+    \end{align}
+    ya que hemos elegido \(A > a\).
+    Para acabar, repetimos el argumento anterior a la función \(u(x, t + \tau)\), con \(0 < \tau < 1 / (4 A)\);
+    de esta forma concluimos que \(u(x, y) \equiv 0\) en \(\realNumbers^N \times \interval{oo}{0}{ 2 / (4 A)}\).
+    Repitiendo el argumento una cantidad finita de veces, concluímos la prueba.
+  \end{proof}
+
+  %Lema 6.4.2 al Teorema 6.4.6
+  \begin{lemma} % 6.4.2
+    Sea \(u(x, t)\) solución de la ecuación del calor tal que \(u(x,0) = 0\), entonces \(v(x, t) = \int_0^t u(x, s) \dd s\) es solución de la ecuación del calor.
+    Además si \(u\) es positiva, \(v\) es creciente en \(t\) para \(x\) fijo y es subharmónica como función de \(x\) para \(t\) fijo.
+  \end{lemma}
 
 \end{document}
