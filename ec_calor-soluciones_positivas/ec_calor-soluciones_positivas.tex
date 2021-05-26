@@ -111,14 +111,18 @@ Más precisamente se tiene el siguiente enunciado.
 \begin{theorem}
   Sea \(u \in C(\realNumbers^N \times \interval{oo}{0}{T})\), verificando el problema
   \begin{align}
-    &u_t - \laplacian u = 0
-      && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
-    \\
-    & \abs{u(x, t)} < M e^{a \abs{x}^2}
-      && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
-    \\
-    &u(x, 0) = 0
-      && x \in \realNumbers^N
+    \left(
+      \begin{aligned}        
+        &u_t - \laplacian u = 0
+          && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
+        \\
+        & \abs{u(x, t)} < M e^{a \abs{x}^2}
+          && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
+        \\
+        &u(x, 0) = 0
+          && x \in \realNumbers^N
+      \end{aligned}
+    \right.
   \end{align}
   para ciertas constantes positivas \(M, a\).
   Entonces \(u(x, t) = 0\) para todo \((x, t) \in \realNumbers^N \times \interval{oo}{0}{T}\).
