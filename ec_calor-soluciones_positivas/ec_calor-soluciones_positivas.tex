@@ -32,6 +32,7 @@
 \newtheorem{definition}{Definición}
 \newtheorem{myDefinition}{Definición propia}
 \newtheorem{exercise}{Ejercicio}
+\newtheorem{lemma}{Lema}
 \newtheorem{myLemma}{Lema propio}
 
 \DeclareMathOperator{\lebesgueMeasure}{\lambda}
@@ -91,6 +92,7 @@
   En realidad, D. Widder probó más cosas, por ejemplo, que una solución de la ecuación sea positiva y continua, se puede expresar en tiempo \(t\) por la integral de la solución fundamental por el valor de dicha solución en un tiempo anterior.
   Es decir, la fórmula
   \begin{align}
+    \label{equation:heatEquationRepresentationFormula}
     u(x, t)
     =
     \frac{1}{\sqrt{4 \pi t}^N} \int_{\realNumbers^N} \exp\!\left(- \frac{\abs{x - y}^2}{4 t}\right) u(y, 0) \dd y
@@ -218,5 +220,141 @@
     Sea \(u(x, t)\) solución de la ecuación del calor tal que \(u(x,0) = 0\), entonces \(v(x, t) = \int_0^t u(x, s) \dd s\) es solución de la ecuación del calor.
     Además si \(u\) es positiva, \(v\) es creciente en \(t\) para \(x\) fijo y es subharmónica como función de \(x\) para \(t\) fijo.
   \end{lemma}
+  \begin{proof}
+    En efecto, en primer lugar, \(v_t = u\) en virtud del teorema fundamental del cálculo.
+    En segundo lugar
+    \begin{align}
+      \laplacian v (x , t)
+      =
+      \int_0^t \laplacian u (x, s) \dd s
+      =
+      \int_0^t u_s(x, s) \dd s
+      =
+      u(x, t)
+    \end{align}
+    por tanto, \(v_t = \laplacian v\), es decir, \(v\) satisface la ecuación del calor.
 
+    Si \(u \geq 0\) se tiene \(v_t = u = \laplacian v \geq 0\), por tanto tenemos las propiedades anunciadas para \(v\).
+  \end{proof}
+
+  Necesitaremos el siguiente lema, que viene a establecer que entre todas las posibles soluciones positivas de la ecuación del calor, la más pequeña es la que da la fórmula integral
+  \ref{equation:heatEquationRepresentationFormula}  % 6.1.3
+  .
+  Este resultado será crucial para probar el resultado de unicidad, y como consecuencia, el teorema de representación de soluciones positivas de Widder.
+
+  \begin{lemma} %6.4.3
+    Sea \(u \in C(\realNumbers^n \times \interval{co}{0}{T})\) tal que \(u_t, u_{x_i x_j} \in C(\realNumbers^n \times \interval{oo}{0}{T})\).
+    Supongamos que
+    \begin{enumerate}
+      \item \(u_t - \laplacian u = 0\) en \(\realNumbers^n \times \interval{co}{0}{T}\);
+      \item \(u(x, t) \geq 0\) en \(\realNumbers^n \times \interval{co}{0}{T}\). 
+    \end{enumerate}
+    Entonces se verifica
+    \begin{align}
+      \label{inequality:Kt-u-convolutionInequality}
+      \int_{\realNumbers^n} K_t(x - y) u(y, 0) \dd y
+      \leq
+      u(x, t)
+    \end{align}
+  \end{lemma}
+  \begin{proof}
+    Con las hipótesis que tenemos, lo primero que no está claro es que la integral en \ref{inequality:Kt-u-convolutionInequality} sea finita.
+    Por simplicidad llamaremos \(f(x) = u(x, 0)\) y consideramos una función de corte regular, precisamente, \(\phi \in C^{\infty}_0(\realNumbers^n)\) verificando
+    \begin{align}
+      \phi_R(x)
+      =
+      \left\{
+        \begin{aligned}
+          & 1
+            && \text{si } \abs{x} \leq R - 1
+          \\
+          & R - \abs{x}
+            && \text{si } R - 1 \leq \abs{x} \leq R
+          \\
+          & 0
+            && \text{si } R \leq \abs{x}
+        \end{aligned}
+      \right.
+    \end{align}
+    Si se define ahora
+    \begin{align}
+      v_R(x, t)
+      =
+      \int_{\realNumbers^n} K_t(x - y) f(y) \phi_R(y) \dd y
+    \end{align}
+    es finita pues \(f \phi\) es continua y con soporte en una bola.
+    El teorema \ref{}  % 6.1.1
+    establece que la función \(v_R\) definida por \ref{}  % 6.4.9
+    verifica el problema
+    \begin{align}
+      \left\{
+        \begin{aligned}
+          & \frac{\partial v_R}{\partial t} - \laplacian v_R = 0
+            && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
+          \\
+          & v_R(x, t) \geq 0
+            && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
+          \\
+          & v_R(x, 0) = f(x)\phi_R(x)
+            && x \in \realNumbers^n
+        \end{aligned}
+      \right.
+    \end{align}
+    Sea \(M_R = \max_{\abs{y} < R} f(y)\) y sea \(\abs{x} > R\), entonces
+    \begin{align}
+      0
+      &\leq
+      v_R(x, t)
+      \\
+      &\leq
+      M \int_{\abs{y} < R} K(x - y, t) \dd y
+      \\
+      &\leq
+      \frac{M}{\sqrt{\pi}^n} \int_{\abs{y} < R} \frac{1}{\abs{x - y}^n} \dd y
+      \\
+      &\leq
+      \frac{M}{\sqrt{\pi}^n} \int_{\abs{y} < R} \frac{1}{\abs{\abs{x} - R}^n} \dd y
+      \\
+      &\leq
+      \frac{M R^n c_n}{\abs{\abs{x} - R}^n}
+    \end{align}
+    pues se tiene que \(\abs{s}^n e^{- \abs{s}^2} < 1\) y \(\abs{x - y} \geq \abs{\abs{x} - R}\) cuando \(x\) está en el exterior de la bola de radio \(R\).
+    Por consiguiente, dado \(\varepsilon > 0\)
+    \begin{align}
+      & 0 \leq v_R(x, t) \leq \varepsilon
+      && \text{si } \abs{x} \geq \rho(M, R, n)
+    \end{align}
+    En particular, tenemos
+    \begin{enumerate}
+      \item \(0 \leq v_R(x, t) \leq \varepsilon + u(x, t)\) si \(\abs{x} = \rho\), \(0 < t < T\), ya que por hipótesis \(u\) es positiva en toda la banda.
+      \item \(v_R(x, 0) \leq f(x) = u(x, 0) \leq u(x, 0) + \varepsilon\) si \(\abs{x} \leq \rho\).
+    \end{enumerate}
+    Entonces, \ref{} % i
+    y \ref{} % ii
+    junto con el principio del máximo, implican que
+    \begin{align}
+      & v_R(x, t) \leq u(x, t) + \varepsilon
+      && \text{si } \abs{x} < \rho, 0 \leq t < T
+    \end{align}
+    Además de \ref{}  % 6.4.12
+    y ser \(u \geq 0\) se concluye que para todo \(\varepsilon > 0\)
+    \begin{align}
+      &v_R(x, t) \leq u(x, t) + \varepsilon
+      && \text{para todo } (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
+    \end{align}
+    
+    Si observamos que \(v_R(x, t) \leq v_{R'}(x, t)\) y \(\phi_R(x) \leq \phi_{R'}(x)\) si \(R < R'\) en todo punto y para \(0 \leq t < T\), podemos pasar al límite aplicando el teorema de convergencia monótona, es decir, se tiene
+    \begin{align}
+      0
+      \leq
+      v(x, t)
+      =
+      \lim_{R \rightarrow \infty} v_R(x, t)
+      =
+      \int_{\realNumbers^n} K_t(x - y) f(y) \dd y
+      \leq
+      u(x, t)
+    \end{align}
+    que prueba que la integral es finita y, de paso, el lema.
+  \end{proof}
 \end{document}
