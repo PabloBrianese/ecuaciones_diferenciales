@@ -29,11 +29,17 @@
 \newcommand{\closure}[1]{\bar{1}}
 
 \newtheorem{theorem}{Teorema}
-\newtheorem{definition}{Definición}
-\newtheorem{myDefinition}{Definición propia}
 \newtheorem{exercise}{Ejercicio}
 \newtheorem{lemma}{Lema}
 \newtheorem{myLemma}{Lema propio}
+\newtheorem{corollary}{Corolario}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}
+\newtheorem{myDefinition}{Definición propia}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Observación}
 
 \DeclareMathOperator{\lebesgueMeasure}{\lambda}
 \DeclareMathOperator{\support}{\textnormal{sop}}
@@ -65,13 +71,11 @@
 % End math intervals %
 %%%%%%%%%%%%%%%%%%%%%%
 
-\theoremstyle{remark}
-\newtheorem{remark}{Observación}
-
 \title{Soluciones positivas a la ecuación del calor}
 \author{Pablo Brianese}
 % \end{}
 \begin{document}
+  % \begin{}
   \maketitle
 
   % Libro: Primer curso de ecuaciones en derivadas parciales
@@ -356,5 +360,120 @@
       u(x, t)
     \end{align}
     que prueba que la integral es finita y, de paso, el lema.
+  \end{proof}
+  % \end{}
+
+  La siguiente consecuencia consiste en hacer una traslación en el tiempo, pero es útil tenerla escrita con precisión.
+
+  \begin{corollary}
+    Sea \(u\) en las hipótesis del lema \ref{}.  % 6.4.3
+    Si \(t_1 \in \interval{oo}{0}{T}\), entonces
+    \begin{align}
+      &\int_{\realNumbers^n} K_t(x - y) u(y, t_1) \dd y
+      \leq
+      u(x, t + t_1)
+      && \text{si } 0 < t < T - t_1
+    \end{align}
+  \end{corollary}
+
+  La etapa decisiva de los resultados de Widder viene a continuación.
+  \begin{theorem}
+    Sea \(u \in C(\realNumbers^n \times \interval{co}{0}{T})\), tal que \(u_t, u_{x_i x_j} \in C(\realNumbers^n \times \interval{co}{0}{T})\).
+    Supongamos que
+    \begin{enumerate}
+      \item \(u_t - \laplacian u = 0\) en \(\realNumbers^n \times \interval{co}{0}{T}\);
+      \item \(u(x, t) \geq 0\) en \(\realNumbers^n \times \interval{co}{0}{T}\);
+      \item \(u(x, 0) = 0\) en \(\realNumbers^n\).
+    \end{enumerate}
+    Entonces \(u(x, t) \equiv 0\) si \((x, t) \in \realNumbers^n \times \interval{oo}{0}{T}\).
+  \end{theorem}
+  \begin{proof}
+    Por el lema \ref{}  % 6.4.2
+    se tiene que
+    \begin{align}
+      v(x, t)
+      =
+      \int_0^t u(x, s) \dd s
+    \end{align}
+    es solución de la ecuación del calor y al ser \(u \geq 0\), \(v_t \geq 0\) y \(\laplacian v \geq 0\).
+    Observamos que, si se prueba que \(v(x, t) \equiv 0\), se tiene \(u(x, t) \equiv 0\).
+    Por tanto suponemos, sin que ello suponga restricción, que \(u\) además verifica
+    \begin{enumerate}
+      \item \(u_t \geq 0\);
+      \item \(\laplacian u \geq 0\), es decir, \(u\) es subarmónica como función de \(x\) para \(t\) fijo.
+    \end{enumerate}
+    
+    Fijamos \(t_1 \in \interval{oo}{0}{T}\) y \(t_0 \in \interval{oo}{0}{T - t_1}\).
+    Por el corolatio \ref{}  % 6.4.4
+    se tiene que
+    \begin{align}
+      M
+      =
+      \sqrt{4 \pi t_0}^n \int_{\realNumbers^n} K_{t_0}(y) u(y, t_1) \dd y
+      \leq
+      \sqrt{4 \pi t_0}^n u(0, t_0 + t_1)
+      <
+      \infty
+    \end{align}
+    Es claro que si \(\abs{y} \leq 2 \abs{x}\) se tiene
+    \begin{align}
+      \sqrt{4 \pi t_0}^n K_{t_0}(y)
+      =
+      \exp\!\left(- \frac{\abs{y}^2}{4 t_0}\right)
+      \geq
+      \exp\!\left(- \frac{\abs{x}^2}{t_0}\right)
+    \end{align}
+    De otra parte, como \(u\) es subarmónica se tiene la desigualdad de la media para bolas \ref{}  % 5.5.6'
+    , es decir,
+    \begin{align}
+      u(x, t_1)
+      \leq
+      \frac{1}{\abs{B_1} \abs{x}^n} \int_{\abs{x - y} \leq \abs{x}} u(y, t_1) \dd y
+      \leq
+      \frac{1}{\abs{B_1} \abs{x}^n} \int_{\abs{y} \leq 2 \abs{x}} u(y, t_1) \dd y
+    \end{align}
+    pues se tiene que la bola de centro \(x\) y radio \(\abs{x}\) está contenida en la bola de centro el origen y radio \(2 \abs{x}\).
+    Como consecuencia de \ref{}  % 6.4.15
+    , y usando también \ref{},  % 6.4.14
+    concluimos que
+    \begin{align}
+      \abs{x}^n u(x, t_1) \exp\!\left(- \frac{\abs{x}^2}{t_0}\right)
+      &\leq
+      \frac{1}{\abs{B_1}} \int_{\abs{y} \leq 2 \abs{x}} 
+        \exp\!\left(- \frac{\abs{y}^2}{4 t_0}\right) u(y, t_1)
+      \dd y
+      \\
+      &\leq
+      \frac{\sqrt{4 \pi t_0}^n}{\abs{B_1}} \int_{\realNumbers^n} 
+        K_{t_0}(y) u(y, t_1)
+      \dd y
+      \\
+      &=
+      \frac{M}{\abs{B_1}}
+    \end{align}
+    Es decir, hemos demostrado que con \(M_1 \coloneq M / \abs{B_1}\)
+    \begin{align}
+      0
+      \leq
+      u(x, t_1)
+      \leq
+      M_1 \frac{\exp\!\left(- \frac{\abs{x}^2}{t_0}\right)}{\abs{x}^n}
+      \leq
+      M_1 \exp\!\left(- \frac{\abs{x}^2}{t_0}\right)
+    \end{align}
+    si \(\abs{x} > 1\).
+    Como \(u(x, t_1)\) es continua para \(\abs{x} \leq 1\), está acotada en la bola unidad.
+    Por consiguiente, para una constante conveniente \(M_2\), se tiene
+    \begin{align}
+      &0
+      \leq
+      u(x, t_1)
+      \leq
+      M_2 \exp\!\left(- \frac{\abs{x}^2}{t_0}\right)
+      && (x, t) \in \realNumbers^n \times \interval{oo}{0}{t_1}
+    \end{align}
+    Aplicando el teorema \ref{}  % 6.4.1
+    resulta \(u(x, t) \equiv 0\) en la banda \(\realNumbers^n \times \interval{oo}{0}{t_1}\).
+    Como tanto \(t_0\) y \(t_1\) son arbitrarios se prueba el teorema.
   \end{proof}
 \end{document}
