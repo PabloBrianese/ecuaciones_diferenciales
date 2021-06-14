@@ -246,13 +246,24 @@
   .
   Este resultado será crucial para probar el resultado de unicidad, y como consecuencia, el teorema de representación de soluciones positivas de Widder.
 
+  \begin{definition}[Núcleo de Gauss]
+    \begin{align}
+      K(x)
+      &=
+      \frac{1}{\sqrt{4 \pi}^n} \exp\!\left(- \frac{\abs{x}^2}{4}\right)
+      \\
+      K_t(x)
+      &=
+      \frac{1}{\sqrt{t}^n} K\!\left(\frac{x}{\sqrt{t}}\right)
+      =
+      \frac{1}{\sqrt{4 \pi t}^n} \exp\!\left(- \frac{\abs{x}^2}{4 t}\right)
+    \end{align}
+    
+  \end{definition}
+
   \begin{lemma} %6.4.3
     Sea \(u \in C(\realNumbers^n \times \interval{co}{0}{T})\) tal que \(u_t, u_{x_i x_j} \in C(\realNumbers^n \times \interval{oo}{0}{T})\).
-    Supongamos que
-    \begin{enumerate}
-      \item \(u_t - \laplacian u = 0\) en \(\realNumbers^n \times \interval{co}{0}{T}\);
-      \item \(u(x, t) \geq 0\) en \(\realNumbers^n \times \interval{co}{0}{T}\). 
-    \end{enumerate}
+    Supongamos que \(u_t = \laplacian u\) y \(u \geq 0\).
     Entonces se verifica
     \begin{align}
       \label{inequality:Kt-u-convolutionInequality}
@@ -262,7 +273,7 @@
     \end{align}
   \end{lemma}
   \begin{proof}
-    Con las hipótesis que tenemos, lo primero que no está claro es que la integral en \ref{inequality:Kt-u-convolutionInequality} sea finita.
+    Lo primero que no está claro es que la integral en \ref{inequality:Kt-u-convolutionInequality} sea finita.
     Por simplicidad llamaremos \(f(x) = u(x, 0)\) y consideramos una función de corte regular, precisamente, \(\phi \in C^{\infty}_0(\realNumbers^n)\) verificando
     \begin{align}
       \phi_R(x)
@@ -475,5 +486,43 @@
     Aplicando el teorema \ref{}  % 6.4.1
     resulta \(u(x, t) \equiv 0\) en la banda \(\realNumbers^n \times \interval{oo}{0}{t_1}\).
     Como tanto \(t_0\) y \(t_1\) son arbitrarios se prueba el teorema.
+  \end{proof}
+
+  Para finalizar este apartado obtendremos una consecuencia importante del teorema \ref{}  % 6.4.5
+  que mejora el lema \ref{},  % 6.4.3
+  estableciendose la representación de las soluciones positivas de la ecuación del calor como la integral de Gauss del valor inicial.
+
+  \begin{theorem}
+    Sea \(u \in C(\realNumbers^n \times \interval{co}{0}{T})\) tal que \(u_t, u_{x_i x_j} \in C(\realNumbers^n \times \interval{oo}{0}{T})\).
+    Supongamos que
+    \begin{enumerate}
+      \item \(u_t - \laplacian u = 0\) en \( \realNumbers^n \times \interval{co}{0}{T}\);
+      \item \(u(x, t) \geq 0\) en \( \realNumbers^n \times \interval{co}{0}{T}\);
+    \end{enumerate}
+    Entonces se verifica
+    \begin{align}
+      \int_{\realNumbers^n} K_t(x - y) u(y, 0) \dd y
+      =
+      u(x, t)
+    \end{align}
+  \end{theorem}
+  \begin{proof}
+    En el lema \ref{}  % 6.4.3
+    se estableció la desigualdad
+    \begin{align}
+      \int_{\realNumbers^n} K_t(x - y) u(y, 0) \dd y
+      \leq
+      u(x, t)
+    \end{align}
+    Por otra parte, ambos miembros de la desigualdad son solución de la ecuación del calor, por tanto
+    \begin{align}
+      w(x, t)
+      =
+      u(x, t) - \int_{\realNumbers^n} K_t(x - y) u(y, 0) \dd y
+      \geq
+      0
+    \end{align}
+    verifica las hipótesis del toerema \ref{}.  % 6.4.5
+    Consecuentemente \(w(x, t) \equiv 0\) que es lo que queríamos.
   \end{proof}
 \end{document}
