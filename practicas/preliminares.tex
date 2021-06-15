@@ -795,6 +795,69 @@ Este tipo de problema surge de forma natural cuando se utiliza el método de sep
 \begin{exercise}
   Calcular la serie de Fourier en \(\interval{cc}{- \pi}{\pi}\) de \(f(x) = x\).
 \end{exercise}
+\begin{proof}[Cálculo]
+  Para calcular los coeficientes de Fourier \(c_n\) de la función \(f(x) = x\), usamos la ecuación \(e^{i y} = \cos(y) + i \sin(y)\) \((y \in \realNumbers)\)
+  \begin{align}
+    c_n
+    &=
+    \frac{1}{2 \pi} \int_{- \pi}^{\pi} f(x) e^{- i n x} \dd x
+    \\
+    &=
+    \frac{1}{2 \pi} \int_{- \pi}^{\pi} x e^{- i n x} \dd x
+    \\
+    &=
+    \frac{1}{2 \pi} \int_{- \pi}^{\pi} x (\cos(- i n x) + i \sin(- i n x)) \dd x
+    \\
+    &=
+    \frac{1}{2 \pi}
+    \left(
+      \int_{- \pi}^{\pi} x \cos(n x) \dd x
+      -
+      i \int_{- \pi}^{\pi} x \sin(n x) \dd x
+    \right)
+  \end{align}
+  Tenemos \(\int_{- \pi}^{\pi} x \cos(n x) \dd x = 0\) porque \(x \cos(n x)\) es una función impar.
+  Luego
+  \begin{align}
+    c_n
+    &=
+    \frac{- i}{2 \pi}
+    \int_{- \pi}^{\pi} x \sin(n x) \dd x
+  \end{align}
+  Si \(n = 0\), entonces \(c_0 = 0\).
+  Caso contrario
+  \begin{align}
+    c_n
+    &=
+    \frac{1}{2 \pi i}
+    \left(
+      \left. x \frac{\cos(n x)}{n} \right|_{- \pi}^{\pi}
+      -
+      \int_{- \pi}^{\pi} \frac{\cos(n x)}{n} \dd x
+    \right)
+    \\
+    &=
+    \frac{1}{2 \pi i}
+    \left(
+      2 \pi \frac{\cos(n \pi)}{n}
+      +
+      \left. \frac{\sin(n x)}{n^2} \right|_{- \pi}^{\pi}
+    \right)
+    \\
+    &=
+    \frac{1}{2 \pi i}
+    \left(
+      2 \pi \frac{(- 1)^n}{n}
+      +
+      \frac{\sin(n \pi) - \sin(n \pi)}{n^2}
+    \right)
+    \\
+    &=
+    \frac{(- 1)^n}{i n}
+  \end{align}
+  En fin \(c_0 = 0\) y \(c_n = (- 1)^n / (i n)\).
+\end{proof}
+
 
 \section{Espacio de Schwartz}
 
