@@ -22,7 +22,9 @@
 \newcommand{\placeholderParameter}{-}
 \newcommand{\characteristic}{\mathbbm{1}}
 \newcommand{\naturalNumbers}{\mathbb{N}}
+\newcommand{\integerNumbers}{\mathbb{Z}}
 \newcommand{\realNumbers}{\mathbb{R}}
+\newcommand{\complexNumbers}{\mathbb{C}}
 \newcommand{\integrableFunctions}{L^1(\realNumbers^n)}
 \newcommand{\locallyIntegrableFunctions}{L^1_{\textnormal{loc}}(\realNumbers^n)}
 \newcommand{\local}{\textnormal{loc}}
@@ -73,6 +75,8 @@
 \begin{document}
 \maketitle
 % \begin{}
+  \section{Convolución y Mollifiers}
+
   \begin{definition}
     Dadas \(f, g : \realNumbers^n \rightarrow \realNumbers\) ambas en \(L(\realNumbers^n)\), definimos la convolución de la siguiente manera
     \begin{align}
@@ -653,7 +657,6 @@
     En conclusión, dado un conjunto compacto \(K \subseteq \realNumbers^n\) y un \(\varepsilon > 0\), existe un \(\delta > 0\) tal que para todo \(\delta' \in \interval{oc}{0}{\delta}\) y todo \(x \in K\), se verifica la cota \(\abs{f(x) - f * \phi_{\delta}(x)} \leq \varepsilon\).
     Es decir, \(f * \phi_{\delta} \rightarrow f\) uniformemente en compactos.
   \end{proof}
-% \end{}
 
   % Book: Real and Complex Analysis
   % Authors: Walter Rudin
@@ -774,5 +777,88 @@
     Además \(\norm{\phi}_p^p < \infty\) porque \(\phi \in C^{\infty}_c(\realNumbers^n)\).
     Por lo tanto, la convergencia \(\norm{f - f_{\delta}}_p \rightarrow 0\) cuando \(\delta \rightarrow 0\) se sigue del Teorema de Convergencia Dominada.
   \end{proof}
+% \end{}
+
+\section{Series de Fourier}
+
+Dada una función \(f \in L^1(\interval{cc}{- \pi}{\pi})\) le asociamos una serie de Fourier
+\begin{align}
+  f(x)
+  \sim
+  \sum_{n \in \integerNumbers} c_n e^{i n x}
+\end{align}
+donde \(c_n = \frac{1}{2 \pi} \int_{- \pi}^{\pi} f(x) e^{- i n x} \dd x\), llamados coeficientes de Fourier, también notados \(\hat{f}(n)\).
+Se ha estudiado qué condiciones debe satisfacer una función para que la serie converja a la función en cuestión y los distintos tipos de convergencia.
+
+Este tipo de problema surge de forma natural cuando se utiliza el método de separación de variables para resolver una ecuación en derivadas parciales.
+
+\begin{exercise}
+  Calcular la serie de Fourier en \(\interval{cc}{- \pi}{\pi}\) de \(f(x) = x\).
+\end{exercise}
+\begin{proof}[Cálculo]
+  Para calcular los coeficientes de Fourier \(c_n\) de la función \(f(x) = x\), usamos la ecuación \(e^{i y} = \cos(y) + i \sin(y)\) \((y \in \realNumbers)\)
+  \begin{align}
+    c_n
+    &=
+    \frac{1}{2 \pi} \int_{- \pi}^{\pi} f(x) e^{- i n x} \dd x
+    \\
+    &=
+    \frac{1}{2 \pi} \int_{- \pi}^{\pi} x e^{- i n x} \dd x
+    \\
+    &=
+    \frac{1}{2 \pi} \int_{- \pi}^{\pi} x (\cos(- i n x) + i \sin(- i n x)) \dd x
+    \\
+    &=
+    \frac{1}{2 \pi}
+    \left(
+      \int_{- \pi}^{\pi} x \cos(n x) \dd x
+      -
+      i \int_{- \pi}^{\pi} x \sin(n x) \dd x
+    \right)
+  \end{align}
+  Tenemos \(\int_{- \pi}^{\pi} x \cos(n x) \dd x = 0\) porque \(x \cos(n x)\) es una función impar.
+  Luego
+  \begin{align}
+    c_n
+    &=
+    \frac{- i}{2 \pi}
+    \int_{- \pi}^{\pi} x \sin(n x) \dd x
+  \end{align}
+  Si \(n = 0\), entonces \(c_0 = 0\).
+  Caso contrario
+  \begin{align}
+    c_n
+    &=
+    \frac{1}{2 \pi i}
+    \left(
+      \left. x \frac{\cos(n x)}{n} \right|_{- \pi}^{\pi}
+      -
+      \int_{- \pi}^{\pi} \frac{\cos(n x)}{n} \dd x
+    \right)
+    \\
+    &=
+    \frac{1}{2 \pi i}
+    \left(
+      2 \pi \frac{\cos(n \pi)}{n}
+      +
+      \left. \frac{\sin(n x)}{n^2} \right|_{- \pi}^{\pi}
+    \right)
+    \\
+    &=
+    \frac{1}{2 \pi i}
+    \left(
+      2 \pi \frac{(- 1)^n}{n}
+      +
+      \frac{\sin(n \pi) - \sin(n \pi)}{n^2}
+    \right)
+    \\
+    &=
+    \frac{(- 1)^n}{i n}
+  \end{align}
+  En fin \(c_0 = 0\) y \(c_n = (- 1)^n / (i n)\).
+\end{proof}
+
+
+\section{Espacio de Schwartz}
 
 \end{document}
