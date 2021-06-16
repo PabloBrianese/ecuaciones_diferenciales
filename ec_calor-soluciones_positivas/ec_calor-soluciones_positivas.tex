@@ -114,6 +114,37 @@
 
   Más precisamente se tiene el siguiente enunciado.
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Libro: Guía de Ecuaciones Diferenciales
+  % Autores: Eduardo Chiumiento
+  % Página: 19
+
+  Introducimos la solución fundamental de la ecuación fundamentalde la ecuación del calor como
+  \begin{align}
+    \label{solution:fundamentalSolutionOfHeatEquation}
+    \Phi(x, t)
+    =
+    \left\{
+      \begin{aligned}
+        &(4 \pi t)^{- n / 2} e^{- \abs{x}^2 / 4 t}
+          & \text{si } x \in \realNumbers^n, t > 0
+        \\
+        &0
+          & \text{si } x \in \realNumbers^n, t < 0
+      \end{aligned}
+    \right.
+  \end{align}
+  Observemos que satisface las siguientes propiedades:
+  \begin{itemize}
+    \item no está definida en \(t = 0\) porque
+    \(\lim_{t \rightarrow 0^+} \Phi(x, f) = 0\) \((\forall x \in \realNumbers^n \setminus 0)\) y \(\lim_{t \rightarrow 0^+} \Phi(0, t) = \infty\);
+    \item satisface la ecuación \(\Phi_t - \laplacian \Phi = 0\) en \(\realNumbers^n \times \realNumbers \setminus (0, 0)\);
+    \item \(\int_{\realNumbers^n} \Phi(x, t) \dd x = 1\) \((\forall t > 0)\);
+    \item la función \((x, t) \mapsto (a x, a^2 t)\) preserva soluciones de la ecuación del calor.
+    Observemos que también \(\Phi(a x, a^2, t) = \Phi(x, t)\) (comparar con transformaciones ortogonales y soluciones radiales en la ecuación de Laplace).
+  \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{theorem}
     Sea \(u \in C(\realNumbers^N \times \interval{oo}{0}{T})\), verificando el problema
     \begin{align}
