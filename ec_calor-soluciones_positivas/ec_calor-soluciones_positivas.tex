@@ -99,7 +99,7 @@
     \label{equation:heatEquationRepresentationFormula}
     u(x, t)
     =
-    \frac{1}{\sqrt{4 \pi t}^N} \int_{\realNumbers^N} \exp\!\left(- \frac{\abs{x - y}^2}{4 t}\right) u(y, 0) \dd y
+    \frac{1}{\sqrt{4 \pi t}^n} \int_{\realNumbers^n} \exp\!\left(- \frac{\abs{x - y}^2}{4 t}\right) u(y, 0) \dd y
   \end{align}
   caracteriza las soluciones positivas.
 
@@ -146,9 +146,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{theorem}
-    Sea \(u \in C(\realNumbers^N \times \interval{oo}{0}{T})\), verificando el problema
+    Sea \(u \in C(\realNumbers^n \times \interval{oo}{0}{T})\), verificando el problema
     \begin{align}
-      \left(
+      \left\{
         \begin{aligned}        
           &u_t - \laplacian u = 0
             && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
@@ -157,12 +157,12 @@
             && (x, t) \in \realNumbers^n \times \interval{oo}{0}{T}
           \\
           &u(x, 0) = 0
-            && x \in \realNumbers^N
+            && x \in \realNumbers^n
         \end{aligned}
       \right.
     \end{align}
     para ciertas constantes positivas \(M, a\).
-    Entonces \(u(x, t) = 0\) para todo \((x, t) \in \realNumbers^N \times \interval{oo}{0}{T}\).
+    Entonces \(u(x, t) = 0\) para todo \((x, t) \in \realNumbers^n \times \interval{oo}{0}{T}\).
   \end{theorem}
   \begin{proof}
     La demostración se hace iterando el resultado sobre intervalos del tiempo de longitud convenientemente pequeña.
@@ -176,7 +176,7 @@
       \label{equation:shortTimeHeatEquationSolution}
       &v(x, t)
       =
-      \sqrt{4 \pi}^N K_{1 + \lambda^2 t} (\lambda x)
+      (4 \pi)^{n / 2} \Phi(\lambda x, 1 + \lambda^2 t)
       && \text{donde } \lambda = i \sqrt{4A}
     \end{align}
     y \(K_t(x)\) es la solución fundamental de la ecuación del calor como se obtuvo en la sección 
@@ -184,17 +184,17 @@
     .
     Simplemente la regla de la cadena y la expresión
     \ref{equation:shortTimeHeatEquationSolution}
-    demuestran que \(v(x, t)\) es solución de la ecuación del calor en \(\realNumbers^N \times \interval{oo}{0}{1 / (4 A)}\).
-    Además, como para cada \(x \in \realNumbers^N\), \(v(x, t)\) es una función creciente en \(t\), se concluye que
+    demuestran que \(v(x, t)\) es solución de la ecuación del calor en \(\realNumbers^n \times \interval{oo}{0}{1 / (4 A)}\).
+    Además, como para cada \(x \in \realNumbers^n\), \(v(x, t)\) es una función creciente en \(t\), se concluye que
     \begin{align}
       &v(x, t)
       \geq
       v(x, 0)
       =
       e^{A \abs{x}^2}
-      && (x, t) \in \realNumbers^N \times \interval{oo}{0}{1 / (4 A)}
+      && (x, t) \in \realNumbers^n \times \interval{oo}{0}{1 / (4 A)}
     \end{align}
-    Fijando un punto \((x_0, t_0)\) en la banda \(\realNumbers^N \times \interval{oo}{0}{1 / (4 A)}\), elegimos \(R > \abs{x_0}\) y tomamos un múltiplo de la función \(v\).
+    Fijando un punto \((x_0, t_0)\) en la banda \(\realNumbers^n \times \interval{oo}{0}{1 / (4 A)}\), elegimos \(R > \abs{x_0}\) y tomamos un múltiplo de la función \(v\).
     Exactamente tomamos
     \begin{align}
       w(x, t)
@@ -242,11 +242,11 @@
     Tomando límites en \ref{inequality:fundamentalSolutionBound} cuando \(R \rightarrow \infty\), obtenemos
     \begin{align}
       &u(x_0, t_0) = 0
-      && (x_0, t_0) \in \realNumbers^N \times \interval{oo}{0}{1 / (4 A)}
+      && (x_0, t_0) \in \realNumbers^n \times \interval{oo}{0}{1 / (4 A)}
     \end{align}
     ya que hemos elegido \(A > a\).
     Para acabar, repetimos el argumento anterior a la función \(u(x, t + \tau)\), con \(0 < \tau < 1 / (4 A)\);
-    de esta forma concluimos que \(u(x, y) \equiv 0\) en \(\realNumbers^N \times \interval{oo}{0}{ 2 / (4 A)}\).
+    de esta forma concluimos que \(u(x, y) \equiv 0\) en \(\realNumbers^n \times \interval{oo}{0}{ 2 / (4 A)}\).
     Repitiendo el argumento una cantidad finita de veces, concluímos la prueba.
   \end{proof}
 
