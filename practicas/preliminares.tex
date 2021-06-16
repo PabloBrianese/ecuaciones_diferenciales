@@ -778,7 +778,6 @@
     Además \(\norm{\phi}_p^p < \infty\) porque \(\phi \in C^{\infty}_c(\realNumbers^n)\).
     Por lo tanto, la convergencia \(\norm{f - f_{\delta}}_p \rightarrow 0\) cuando \(\delta \rightarrow 0\) se sigue del Teorema de Convergencia Dominada.
   \end{proof}
-% \end{}
 
 \section{Series de Fourier}
 
@@ -858,7 +857,15 @@ Este tipo de problema surge de forma natural cuando se utiliza el método de sep
   \end{align}
   En fin \(c_0 = 0\) y \(c_n = (- 1)^n / (i n)\).
 \end{proof}
+% \end{}
 
+\begin{exercise}
+  Probar que si \(f\) es periódica y derivable, entonces la serie de Fourier asociada a \(f'\) es
+  \begin{align}
+    \sum_{n \in \integerNumbers} \fourier{f} (n) (i n) e^{i n x}
+  \end{align}
+  donde \(\fourier{f}(n)\) es el coeficiente de orden \(n\) de \(f\).
+\end{exercise}
 
 \section{Espacio de Schwartz}
 
