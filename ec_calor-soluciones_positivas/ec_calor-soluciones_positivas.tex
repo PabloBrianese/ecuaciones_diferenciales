@@ -166,10 +166,12 @@
   \end{theorem}
   \begin{proof}
     La demostración se hace iterando el resultado sobre intervalos del tiempo de longitud convenientemente pequeña.
-    Para empezar elegimos \(A\) tal que \(A > a\) y \(A > 1 / (4 T)\).
+    Para empezar elegimos \(A\) tal que \(A > a\) y 
+    \(A > 1 / (4 T)\).  % Esta hipótesis contiene un error
     Consideramos la función
     \begin{align}
-      v(x, t) = \frac{1}{\sqrt{1 - 4 A t}^N} \exp\!\left(\frac{A \abs{x}^2}{1 - 4 A t}\right)
+      % Esta ecuación contiene un error
+      v(x, t) = \frac{1}{(1 - 4 A t)^{n / 2}} \exp\!\left(\frac{A \abs{x}^2}{1 - 4 A t}\right)
     \end{align}
     que como se observa es precisamente
     \begin{align}
