@@ -28,8 +28,8 @@
 \newcommand{\integrableFunctions}{L^1(\realNumbers^n)}
 \newcommand{\locallyIntegrableFunctions}{L^1_{\textnormal{loc}}(\realNumbers^n)}
 \newcommand{\local}{\textnormal{loc}}
-\newcommand{\closure}[1]{\bar{1}}
-\newcommand{\fourier}[1]{\hat{1}}
+\newcommand{\closure}[1]{\bar{#1}}
+\newcommand{\fourier}[1]{\hat{#1}}
 
 \newtheorem{theorem}{Teorema}
 \newtheorem{definition}{Definición}
@@ -866,6 +866,21 @@ Este tipo de problema surge de forma natural cuando se utiliza el método de sep
   \end{align}
   donde \(\fourier{f}(n)\) es el coeficiente de orden \(n\) de \(f\).
 \end{exercise}
+
+% Parece ser que este ejercicio es falso.
+% Hay que revisar esta página
+% https://math.stackexchange.com/questions/185303/does-the-everywhere-differentiability-of-f-imply-it-is-absolutely-continuous-o
+
+\begin{proof}
+  Como \(f\) es derivable, es continua y por ello medible.
+  Esto permite escribir \(f'\) como límite puntual de una sucesión de funciones medibles \(f_n(x) = n (f(x + n^-1) - f(x))\) con \(n \geq 1\).
+  Por lo tanto \(f'\) es medible.
+  \begin{align}
+    \widehat{(f')}(n)
+    &=
+    \frac{1}{2 \pi} \int_{- \pi}^{\pi} f'(x) e^{- i n x} \dd x
+  \end{align}
+\end{proof}
 
 \section{Espacio de Schwartz}
 
