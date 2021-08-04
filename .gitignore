@@ -4,4 +4,7 @@
 *.fls
 *.log
 *.synctex.gz
-*.pdf
+
+# Bibliografía
+*/[Ireneo_Peral_Alonso]_Primer_curso_de_ecuaciones_e(b-ok.org).pdf
+
