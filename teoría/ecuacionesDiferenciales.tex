@@ -1,7 +1,1317 @@
 \documentclass{report}
+% \begin{}
+
+% LaTeX Packages %
+%%%%%%%%%%%%%%%%%%
+\usepackage{etoolbox}
+
+% Text Packages %
+%%%%%%%%%%%%%%%%%
 \usepackage[spanish]{babel}
-\title{Ecuaciones diferenciales}
+\usepackage[inline]{enumitem}
+\usepackage{xcolor}
+
+% Math Packages %
+%%%%%%%%%%%%%%%%%
+\usepackage{mathtools}
+\usepackage{amssymb, amsthm}
+\usepackage{physics}
+\usepackage{bbm}
+
+% Math symbols %
+%%%%%%%%%%%%%%%%
+\newcommand{\placeholderParameter}{-}
+\newcommand{\characteristic}{\mathbbm{1}}
+\newcommand{\naturalNumbers}{\mathbb{N}}
+\newcommand{\integerNumbers}{\mathbb{Z}}
+\newcommand{\realNumbers}{\mathbb{R}}
+\newcommand{\complexNumbers}{\mathbb{C}}
+\newcommand{\integrableFunctions}{L^1(\realNumbers^n)}
+\newcommand{\locallyIntegrableFunctions}{L^1_{\textnormal{loc}}(\realNumbers^n)}
+\newcommand{\local}{\textnormal{loc}}
+\newcommand{\closure}[1]{\bar{1}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{definition}{Definición}
+\newtheorem{myDefinition}{Definición propia}
+\newtheorem{exercise}{Ejercicio}
+\newtheorem{myLemma}{Lema propio}
+\newtheorem{lemma}{Lema}
+\theoremstyle{remark}
+\newtheorem{remark}{Observación}
+
+\DeclareMathOperator{\lebesgueMeasure}{\lambda}
+\DeclareMathOperator{\support}{\textnormal{sop}}
+
+% Math intervals %
+%%%%%%%%%%%%%%%%%%
+\newcommand{\leftOpenInterval}{\left]}
+\newcommand{\rightOpenInterval}{\right[}
+\newcommand{\leftClosedInterval}{\left[}
+\newcommand{\rightClosedInterval}{\right]}
+\newcommand{\interval}[3]{%
+  \ifstrequal{#1}{oo}{%
+    \leftOpenInterval #2, #3 \rightOpenInterval%
+  }{%
+    \ifstrequal{#1}{co}{%
+      \leftClosedInterval #2, #3 \rightOpenInterval%
+    }{%
+      \ifstrequal{#1}{oc}{
+        \leftOpenInterval #2, #3 \rightClosedInterval%
+      }{%
+        \ifstrequal{#1}{cc}{
+          \leftClosedInterval #2, #3 \rightClosedInterval
+        }{%
+        }%
+      }%
+    }%
+  }%
+}
+% End math intervals %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Ecuaciones diferenciales \\ Clase 0}
 \author{Pablo Brianese}
 \begin{document}
   \maketitle
+
+  \section{Teorema de la Divergencia de Gauss}
+
+  Sea \(n = 2\) y consideremos una función \(\vec{F} : \realNumbers^2 \rightarrow \realNumbers^2\) de clase \(C^1\).
+  Podemos escribir en coordenadas \(\vec{F}(x, y) = (f_1(x, y), f_2(x, y))\).
+  
+  Sea \(R\) una región que puede expresarse como \(\{(x, y) \in \realNumbers^2 :  a < x < b, \phi_1(x) < y < \phi_2(x)\}\), una región delimitada por las gráficas de dos funciones continuamente derivables \(\phi_1, \phi_2 : \interval{cc}{a}{b} \rightarrow \realNumbers\), que satisfacen \(\phi_1(a) = \phi_2(a)\), \(\phi_1(x) < \phi_2(x)\) para todo \(x \in \interval{oo}{a}{b}\), \(\phi_1(b) = \phi_2(b)\).
+  Calculemos ahora una primera integral
+  \begin{align}
+    \int_R \frac{\partial f_2}{\partial y} dy dx
+    =
+    \int_a^b\int_{\phi_1(x)}^{\phi_2(x)} \frac{\partial f_2}{\partial y} dy dx
+    =
+    \int_a^b f_2(x, \phi_2(x)) - f_2(x, \phi_1(x)) dx
+  \end{align}
+  Sea \(\vec{n} = \tilde{n} / \norm{\tilde{n}}\) la normal exterior de la frontera \(\partial R\),
+  donde
+  \begin{align}
+    \tilde{n}
+    =
+    \left\{
+      \begin{aligned}
+        (- \phi_2'(x), 1)
+        && \text{en }
+        \Gamma_2 = \{(x, \phi_2(x)) : x \in \interval{cc}{a}{b}\}
+        \\
+        (\phi_1'(x), - 1)
+        && \text{en }
+        \Gamma_1 = \{(x, \phi_1(x)) : x \in \interval{cc}{a}{b}\}
+      \end{aligned}
+    \right.
+  \end{align}
+  con
+  \begin{align}
+    \norm{\tilde{n}}
+    =
+    \left\{
+      \begin{aligned}
+        \sqrt{1 + \phi_2'(x)^2}
+        && \text{en }
+        \Gamma_2 = \{(x, \phi_2(x)) : x \in \interval{cc}{a}{b}\}
+        \\
+        \sqrt{1 + \phi_1'(x)^2}
+        && \text{en }
+        \Gamma_1 = \{(x, \phi_1(x)) : x \in \interval{cc}{a}{b}\}
+      \end{aligned}
+    \right.
+  \end{align}
+  Entonces, si \(\vec{n} = (n_1, n_2)\), se tiene 
+  \begin{align}
+    n_2
+    =
+    \left\{
+      \begin{aligned}
+        (1 + \phi_2'(x)^2)^{- 1 / 2}
+        && \text{en }
+        \Gamma_2 = \{(x, \phi_2(x)) : x \in \interval{cc}{a}{b}\}
+        \\
+        - (1 + \phi_1'(x)^2)^{- 1 / 2}
+        && \text{en }
+        \Gamma_1 = \{(x, \phi_1(x)) : x \in \interval{cc}{a}{b}\}
+      \end{aligned}
+    \right.
+  \end{align}
+  Esto nos permite calcular una segunda integral
+  \begin{align}
+    \int_{\partial R} f_2 n_2 d \sigma(x)
+    &=
+    \int_{\Gamma_1} f_2 n_2 d \sigma(x)
+    + \int_{\Gamma_2} f_2 n_2 d \sigma(x)
+    \\
+    &=
+    \int_a^b
+      - \frac{f_2(x, \phi_1(x))}{\sqrt{1 + \phi_1'(x)^2}}
+    \left( \sqrt{1 + \phi_1'(x)^2} d x \right)
+    \\
+    &\quad
+      + \int_a^b
+        \frac{f_2(x, \phi_2(x))}{\sqrt{1 + \phi_2'(x)^2}}
+      \left( \sqrt{1 + \phi_2'(x)^2} d x \right)
+    \\
+    &=
+    \int_a^b f_2(x, \phi_2(x)) - f_2(x, \phi_1(x)) dx
+  \end{align}
+  Comparando la primera y la segunda integral, resulta
+  \begin{align}
+    \label{equation:yAxis2dDivergenceTheorem}
+    \int_R \frac{\partial f_2}{\partial y} dy dx
+    =
+    \int_{\partial R} f_2 n_2 d \sigma
+  \end{align}
+
+  Supongamos que \(R\) también se puede expresar como \(\{(x, y) \in \realNumbers^2 : y \in \interval{oo}{c}{d}, \psi_1(y) < x < \psi_2(y)\}\), donde las funciones \(\psi_1, \psi_2 : \interval{cc}{c}{d} \rightarrow \realNumbers\) son continuamente derivables y satisfacen \(\psi_1(c) = \psi_2(c)\), \(\psi_1(y) < \psi_2(y)\) para todo \(y \in \interval{oo}{c}{d}\), \(\psi_1(b) = \psi_2(b)\).
+  Cálculos análogos a los anteriores prueban que
+  \begin{align}
+    \label{equation:xAxis2dDivergenceTheorem}
+    \int_R \frac{\partial f_1}{\partial x} dx dy
+    =
+    \int_{\partial R} f_1 n_1 d \sigma
+  \end{align}
+
+  Por tanto, de \eqref{equation:yAxis2dDivergenceTheorem} y de \eqref{equation:xAxis2dDivergenceTheorem} se tiene
+  \begin{align}
+    \label{equation:GaussDivergenceTheorem}
+    \int_R (\nabla \cdot \vec{F}) dx dy
+    =
+    \int_{\partial R} (\vec{F} \cdot \vec{n}) d \sigma
+  \end{align}
+  La idea intuitiva es que la \emph{variación} de \(\vec{F}\) en \(R\) es igual a la \emph{cantidad} de \(\vec{F}\) que entra o sale a través de \(\partial R\).
+  El segundo término de la ecuación, se llama \emph{flujo del campo \(\vec{F}\) a través de \(\partial R\)}.
+
+  Tanto el flujo como la divergencia tienen perfecto sentido en dimensiones mayores;
+  nos proponemos dar condiciones suficientes sobre los dominios \(R \subseteq \realNumbers^n\), de forma que la expresión \eqref{equation:GaussDivergenceTheorem} sea válida.
+  El caso más sencillo para el que se tiene la igualdad \eqref{equation:GaussDivergenceTheorem} es el siguiente.
+
+  Consideremos \(\vec{F} = (f_1, \dots, f_n)\) campo de vectores en \(\realNumbers^n\) y supongamos que
+  \begin{enumerate*}
+    \item \(f_i\) tiene derivadas primeras continuas para \(i = 1, \dots, n\);
+    \item existe una bola \(B\) cerrada tal que \(f_i(x) = 0\) si \(x \notin B\), para \(i = 1, \dots, n\).
+  \end{enumerate*}
+  Bajo estas condiciones podemos probar que 
+  \begin{align}
+    \label{equation:compactlySupportedFieldsHaveNullTotalDivergence}
+    \int_{\realNumbers^n} \nabla \cdot \vec{F} dx = 0
+  \end{align}
+  En efecto, por definición
+  \(
+    \nabla \cdot \vec{F}
+    =
+    \sum_{i = 1}^n
+    \frac{\partial f_i}{\partial x_i}
+  \).
+  Consideremos un \(i \in \{1, \dots, n\}\) arbitrario.
+  Usando el teorema de Fubini para funciones integrables (de soporte compacto, en nuestro caso) deducimos que
+  \begin{align}
+    \int_{\realNumbers^n} \frac{\partial f_i}{\partial x_i} dx
+    &=
+    \sum_{i = 1}^n
+    \int_{\realNumbers} \cdots \int_{\realNumbers}
+      \frac{\partial f_i}{\partial x_i}(x_1, \dots, x_n)
+    dx_1 \cdots dx_n
+    \\
+    \label{equation:integralsCanBePermutedBecauseOfCompactSupport}
+    &=
+    \int_{\realNumbers} \cdots \int_{\realNumbers} \int_{\realNumbers}
+      \frac{\partial f_i}{\partial x_i}(x_1, \dots, x_i, \dots, x_n)
+    dx_{i} dx_{\tau(2)} \cdots dx_{\tau(n)}
+  \end{align}
+  donde \(\tau\) es una permutación del conjunto \(\{1, \dots, n\}\) con \(\tau(1) = i\).
+  Pero, dado que \(f_i\) se anula fuera de la bola \(B\), el teorema fundamental del cálculo implica
+  \begin{align}
+    \label{equation:integralIsNullBecauseOfCompactSupport}
+    \int_{\realNumbers}
+      \frac{\partial f_i}{\partial x_i}(x_1, \dots, x_i, \dots, x_n)
+    dx_{i}
+    =
+    0
+  \end{align}
+  Luego \(\int_{\realNumbers^n} \frac{\partial f_i}{\partial x_i} dx = 0\).
+  Siendo \(i\) arbitrario, se sigue que es nula la integral sobre \(\realNumbers^n\) de la divergencia del campo \(\vec{F}\).
+  
+
+
+  \newpage
+  La segunda observación elemental que vamos a hacer posteriormente para hacer una demostración con cierta generalidad, es la siguiente.
+  Consideremos \(U \subseteq \realNumbers^{n - 1}\) un abierto acotado y \(\phi \in C^1(U)\) una función positiva.
+  Llamamos \(S\) a la gráfica de \(\phi\) pensada como subconjunto de \(\realNumbers^n\);
+  es decir,
+  \begin{align}
+    S
+    &=
+    \{(\overline{x}, \phi(\overline{x})) : \overline{x} \in U\}
+    \\
+    &=
+    \{(x_1, \dots, x_{n - 1}, \phi(x_1, \dots, x_{n - 1})) : (x_1, \dots, x_{n - 1}) \in U\}
+  \end{align}
+  Dada esta descripción paramétrica, podemos describir el espacio tangente a \(S\) en un punto \(p \in S\) como aquel generado por el conjunto de vectores tangentes
+  \begin{align}
+    \left\{
+      \left.
+        \frac{\partial}{\partial x_i}
+        (\overline{x}, \phi(\overline{x}))
+      \right\vert_{\overline{x} = p}
+    \right\}_{i = 1}^{n - 1}
+    &=
+    \left\{
+      e_i
+      +
+      \frac{\partial \phi}{\partial x_i}(\overline{x}) e_n
+    \right\}_{i = 1}^{n - 1}
+  \end{align}
+  Encontramos que el vector \((- \phi_{x_1}(\overline{x}), \dots, - \phi_{x_{n - 1}}(\overline{x}), 1)\) es ortogonal a cada uno de ellos.
+  Eso nos permite calcular \(\nu\), normal a \(S\) con la componente \(\nu_n(\overline{x}) > 0\), resultando
+  \begin{align}
+    \nu(p)
+    =
+    \frac{1}{(1 + \norm{\nabla \phi (\overline{x})}^2)^{1/2}}
+    \left(
+      - \frac{\partial \phi}{\partial x_1}(\overline{x}), \dots, - \frac{\partial \phi}{\partial x_{n - 1}}(\overline{x}),
+      1
+    \right)
+  \end{align}
+  
+  Consideremos ahora el conjunto \emph{cilíndrico} \(C\), definido por
+  \begin{align}
+    C
+    &=
+    \{(\overline{x}, x_n) : \overline{x} \in U, x_n \in \interval{cc}{0}{\phi(\overline{x})}\}
+  \end{align}
+  Si se toma \(f\) con derivadas primeras continuas en \(C\), tal que \(f(\overline{x}, 0) = 0\), se tiene
+  \begin{align}
+    \label{equation:divergenceTheoremInACylinder}
+    \int_C \frac{\partial f}{\partial x_n}(x) dx
+    =
+    \int_S f \nu_n d \sigma
+  \end{align}
+  En efecto, simplificar el lado izquierdo de la ecuación es sencillo
+  \begin{align}
+    \int_C \frac{\partial f}{\partial x_n}(x) dx
+    =
+    \int_U
+      \int_0^{\phi(\overline{x})}
+        \frac{\partial f}{\partial x_n} (\overline{x}, x_n)
+      d x_n
+    d \overline{x}
+    =
+    \int_U
+      f(\overline{x}, \phi(\overline{x}))
+    d \overline{x}
+  \end{align}
+  Mientras que la misma tarea es compleja para la integral de superficie del lado derecho.
+  Por definición
+  \begin{align}
+    \int_S f \nu_n d \sigma
+    &=
+    \int_U
+      f(\overline{x}, \phi(\overline{x}))
+      \nu_n(\overline{x}, \phi(\overline{x}))
+      g(\overline{x})
+    d \overline{x}
+  \end{align}
+  donde la misma definición dice
+  \begin{align}
+    g(\overline{x})
+    =
+    \text{abs det}
+    \begin{pmatrix}
+      \nu(\overline{x}, \phi(\overline{x}))
+      \\
+      e_1
+      +
+      \frac{\partial \phi}{\partial x_1}(\overline{x})
+      e_n
+      \\
+      \vdots
+      \\
+      e_{n - 1}
+      +
+      \frac{\partial \phi}{\partial x_{n - 1}}(\overline{x})
+      e_n
+    \end{pmatrix}
+  \end{align}
+  Por construcción
+  \(
+    \nu_n (\overline{x}, \phi(\overline{x}))
+    =
+    \left(1 + \norm{\nabla \phi (\overline{x})}^2\right)^{- 1 / 2}
+  \).
+  Pero el cálculo de \(g\) es complejo e involucra un proceso inductivo.
+  Comenzamos con
+  \begin{align}
+    &g(\overline{x})
+    \\
+    &=
+    \text{abs} \det
+    \begin{pmatrix}
+      \nu(\overline{x}, \phi(\overline{x}))
+      \\
+      e_1
+      +
+      \frac{\partial \phi}{\partial x_1}(\overline{x})
+      e_n
+      \\
+      \vdots
+      \\
+      e_{n - 1}
+      +
+      \frac{\partial \phi}{\partial x_{n - 1}}(\overline{x})
+      e_n
+    \end{pmatrix}
+    \\
+    &=
+    \text{abs} \det
+    \begin{pmatrix}
+      \left( 1 + \norm{\nabla \phi}^2 \right)^{- 1 / 2}
+    \left(
+      - \frac{\partial \phi}{\partial x_1}, \dots, - \frac{\partial \phi}{\partial x_{n - 1}},
+      1
+    \right)
+      \\
+      \left(
+        1,
+        0, \dots, 0,
+        \frac{\partial \phi}{\partial x_1}
+      \right)
+      \\
+      \vdots
+      \\
+      \left(
+        0, \dots, 0,
+        1,
+        \frac{\partial \phi}{\partial x_{n - 1}}
+      \right)
+    \end{pmatrix}
+    \\
+    &=
+    \frac{1}{\left( 1 + \norm{\nabla \phi}^2 \right)^{1/2}}
+    \text{abs} \det
+    \begin{pmatrix}
+      - \phi_{x_1}
+      &- \phi_{x_2}
+      &\dots
+      &- \phi_{x_{n - 2}}
+      &- \phi_{x_{n - 1}}
+      &1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &\phi_{x_1}
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &\phi_{x_2}
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &\phi_{x_{n - 2}}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &\phi_{x_{n - 1}}
+    \end{pmatrix}
+  \end{align}
+  Con el objetivo de facilitar la comprensión del cálculo, definimos \(a_i = - \phi_{x_i} (\overline{x})\) para \(i \in \{1, \dots, n - 1\}\).
+  Calculamos el determinante a lo largo de su primera columna
+  \begingroup
+  \allowdisplaybreaks
+  \begin{align}
+    &\begin{vmatrix}
+      - a_1
+      &- a_2
+      &\dots
+      &- a_{n - 2}
+      &- a_{n - 1}
+      &1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &a_1
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &a_2
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+    \\
+    &=
+    (- a_1)
+    \begin{vmatrix}
+      \color{red} - a_1
+      &\color{red} - a_2
+      &\color{red} \dots
+      &\color{red} - a_{n - 2}
+      &\color{red} - a_{n - 1}
+      &\color{red} 1
+      \\
+      \color{red} 1
+      &0
+      &\dots
+      &0
+      &0
+      &a_1
+      \\
+      \color{red} 0
+      &1
+      &\dots
+      &0
+      &0
+      &a_2
+      \\
+      \color{red} \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      \color{red} 0
+      &0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      \color{red} 0
+      &0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+    \\
+    &\quad
+      - (1)
+      \begin{vmatrix}
+        \color{red} - a_1
+        &- a_2
+        &\dots
+        &- a_{n - 2}
+        &- a_{n - 1}
+        &1
+        \\
+        \color{red} 1
+        &\color{red} 0
+        &\color{red} \dots
+        &\color{red} 0
+        &\color{red} 0
+        &\color{red} a_1
+        \\
+        \color{red} 0
+        &1
+        &\dots
+        &0
+        &0
+        &a_2
+        \\
+        \color{red} \vdots
+        &\vdots
+        &
+        &\vdots
+        &\vdots
+        &\vdots
+        \\
+        \color{red} 0
+        &0
+        &\dots
+        &1
+        &0
+        &a_{n - 2}
+        \\
+        \color{red} 0
+        &0
+        &\dots
+        &0
+        &1
+        &a_{n - 1}
+      \end{vmatrix}
+      \\
+    &=
+    - a_1
+    \begin{vmatrix}
+      0
+      &0
+      &\dots
+      &0
+      &0
+      &a_1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &a_2
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &a_3
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+    -
+    \begin{vmatrix}
+      - a_2
+      &- a_3
+      &\dots
+      &- a_{n - 2}
+      &- a_{n - 1}
+      &1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &a_2
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &a_3
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+  \end{align}
+  \endgroup
+  Sumando multiplos apropiados de la primera fila a las demás, el primer término se simplifica notablemente sin alterar el resultado del determinante (por propiedades de las llamadas matrices elementales)
+  \begin{align}
+    \begin{vmatrix}
+      0
+      &0
+      &\dots
+      &0
+      &0
+      &a_1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &a_2
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &a_3
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+    &=
+    \begin{vmatrix}
+      0
+      &0
+      &\dots
+      &0
+      &0
+      &a_1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &0
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &0
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &0
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &0
+    \end{vmatrix}
+    \\
+    &=
+    (-1)^{n - 2}
+    \begin{vmatrix}
+      a_1
+      &0
+      &0
+      &\dots
+      &0
+      &0
+      \\
+      0
+      &1
+      &0
+      &\dots
+      &0
+      &0
+      \\
+      0
+      &0
+      &1
+      &\dots
+      &0
+      &0
+      \\
+      \vdots
+      &\vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &0
+      &\dots
+      &1
+      &0
+      \\
+      0
+      &0
+      &0
+      &\dots
+      &0
+      &1
+    \end{vmatrix}
+    \\
+    &=
+    (- 1)^{n - 2} a_1
+  \end{align}
+  Esa simplificación nos lleva a la identidad
+  \begin{align}
+    &\begin{vmatrix}
+      - a_1
+      &- a_2
+      &\dots
+      &- a_{n - 2}
+      &- a_{n - 1}
+      &1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &a_1
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &a_2
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+    \\
+    &=
+    (- 1)^{n - 1} a_1^2
+    -
+    \begin{vmatrix}
+      - a_2
+      &\dots
+      &- a_{n - 2}
+      &- a_{n - 1}
+      &1
+      \\
+      1
+      &\dots
+      &0
+      &0
+      &a_2
+      \\
+      \vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+  \end{align}
+  Que nos deja ver una cierta regularidad, un cierto patrón.
+  Para describirlo, definimos \(D_1, \dots, D_m\) como
+  \begin{align}
+    D_k
+    &=
+    \begin{vmatrix}
+      - a_k
+      &- a_{k + 1}
+      &\dots
+      &- a_{n - 2}
+      &- a_{n - 1}
+      &1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &a_k
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &a_{k + 1}
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &a_{n - 2}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &a_{n - 1}
+    \end{vmatrix}
+  \end{align}
+  Repetir el cálculo del determinante a lo largo de la primera columna, arroja
+  \begin{align}
+    D_k = (- 1)^{n - k} a_k^2 - D_{k + 1},
+  \end{align}
+  para los primeros términos de la sucesión, con \(k \in \{1, \dots, n - 2\}\).
+  Y el último puede calcularse de forma exacta
+  \begin{align}
+    D_{n - 1} 
+    =
+    \begin{vmatrix}
+      - a_{n - 1}^2 &1 \\
+      1 &- a_{n - 1}
+    \end{vmatrix}
+    =
+    - a_{n - 1}^2 - 1
+    =
+    (- 1)^{n - (n - 1)} (a_{n - 1}^2 + 1)
+  \end{align}
+  Luego
+  \begin{align}
+    D_{n - 1}
+    &=
+    (- 1)^{n - (n - 1)} (a_{n - 1}^2 + 1)
+    \\
+    D_{n - 2}
+    &=
+    (- 1)^{n - (n - 2)} a_{n - 2}^2 - (- 1)^{n - (n - 1)} (a_{n - 1}^2 + 1)
+    \\
+    &=
+    (- 1)^{n - (n - 2)} (a_{n - 2}^2 + a_{n - 1}^2 + 1)
+    \\
+    \vdots\nonumber
+    \\
+    D_k
+    &=
+    (- 1)^{n - k} a_k^2 - (- 1)^{n - (k + 1)} (a_{k + 1}^2 + \cdots + a_{n - 1}^2 + 1)
+    \\
+    &=
+    (- 1)^{n - k} (a_{k}^2 + \cdots + a_{n - 1}^2 + 1)
+    \\
+    \vdots\nonumber
+    \\
+    D_1
+    &=
+    (-1)^{n - 1} (a_1^2 + \cdots + a_{n - 1}^2 + 1)
+  \end{align}
+  Es decir
+  \begin{align}
+    &\det
+    \begin{pmatrix}
+      - \frac{\partial \phi}{\partial x_1}
+      &- \frac{\partial \phi}{\partial x_2}
+      &\dots
+      &- \frac{\partial \phi}{\partial x_{n - 2}}
+      &- \frac{\partial \phi}{\partial x_{n - 1}}
+      &1
+      \\
+      1
+      &0
+      &\dots
+      &0
+      &0
+      &\frac{\partial \phi}{\partial x_1}
+      \\
+      0
+      &1
+      &\dots
+      &0
+      &0
+      &\frac{\partial \phi}{\partial x_2}
+      \\
+      \vdots
+      &\vdots
+      &
+      &\vdots
+      &\vdots
+      &\vdots
+      \\
+      0
+      &0
+      &\dots
+      &1
+      &0
+      &\frac{\partial \phi}{\partial x_{n - 2}}
+      \\
+      0
+      &0
+      &\dots
+      &0
+      &1
+      &\frac{\partial \phi}{\partial x_{n - 1}}
+    \end{pmatrix}
+    \\
+    &=
+    (-1)^{n - 1} \left( \phi_{x_1}^2 + \cdots + \phi_{x_{n -1}}^2 + 1 \right)
+    \\
+    &=
+    (-1)^{n - 1} \left( \norm{\nabla \phi}^2 + 1 \right)
+  \end{align}
+  Por lo tanto
+  \begin{align}
+    g(\overline{x})
+    =
+    \left( \norm{\nabla \phi}^2 + 1 \right)^{1 / 2}
+  \end{align}
+  Aún más importante
+  \begin{align}
+    \nu_n(\overline{x}, \phi(\overline{x}))
+    g(\overline{x})
+    =
+    1
+  \end{align}
+  Luego
+  \begin{align}
+    \int_S f \nu_n d \sigma
+    &=
+    \int_U
+      f(\overline{x}, \phi(\overline{x}))
+    d \overline{x}
+  \end{align}
+
+  \newpage
+  Las dos observaciones anteriores van a permitir demostrar un \emph{teorema de la divergencia de tipo local} en dominios con algunas condiciones que se precisarán rápidamente y que llamaremos `regulares'.
+  Se probará:
+  Dado un dominio regular, existen entornos de sus puntos, tales que la el teorema de la divergencia de Gauss se verifica para campos continuamente diferenciales soportados en dichos entornos.
+
+  \emph{Soportado en un entorno} significa que se hacen cero fuera de tal entorno.
+  Se define el \emph{soporte} de una función \(f\) como el cierre de los puntos \(x\) tales que \(f(x) \neq 0\), es decir,
+  \begin{align}
+    \support(f)
+    =
+    \overline{\{x : f(x) \neq 0\}}
+  \end{align}
+
+  Hay que explicar ahora lo que entenderemos por un dominio regular y lo que se entiende por entorno de los puntos del dominio.
+
+  Dado \(D \subseteq \realNumbers^n\), diremos que es un \emph{dominio} si es abierto y es conexo;
+  \(\partial D\) denotará su frontera.
+
+  \begin{definition}
+    Un dominio acotado \(D \subseteq \realNumbers^n\) se dice que es regular si para cada \(x_0 \in \partial D\) existe un entorno \(U\) de \(x_0\) en \(\realNumbers^n\) y una función \(\phi : U \rightarrow \realNumbers\) continuamente diferenciable, de forma que
+    \begin{enumerate}
+      \item \(\nabla \phi(x) \neq 0\) si \(x \in U\);
+      \item \(\partial D \cap U = \{x \in U : \phi(x) = 0\}\);
+      \item \(D \cap U = \{x \in U : \phi(x) < 0\}\)
+    \end{enumerate}
+  \end{definition}
+
+  Lo que establece la definición anterior es que un dominio regular tiene su frontera definida localmente por ceros de funciones continuamente diferenciales, es decir, por trozos de superficies diferenciables en \(\realNumbers^n\) definidas implicitamente.
+
+  Sea \(D\) un dominio regular y sea \(x \in \partial D\).
+  Un vector normal a \(\partial D\) en \(x\) viene dado por \(n = \nabla \phi(x)\), donde \(\phi\) es una función que define \(\partial D\) en el entorno de \(x\) como en la definición de regularidad.
+  Diremos que \(n\) es \emph{normal exterior} a \(\partial D\) en \(x\) si para \(\delta > 0\) suficientemente pequeño y \(0 < t < \delta\) se verifican
+  \begin{align}
+    &x - t n \in D
+    &&x + t n \in \realNumbers^n \setminus D
+  \end{align}
+  Para terminar, denotaremos por \(\nu(x)\) a la normal exterior unitaria en \(x\) a \(\partial D\).
+  Si \(D\) es regular, entonces \(\nu(x)\) es un campo continuo en \(\partial D\).
+  Compruebe el lector este extremo.
+  % ????????????????
+
+
+  \begin{lemma}
+    Sea \(D\) un dominio regular en \(\realNumbers^n\) y \(\vec{F}\)  un campo continuamente diferenciable.
+    Si \(T\) es una traslación (\(T(x) = x + t\) para todo \(x \in \realNumbers^n\) donde \(t \in \realNumbers^n\)), entonces
+    \begin{align}
+      \int_D
+        \nabla \cdot \vec{F}
+      dx
+      =
+      \int_{T D}
+        \nabla \cdot (F_i \circ T^{- 1})
+      dx
+    \end{align}
+  \end{lemma}
+  \begin{proof}
+    Por el teorema de cambio de variables, para todo \(i \in \{1, \dots, n\}\)
+    \begin{align}
+      \int_D \frac{\partial F_i}{\partial x_i}(x) dx
+      &=
+      \int_{T D}
+        \frac{\partial F_i}{\partial x_i}(T^{- 1} u)
+        \det\left(D_u T^{-1}\right)
+      du
+      \\
+      &=
+      \int_{T D}
+        \frac{\partial F_i}{\partial x_i}(u - t)
+        \det(I)
+      du
+      \\
+      &=
+      \int_{T D}
+        \frac{\partial F_i}{\partial x_i}(u - t)
+      du
+    \end{align}
+  \end{proof}
+
+  \begin{lemma}
+    Sea \(D\) un dominio regular en \(\realNumbers^n\) y \(\vec{F}\) un campo continuamente diferenciable.
+    Si \(T\) es una traslación (\(T(x) = x + t\) para todo \(x \in \realNumbers^n\) donde \(t \in \realNumbers^n\)), entonces
+    \begin{align}
+      \int_{\partial D} \vec{F} \cdot \vec{\nu} d \sigma
+      =
+      \int_{\partial (T D)} (\vec{F} \circ T^{- 1}) \cdot \nu d \sigma
+    \end{align}
+  \end{lemma}
+  \begin{proof}
+    Tenemos \(T(\partial D) = \partial (T D)\) porque \(T : \realNumbers^n \rightarrow \realNumbers^n\) es un difeomorfismo.
+    Luego, si \(\phi : U \subseteq \realNumbers^n \rightarrow \realNumbers^n\)
+
+  
+  
+  \end{proof}
+
+  \begin{lemma}
+    \label{lemma:localDivergenceTheorem}
+    Sea \(D\) un dominio regular en \(\realNumbers^n\) con clausura \(\overline{D} = D \cup \partial D\) compacta.
+    Entonces dado \(x_0 \in \overline{D}\) existe un entorno \(U\) de \(x_0\) tal que para todo campo \(\vec{F}\) continuamente diferenciable y soportado en \(U\), se verifica
+    \begin{align}
+      \int_D \nabla \cdot \vec{F} d x
+      =
+      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+    \end{align}
+  \end{lemma}
+  \begin{proof}
+    En un primer momento supondremos que \(x_0 \in D\), y probaremos el lema solo en este caso.
+    Si \(x_0 \in D\), entonces podemos encontrar un \(r > 0\) tal que 
+    \begin{align}
+      B(x_0, r)
+      =
+      \{
+        x \in \realNumbers^n : \abs*{x - x_0} < r
+      \}
+      \subseteq
+      D
+    \end{align}
+    Sea \(\vec{F}\) un campo continuamente diferenciable en \(D\).
+    Si su soporte se encuentra contenido en \(B(x_0, r)\), entonces \(\support \vec{F}\) se encuentra a una distacia positiva del complemento de dicha bola.
+    Luego, extender \(\vec{F} : D \rightarrow \realNumbers^n\) por cero fuera de la bola, lo convierte en un campo \(\tilde{F} : \realNumbers^n \rightarrow \realNumbers^n\) continuamente diferenciable y con soporte compacto.
+    Por \eqref{equation:compactlySupportedFieldsHaveNullTotalDivergence} para tal campo se tiene
+    \begin{align}
+      \int_{\realNumbers^n} \nabla \cdot \tilde{F} dx
+      =
+      \int_D \nabla \cdot \vec{F} dx
+      =
+      0
+      =
+      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+    \end{align}
+    Es decir, si \(x_0 \in D\) se tiene demostrado el lema.
+
+    Supongamos ahora que \(x_0 \in \partial D\).
+    La estrategia es probar que fijada una dirección coordenada, \(i = 1, \dots, n\) se puede construir un entorno \(U_i\) en la topología relativa a la de \(\realNumbers^n\) en \(\overline{D}\), tal que si un campo \(\vec{F}\) continuamente diferenciable en \(D\), está soportado en \(U_i\), entonces
+    \begin{align}
+      \label{equation:divergenceTheoremInTheIthDirection}
+      \int_{\partial D}
+        F_i \nu_i
+      d \sigma
+      =
+      \int_D
+        \frac{\partial F_i}{\partial x_i}
+      dx
+    \end{align}
+    siendo \(F_i\) la coordenada \(i\)--ésima de \(\vec{F}\) y \(\nu_i\) la correspondiente componente de la normal exterior a \(\partial D\).
+    De esta forma considerando \(U = \bigcap_{i = 1}^n U_i\), se tendrá probado el lema.
+
+    Probaremos para \(i = n\), tratándose de igual manera el resto de las coordenadas.
+    Una observación adicional es necesaria.
+    Si sometemos a giros y traslaciones al dominio \(D\) los dos miembros 
+    \(
+      \int_{\partial D}
+        F_i \nu_i
+      d \sigma
+    \),
+    \(
+      \int_D
+        \frac{\partial F_i}{\partial x_i}
+      dx
+    \)
+    permanecen invariantes.  % ????????????????
+    Por tanto, podemos suponer que la coordenada \(n\)--ésima de \(x_0\) es positiva y que \(\nu_n(x_0) > 0\).
+
+    Como, por hipótesis, \(D\) es regular existe \(W\) entorno de \(x_0\) y \(\phi : W \rightarrow \realNumbers\) continuamente diferenciable tal que
+    \begin{align}
+      \nabla \phi (x_0) \neq 0,
+      &&\partial D \cap W
+      =
+      \{x \in W : \phi(x) = 0\},
+      &&D \cap W
+      =
+      \{x \in W : \phi(x) < 0\}
+    \end{align}
+    Por el teorema de la función implícita existen, un abierto \(V \subseteq \realNumbers^{n - 1}\) entorno de \(\overline{x_0} = (x_1, \dots, x_{n - 1})\),
+    y una \(\psi : V \rightarrow \realNumbers\) continuamente diferenciable, tales que \(\phi(\overline{x}, \psi(\overline{x})) = 0\) para \(\overline{x} \in V\).
+    Haciendo \(V\) pequeño si es preciso se tiene por continuidad que \(\psi(\overline{x}) > 0\) \((\forall \overline{x} \in V)\) dado que, por hipótesis \((x_0)_n = \psi(\overline{x}) > 0\).
+    Para \(V\) elegido verificando lo anterior consideramos la parte de \(\partial D\) dada por el grafo de \(\psi\), es decir,
+    \(S = \{
+      (\overline{x}, \psi(\overline{x})) : \overline{x} \in V
+    )\}\).
+
+    % no entiendo la relación entre \nu y \partial \phi
+    Además, como \(\nu_n(x_0) > 0\), se tiene, en particular \(\frac{\partial \phi}{\partial x_n}(x_0) > 0\).
+    Y por tanto existe \(\delta > 0\) tal que, si \(\abs*{\overline{x} - \overline{x}_0} < \delta\) y \(\abs*{x_n - (x_0)_n} < \delta\),
+    entonces \(\frac{\partial \phi}{\partial x_n}(\overline{x}, x_n) > 0\).
+    Se toma \(\delta\) suficientemente pequeño para que \(B = \{\overline{x} : \abs*{\overline{x} - \overline{x}_0} < \delta\} \subseteq V\).
+    Llamemos \(R = \{
+      (\overline{x}, x_n) :
+      \abs{\overline{x} - \overline{x}_0} < \delta,
+      \abs{x_n - (x_0)_n} < \delta
+    \}\)
+    y definamos el intervalo \(I_{\overline{x}} = \{x_n : (\overline{x}, x_n) \in R\}\), entonces, en particular, la función \(g_{\overline{x}}(x_n) = \phi(\overline{x}, x_n)\) es creciente en \(I_{\overline{x}}\).
+    Además, para cada \(\overline{x}\) el intervalo \(I_{\overline{x}}\) 
+    contiene el valor \(\psi(\overline{x})\), que es donde \(\phi(\overline{x}, \psi(\overline{x})) = 0\).
+    Como \(\phi(\overline{x}, \cdot)\) es creciente como función de \(x_n\) en \(I_{\overline{x}}\), resulta que
+    \begin{align}
+      D \cap R
+      =
+      \{(\overline{x}, x_n) \in R : x_n < \psi(\overline{x})\}
+    \end{align}
+    Dicho de otra manera, \(D \cap R\) está contenido en un conjunto cilíndrico como el utilizado en la ecuación \eqref{equation:divergenceTheoremInACylinder} y así se prueba \eqref{equation:divergenceTheoremInTheIthDirection} para los campos continuamente diferenciables en \(D\) soportados en \(D \cap R\).
+  \end{proof}
+
+
+  \newpage
+  Queda ahora por globalizar el resultado y así obtener el teorema de Gauss.
+
+  \begin{theorem}
+    Sea \(D\) dominio regular y \(\vec{F} \in C^1\left(\overline{D}\right)\) un campo de vectores.
+    Entonces
+    \begin{align}
+      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      =
+      \int_D \nabla \cdot \vec{F} dx
+    \end{align}
+  \end{theorem}
+  \begin{proof}
+    Para cada \(x \in \overline{D} = \partial D \cup D\) consideremos \(U_x\) el entorno de \(x\) que da el Lema \ref{lemma:localDivergenceTheorem}.
+    Así \(\{U_x : x \in \overline{D}\}\) es un cubrimiento por abiertos (en la topología relativa) del compacto \(\overline{D}\);
+    por tanto, se puede obtener un subcubrimiento finito \(\{U_1, \dots, U_r\}\) de \(\overline{D}\).
+
+    Supongamos que podemos construir una familia finita de funciones \(\phi_1, \dots, \phi_r\) de clase \(C^{\infty}_0(\overline{D})\), tales que
+    \begin{enumerate}
+      \item \(\phi_i \geq 0\);
+      \item \(\support \phi_i \subseteq U_i\) (en particular \(\phi_i = 0\) fuera de \(U_i\));
+      \item \(\sum_{i = 1}^r \phi_i(x) = 1\) si \(x \in \overline{D}\)
+    \end{enumerate}
+    Las familias \(\{\phi_1, \dots, \phi_r\}\) de funciones regulares que verifican estas tres propiedades reciben el nombre de \emph{particiones de la unidad subordinadas al cubrimiento} \(\{U_1, \dots, U_r\}\).
+
+    Sea \(\vec{F} \in C^1(\overline{D})\) un campo;
+    si consideramos la partición de la unidad \(\{\phi_1, \dots, \phi_r\}\), tenemos
+    \(
+      \vec{F}
+      =
+      \sum_{i = 1}^r \phi_i \vec{F}
+      =
+      \sum_{i = 1}^r \vec{F}_i
+    \).
+    Ahora \(\vec{F}_i = \phi_i \vec{F}\) está soportado en \(U_{x_i}\) y por construcción se tiene:
+    \(
+      \int_D \nabla \cdot \vec{F}_i dx
+      =
+      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+    \).
+    Por tanto
+    \begin{align}
+      \int_D \nabla \cdot \vec{F} dx
+      =
+      \sum_{i = 1}^r \int_D \nabla \cdot \vec{F}_i dx
+      =
+      \sum_{i = 1}^r \int_{\partial D} \vec{F}_i \cdot \nu d \sigma
+      =
+      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+    \end{align}
+    Módulo la construcción de particiones de la unidad hemos probado el teorema
+  \end{proof}
 \end{document}
