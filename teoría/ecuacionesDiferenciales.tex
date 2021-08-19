@@ -1076,6 +1076,24 @@
   Dado \(D \subseteq \realNumbers^n\), diremos que es un \emph{dominio} si es abierto y es conexo;
   \(\partial D\) denotará su frontera.
 
+  \begin{theorem}
+    Todo dominio \(D \subseteq \realNumbers^n\) es una variedad \(C^{\infty}\) de dimensión \(n\).
+  \end{theorem}
+  \begin{proof}
+    Consideremos un punto arbitrario \(x \in D\).
+    El conjunto \(D\) es abierto porque es un dominio.
+    En particular, existe \(V = D \subseteq \realNumbers^n\) entorno abierto de \(x\).
+    \newcommand{\identity}{\textnormal{id}}
+    Además, existen \(U = D \subseteq \realNumbers^n\) abierto y \(\varphi = \identity : U \rightarrow \realNumbers^n\) función de clase \(C^{\infty}\).
+    Donde \(V\), \(U\), \(\varphi\) satisfacen
+    \begin{enumerate*}
+      \item \(\varphi(U) = V \cap D\);
+      \item \(\varphi : U \rightarrow V \cap D\) es un homeomorfismo;
+      \item y \(D \varphi (u) = \left( \frac{\partial \varphi_i}{\partial u_j}(u) \right)_{i j}\) tiene rango \(n\).
+    \end{enumerate*}
+    Esto hace que \(D\) sea una variedad \(C^{\infty}\) de dimensión \(n\).
+  \end{proof}
+
   \begin{definition}
     Un dominio acotado \(D \subseteq \realNumbers^n\) se dice que es regular si para cada \(x_0 \in \partial D\) existe un entorno \(U\) de \(x_0\) en \(\realNumbers^n\) y una función \(\phi : U \rightarrow \realNumbers\) continuamente diferenciable, de forma que
     \begin{enumerate}
