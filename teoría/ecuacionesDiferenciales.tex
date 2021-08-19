@@ -1137,20 +1137,106 @@
   \end{proof}
 
   \begin{lemma}
-    Sea \(D\) un dominio regular en \(\realNumbers^n\) y \(\vec{F}\) un campo continuamente diferenciable.
-    Si \(T\) es una traslación (\(T(x) = x + t\) para todo \(x \in \realNumbers^n\) donde \(t \in \realNumbers^n\)), entonces
+    Sea \(D\) un dominio regular en \(\realNumbers^n\) con clausura \(\overline{D} = D \cup \partial D\) compacta, y sea \(x_0 \in \overline{D}\).
+    Existe un entorno \(U\) de \(x_0\) tal que:
+    para todo campo \(\vec{F}\) continuamente diferenciable soportado en \(U\), si \(T\) es una traslación (\(T(x) = x + t\) para todo \(x \in \realNumbers^n\) donde \(t \in \realNumbers^n\)), entonces
     \begin{align}
+      \label{equation:localInvarianceOfFluxIntegralUnderTranslations}
       \int_{\partial D} \vec{F} \cdot \vec{\nu} d \sigma
       =
       \int_{\partial (T D)} (\vec{F} \circ T^{- 1}) \cdot \nu d \sigma
     \end{align}
   \end{lemma}
   \begin{proof}
-    Tenemos \(T(\partial D) = \partial (T D)\) porque \(T : \realNumbers^n \rightarrow \realNumbers^n\) es un difeomorfismo.
-    Luego, si \(\phi : U \subseteq \realNumbers^n \rightarrow \realNumbers^n\)
+    Primero realizaremos la demostración para \(x_0 \in D\), y luego nos encargaremos del caso \(x_0 \in \partial D\).
+    Si \(x_0 \in D\), entonces existe una bola \(B(x_0, r)\) de radio \(r > 0\) lo suficientemente pequeño como para garantizar \(B(x_0, r) \subseteq D\).
+    Sea \(\vec{F}\) un campo continuamente diferenciable soportado en \(B(x_0, r)\).
+    Entonces \(\vec{F} = 0\) sobre \(\partial D\), y 
+    \begin{align}
+      \int_{\partial D} \vec{F} \cdot \vec{\nu} d \sigma
+      =
+      0
+    \end{align}
+    Por otra parte, dado que \(T : \realNumbers^n \rightarrow \realNumbers^n\) es un difeomorfismo, tenemos que \(T D\) es un dominio regular con clausura compacta;
+    y, por el mismo motivo, \(\vec{F} \circ T^{- 1}\) es continuamente diferenciable.
+    Por eso está bien definida la integral de la derecha en \eqref{equation:localInvarianceOfFluxIntegralUnderTranslations}.
+    Más aún, \(\vec{F} \circ T^{- 1} = 0\) sobre \(T(\partial D)\).
+    Pero \(T(\partial D) = \partial(T D)\), porque \(T\) es un difeomorfismo.
+    Entonces \(\vec{F} \circ T^{- 1} = 0\) sobre \(\partial (T D)\), y 
+    \begin{align}
+      \int_{\partial (T D)} (\vec{F} \circ T^{- 1}) \cdot \nu d \sigma
+      =
+      0
+    \end{align}
 
-  
-  
+    Ahora supongamos que \(x_0 \in \partial D\).
+    Porque \(D\) es un dominio regular, su frontera \(\partial D\) es una variedad de clase \(C^1\) con dimensión \(n - 1\).
+    Luego existen un abierto \(U \subseteq \realNumbers^{n - 1}\), una función \(\varphi : U_0 \rightarrow \realNumbers^n\) de clase \(C^1\) y un entorno abierto \(V \subseteq \realNumbers^n\) de \(x_0\) tales que 
+    \begin{enumerate*}
+      \item \(\varphi(U) = \partial D \cap V\);
+      \item \(\varphi : U \rightarrow \partial D \cap V\) es un homeomorfismo;
+      \item y \(D \varphi (u)\) tiene rango \(n - 1\) para todo \(u \in U\).
+    \end{enumerate*}
+
+
+    Sea \(\vec{F} : \realNumbers^n \rightarrow \realNumbers^n\) un campo continuamente diferenciable con soporte en \(V\).
+    Por definición
+    \begin{align}
+      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      =
+      \int_U
+        \vec{F}(\varphi(u))
+        \cdot
+        \nu(\varphi(u))
+        g(u)
+      du
+    \end{align}
+    Podemos escribir al vector normal exterior \(\nu\) y al factor \(g\) como funciones de \(D \varphi (u)\).
+    Es decir que \(g = g(D \varphi (u))\), \(\nu = \nu(D\varphi(u))\). % ???
+    Luego
+    \begin{align}
+      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      &=
+      \int_U
+        \vec{F}(\varphi(u))
+        \cdot
+        \nu(D \varphi(u))
+        g(D \varphi(u))
+      du
+      \\
+      &=
+      \int_U
+        \vec{F}(\varphi(u) + t - t)
+        \cdot
+        \nu(D \varphi(u))
+        g(D \varphi(u))
+      du
+      \\
+      &=
+      \int_U
+        \vec{F}((\varphi + t)(u) - t)
+        \cdot
+        \nu(D (\varphi + t)(u))
+        g(D (\varphi + t)(u))
+      du
+      \\
+      &=
+      \int_U
+        \vec{F} \circ T^{- 1} ((\varphi + t)(u))
+        \cdot
+        \nu(D (\varphi + t)(u))
+        g(D (\varphi + t)(u))
+      du
+      \\
+      &=
+      \int_U
+        \vec{F} \circ T^{- 1} ((T \varphi)(u))
+        \cdot
+        \nu(D (T \varphi)(u))
+        g(D (T \varphi)(u))
+      du
+    \end{align}
+    % leer página 119 de calculus on manifolds de Spivak
   \end{proof}
 
   \begin{lemma}
