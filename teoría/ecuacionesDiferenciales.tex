@@ -32,11 +32,13 @@
 \newcommand{\closure}[1]{\bar{1}}
 
 \newtheorem{theorem}{Teorema}
-\newtheorem{definition}{Definición}
-\newtheorem{myDefinition}{Definición propia}
-\newtheorem{exercise}{Ejercicio}
 \newtheorem{myLemma}{Lema propio}
 \newtheorem{lemma}{Lema}
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}
+\newtheorem{myDefinition}{Definición propia}
+\newtheorem{notation}{Notación}
+\newtheorem{exercise}{Ejercicio}
 \theoremstyle{remark}
 \newtheorem{remark}{Observación}
 
@@ -1102,6 +1104,32 @@
       \item \(D \cap U = \{x \in U : \phi(x) < 0\}\)
     \end{enumerate}
   \end{definition}
+
+  Para entender esta definición recurrimos al Teorema de la Función Implícita, que pasamos a recordar.
+
+  \begin{notation}
+    Si \(\mathbf{x} = (x_1, \dots, x_l) \in \realNumbers^l\) e \(\mathbf{y} = (y_1, \dots, y_m) \in \realNumbers^m\), escribiremos \((\mathbf{x}, \mathbf{y})\) para denotar al vector \((x_1, \dots, x_l, y_1, \dots, y_m) \in \realNumbers^{l + m}\).
+    En lo que sigue, la primer entrada en \((\mathbf{x}, \mathbf{y})\) o en un símbolo similar siempre será un vector en \(\realNumbers^l\), la segunda será un vector en \(\realNumbers^m\).
+
+    Cada \(A \in L(\realNumbers^{l + m}, \realNumbers^l)\) puede ser separada en dos transformaciones lineales \(A_x\) y \(A_y\), definidas por \(A_x \mathbf{h} = A(\mathbf{h}, 0)\), \(A_y(0, \mathbf{k}) = A(0, \mathbf{k})\) para \(\mathbf{h} \in \realNumbers^l\), \(\mathbf{k} \in \realNumbers^m\).
+    Entonces \(A_x \in L(\realNumbers^l)\), \(A_y \in L(\realNumbers^m, \realNumbers^l)\), y \(A(\mathbf{h}, \mathbf{k}) = A_x \mathbf{h} + A_y \mathbf{k}\)
+  \end{notation}
+
+  \begin{theorem}[de la Función Implícita]
+    Sea \(\phi\) una aplicación \(C^1\) de un abierto \(E \subseteq \realNumbers^{l + m}\) en \(\realNumbers^l\), tal que \(\phi(\mathbf{a}, \mathbf{b}) = 0\) para algún punto \((\mathbf{a}, \mathbf{b}) \in E\).
+
+    Denotamos \(A = \phi'(\mathbf{a}, \mathbf{b}) \in L(\realNumbers^{l + m}, \realNumbers^l)\) y asumimos que \(A_x \in L(\realNumbers^l)\) es invertible.
+
+    Entonces existen conjuntos abiertos \(U \subseteq \realNumbers^{l + m}\) y \(W \subseteq \realNumbers^m\), con \((\mathbf{a}, \mathbf{b}) \in U\) y \(\mathbf{b} \in W\), con la siguiente propiedad:
+
+    A cada \(y \in W\) le corresponde un único \(\mathbf{x}\) tal que \((\mathbf{x}, \mathbf{y}) \in U\) y \(f(\mathbf{x}, \mathbf{y}) = 0\).
+    Si este \(\mathbf{x}\) se define como \(\mathbf{X}(\mathbf{y})\), entonces \(\mathbf{X}\) es una aplicación \(C^1\) de \(W\) en \(\realNumbers^n\), que verifica las propiedades
+    \begin{enumerate*}
+      \item \(\mathbf{X}(\mathbf{b}) = \mathbf{a}\);
+      \item \(\phi(\mathbf{X}(\mathbf{y}), \mathbf{y}) = 0\) para todo \(\mathbf{y} \in W\);
+      \item y \(X'(\mathbf{b}) = - A_x^{- 1} A_y\).
+    \end{enumerate*}
+  \end{theorem}
 
   Lo que establece la definición anterior es que un dominio regular tiene su frontera definida localmente por ceros de funciones continuamente diferenciales, es decir, por trozos de superficies diferenciables en \(\realNumbers^n\) definidas implicitamente.
 
