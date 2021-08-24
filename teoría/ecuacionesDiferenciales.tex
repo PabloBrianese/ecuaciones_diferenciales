@@ -81,8 +81,8 @@
 
   \section{En dimensión \(n = 2\)}
 
-  Sea \(n = 2\) y consideremos una función \(\vec{F} : \realNumbers^2 \rightarrow \realNumbers^2\) de clase \(C^1\).
-  Podemos escribir en coordenadas \(\vec{F}(x, y) = (f_1(x, y), f_2(x, y))\).
+  Sea \(n = 2\) y consideremos una función \(\mathbf{F} : \realNumbers^2 \rightarrow \realNumbers^2\) de clase \(C^1\).
+  Podemos escribir en coordenadas \(\mathbf{F}(x, y) = (f_1(x, y), f_2(x, y))\).
   
   Sea \(R\) una región que puede expresarse como \(\{(x, y) \in \realNumbers^2 :  a < x < b, \phi_1(x) < y < \phi_2(x)\}\), una región delimitada por las gráficas de dos funciones continuamente derivables \(\phi_1, \phi_2 : \interval{cc}{a}{b} \rightarrow \realNumbers\), que satisfacen \(\phi_1(a) = \phi_2(a)\), \(\phi_1(x) < \phi_2(x)\) para todo \(x \in \interval{oo}{a}{b}\), \(\phi_1(b) = \phi_2(b)\).
   Calculemos ahora una primera integral
@@ -93,11 +93,11 @@
     =
     \int_a^b f_2(x, \phi_2(x)) - f_2(x, \phi_1(x)) dx
   \end{align}
-  Sea \(\vec{n} = \tilde{n} / \norm{\tilde{n}}\) la normal exterior de la frontera \(\partial R\),
+  Sea \(\mathbf{n} = \tilde{n} / \norm{\tilde{n}}\) la normal exterior de la frontera \(\partial R\),
   donde
   \begin{align}
     \tilde{n}
-    =
+    &=
     \left\{
       \begin{aligned}
         (- \phi_2'(x), 1)
@@ -109,11 +109,9 @@
         \Gamma_1 = \{(x, \phi_1(x)) : x \in \interval{cc}{a}{b}\}
       \end{aligned}
     \right.
-  \end{align}
-  con
-  \begin{align}
+    \\
     \norm{\tilde{n}}
-    =
+    &=
     \left\{
       \begin{aligned}
         \sqrt{1 + \phi_2'(x)^2}
@@ -126,7 +124,7 @@
       \end{aligned}
     \right.
   \end{align}
-  Entonces, si \(\vec{n} = (n_1, n_2)\), se tiene 
+  Entonces, si \(\mathbf{n} = (n_1, n_2)\), se tiene 
   \begin{align}
     n_2
     =
@@ -182,31 +180,31 @@
   Por tanto, de \eqref{equation:yAxis2dDivergenceTheorem} y de \eqref{equation:xAxis2dDivergenceTheorem} se tiene
   \begin{align}
     \label{equation:GaussDivergenceTheorem}
-    \int_R (\nabla \cdot \vec{F}) dx dy
+    \int_R (\nabla \cdot \mathbf{F}) dx dy
     =
-    \int_{\partial R} (\vec{F} \cdot \vec{n}) d \sigma
+    \int_{\partial R} (\mathbf{F} \cdot \mathbf{n}) d \sigma
   \end{align}
-  La idea intuitiva es que la \emph{variación} de \(\vec{F}\) en \(R\) es igual a la \emph{cantidad} de \(\vec{F}\) que entra o sale a través de \(\partial R\).
-  El segundo término de la ecuación, se llama \emph{flujo del campo \(\vec{F}\) a través de \(\partial R\)}.
+  La idea intuitiva es que la \emph{variación} de \(\mathbf{F}\) en \(R\) es igual a la \emph{cantidad} de \(\mathbf{F}\) que entra o sale a través de \(\partial R\).
+  El segundo término de la ecuación, se llama \emph{flujo del campo \(\mathbf{F}\) a través de \(\partial R\)}.
 
   \section{En dimensiones \(n \geq 3\)}
   Tanto el flujo como la divergencia tienen perfecto sentido en dimensiones mayores;
   nos proponemos dar condiciones suficientes sobre los dominios \(R \subseteq \realNumbers^n\), de forma que la expresión \eqref{equation:GaussDivergenceTheorem} sea válida.
   El caso más sencillo para el que se tiene la igualdad \eqref{equation:GaussDivergenceTheorem} es el siguiente.
 
-  Consideremos \(\vec{F} = (f_1, \dots, f_n)\) campo de vectores en \(\realNumbers^n\) y supongamos que
+  Consideremos \(\mathbf{F} = (f_1, \dots, f_n)\) campo de vectores en \(\realNumbers^n\) y supongamos que
   \begin{enumerate*}
     \item \(f_i\) tiene derivadas primeras continuas para \(i = 1, \dots, n\);
-    \item existe una bola \(B\) cerrada tal que \(f_i(x) = 0\) si \(x \notin B\), para \(i = 1, \dots, n\).
+    \item existe una bola \(B\) cerrada tal que \(f_i(\mathbf{x}) = 0\) si \(\mathbf{x} \notin B\), para \(i = 1, \dots, n\).
   \end{enumerate*}
   Bajo estas condiciones podemos probar que 
   \begin{align}
     \label{equation:compactlySupportedFieldsHaveNullTotalDivergence}
-    \int_{\realNumbers^n} \nabla \cdot \vec{F} dx = 0
+    \int_{\realNumbers^n} \nabla \cdot \mathbf{F} d \mathbf{x} = 0
   \end{align}
   En efecto, por definición
   \(
-    \nabla \cdot \vec{F}
+    \nabla \cdot \mathbf{F}
     =
     \sum_{i = 1}^n
     \frac{\partial f_i}{\partial x_i}
@@ -214,7 +212,7 @@
   Consideremos un \(i \in \{1, \dots, n\}\) arbitrario.
   Usando el teorema de Fubini para funciones integrables (de soporte compacto, en nuestro caso) deducimos que
   \begin{align}
-    \int_{\realNumbers^n} \frac{\partial f_i}{\partial x_i} dx
+    \int_{\realNumbers^n} \frac{\partial f_i}{\partial x_i} d \mathbf{x}
     &=
     \sum_{i = 1}^n
     \int_{\realNumbers} \cdots \int_{\realNumbers}
@@ -223,6 +221,7 @@
     \\
     \label{equation:integralsCanBePermutedBecauseOfCompactSupport}
     &=
+    \sum_{i = 1}^n
     \int_{\realNumbers} \cdots \int_{\realNumbers} \int_{\realNumbers}
       \frac{\partial f_i}{\partial x_i}(x_1, \dots, x_i, \dots, x_n)
     dx_{i} dx_{\tau(2)} \cdots dx_{\tau(n)}
@@ -237,8 +236,8 @@
     =
     0
   \end{align}
-  Luego \(\int_{\realNumbers^n} \frac{\partial f_i}{\partial x_i} dx = 0\).
-  Siendo \(i\) arbitrario, se sigue que es nula la integral sobre \(\realNumbers^n\) de la divergencia del campo \(\vec{F}\).
+  Luego \(\int_{\realNumbers^n} \frac{\partial f_i}{\partial x_i} d \mathbf{x} = 0\).
+  Siendo \(i\) arbitrario, se sigue que es nula la integral sobre \(\realNumbers^n\) de la divergencia del campo \(\mathbf{F}\).
   
 
 
@@ -271,9 +270,9 @@
     \right\}_{i = 1}^{n - 1}
   \end{align}
   Encontramos que el vector \((- \phi_{x_1}(\overline{x}), \dots, - \phi_{x_{n - 1}}(\overline{x}), 1)\) es ortogonal a cada uno de ellos.
-  Eso nos permite calcular \(\nu\), normal a \(S\) con la componente \(\nu_n(\overline{x}) > 0\), resultando
+  Eso nos permite calcular \(\nu\), normal a \(S\) con la componente \(\nu_n(\overline{x}, \phi(\overline{x})) > 0\), resultando
   \begin{align}
-    \nu(p)
+    \nu(\overline{x}, \phi(\overline{x}))
     =
     \frac{1}{(1 + \norm{\nabla \phi (\overline{x})}^2)^{1/2}}
     \left(
@@ -291,13 +290,13 @@
   Si se toma \(f\) con derivadas primeras continuas en \(C\), tal que \(f(\overline{x}, 0) = 0\), se tiene
   \begin{align}
     \label{equation:divergenceTheoremInACylinder}
-    \int_C \frac{\partial f}{\partial x_n}(x) dx
+    \int_C \frac{\partial f}{\partial x_n}(x) d \mathbf{x}
     =
     \int_S f \nu_n d \sigma
   \end{align}
   En efecto, simplificar el lado izquierdo de la ecuación es sencillo
   \begin{align}
-    \int_C \frac{\partial f}{\partial x_n}(x) dx
+    \int_C \frac{\partial f}{\partial x_n}(x) d \mathbf{x}
     =
     \int_U
       \int_0^{\phi(\overline{x})}
@@ -1115,7 +1114,7 @@
     En lo que sigue, la primer entrada en \((\mathbf{x}, \mathbf{y})\) o en un símbolo similar siempre será un vector en \(\realNumbers^l\), la segunda será un vector en \(\realNumbers^m\).
 
     Cada \(A \in L(\realNumbers^{l + m}, \realNumbers^l)\) puede ser separada en dos transformaciones lineales \(A_x\) y \(A_y\), definidas por \(A_x \mathbf{h} = A(\mathbf{h}, 0)\) y \(A_y \mathbf{k} = A(0, \mathbf{k})\) para \(\mathbf{h} \in \realNumbers^l\) y \(\mathbf{k} \in \realNumbers^m\).
-    Entonces \(A_x \in L(\realNumbers^l)\), \(A_y \in L(\realNumbers^m, \realNumbers^l)\), y \(A(\mathbf{h}, \mathbf{k}) = A_x \mathbf{h} + A_y \mathbf{k}\)
+    Entonces \(A_x \in L(\realNumbers^l)\), \(A_y \in L(\realNumbers^m, \realNumbers^l)\), y \(A(\mathbf{h}, \mathbf{k}) = A_x \mathbf{h} + A_y \mathbf{k}\).
   \end{notation}
 
   \begin{theorem}[de la Función Implícita]
@@ -1150,16 +1149,16 @@
 
 
   \begin{lemma}
-    Sea \(D\) un dominio regular en \(\realNumbers^n\) y \(\vec{F}\)  un campo continuamente diferenciable.
+    Sea \(D\) un dominio regular en \(\realNumbers^n\) y \(\mathbf{F}\)  un campo continuamente diferenciable.
     Si \(T\) es una traslación (\(T(x) = x + t\) para todo \(x \in \realNumbers^n\) donde \(t \in \realNumbers^n\)), entonces
     \begin{align}
       \int_D
-        \nabla \cdot \vec{F}
-      dx
+        \nabla \cdot \mathbf{F}
+      d \mathbf{x}
       =
       \int_{T D}
         \nabla \cdot (F_i \circ T^{- 1})
-      dx
+      d \mathbf{x}
     \end{align}
   \end{lemma}
   \begin{proof}
@@ -1188,32 +1187,32 @@
   \begin{lemma}
     Sea \(D\) un dominio regular en \(\realNumbers^n\) con clausura \(\overline{D} = D \cup \partial D\) compacta, y sea \(x_0 \in \overline{D}\).
     Existe un entorno \(U\) de \(x_0\) tal que:
-    para todo campo \(\vec{F}\) continuamente diferenciable soportado en \(U\), si \(T\) es una traslación (\(T(x) = x + t\) para todo \(x \in \realNumbers^n\) donde \(t \in \realNumbers^n\)), entonces
+    para todo campo \(\mathbf{F}\) continuamente diferenciable soportado en \(U\), si \(T\) es una traslación (\(T(x) = x + t\) para todo \(x \in \realNumbers^n\) donde \(t \in \realNumbers^n\)), entonces
     \begin{align}
       \label{equation:localInvarianceOfFluxIntegralUnderTranslations}
-      \int_{\partial D} \vec{F} \cdot \vec{\nu} d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \mathbf{\nu} d \sigma
       =
-      \int_{\partial (T D)} (\vec{F} \circ T^{- 1}) \cdot \nu d \sigma
+      \int_{\partial (T D)} (\mathbf{F} \circ T^{- 1}) \cdot \nu d \sigma
     \end{align}
   \end{lemma}
   \begin{proof}
     Primero realizaremos la demostración para \(x_0 \in D\), y luego nos encargaremos del caso \(x_0 \in \partial D\).
     Si \(x_0 \in D\), entonces existe una bola \(B(x_0, r)\) de radio \(r > 0\) lo suficientemente pequeño como para garantizar \(B(x_0, r) \subseteq D\).
-    Sea \(\vec{F}\) un campo continuamente diferenciable soportado en \(B(x_0, r)\).
-    Entonces \(\vec{F} = 0\) sobre \(\partial D\), y 
+    Sea \(\mathbf{F}\) un campo continuamente diferenciable soportado en \(B(x_0, r)\).
+    Entonces \(\mathbf{F} = 0\) sobre \(\partial D\), y 
     \begin{align}
-      \int_{\partial D} \vec{F} \cdot \vec{\nu} d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \mathbf{\nu} d \sigma
       =
       0
     \end{align}
     Por otra parte, dado que \(T : \realNumbers^n \rightarrow \realNumbers^n\) es un difeomorfismo, tenemos que \(T D\) es un dominio regular con clausura compacta;
-    y, por el mismo motivo, \(\vec{F} \circ T^{- 1}\) es continuamente diferenciable.
+    y, por el mismo motivo, \(\mathbf{F} \circ T^{- 1}\) es continuamente diferenciable.
     Por eso está bien definida la integral de la derecha en \eqref{equation:localInvarianceOfFluxIntegralUnderTranslations}.
-    Más aún, \(\vec{F} \circ T^{- 1} = 0\) sobre \(T(\partial D)\).
+    Más aún, \(\mathbf{F} \circ T^{- 1} = 0\) sobre \(T(\partial D)\).
     Pero \(T(\partial D) = \partial(T D)\), porque \(T\) es un difeomorfismo.
-    Entonces \(\vec{F} \circ T^{- 1} = 0\) sobre \(\partial (T D)\), y 
+    Entonces \(\mathbf{F} \circ T^{- 1} = 0\) sobre \(\partial (T D)\), y 
     \begin{align}
-      \int_{\partial (T D)} (\vec{F} \circ T^{- 1}) \cdot \nu d \sigma
+      \int_{\partial (T D)} (\mathbf{F} \circ T^{- 1}) \cdot \nu d \sigma
       =
       0
     \end{align}
@@ -1228,13 +1227,13 @@
     \end{enumerate*}
 
 
-    Sea \(\vec{F} : \realNumbers^n \rightarrow \realNumbers^n\) un campo continuamente diferenciable con soporte en \(V\).
+    Sea \(\mathbf{F} : \realNumbers^n \rightarrow \realNumbers^n\) un campo continuamente diferenciable con soporte en \(V\).
     Por definición
     \begin{align}
-      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \nu d \sigma
       =
       \int_U
-        \vec{F}(\varphi(u))
+        \mathbf{F}(\varphi(u))
         \cdot
         \nu(\varphi(u))
         g(u)
@@ -1244,10 +1243,10 @@
     Es decir que \(g = g(D \varphi (u))\), \(\nu = \nu(D\varphi(u))\). % ???
     Luego
     \begin{align}
-      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \nu d \sigma
       &=
       \int_U
-        \vec{F}(\varphi(u))
+        \mathbf{F}(\varphi(u))
         \cdot
         \nu(D \varphi(u))
         g(D \varphi(u))
@@ -1255,7 +1254,7 @@
       \\
       &=
       \int_U
-        \vec{F}(\varphi(u) + t - t)
+        \mathbf{F}(\varphi(u) + t - t)
         \cdot
         \nu(D \varphi(u))
         g(D \varphi(u))
@@ -1263,7 +1262,7 @@
       \\
       &=
       \int_U
-        \vec{F}((\varphi + t)(u) - t)
+        \mathbf{F}((\varphi + t)(u) - t)
         \cdot
         \nu(D (\varphi + t)(u))
         g(D (\varphi + t)(u))
@@ -1271,7 +1270,7 @@
       \\
       &=
       \int_U
-        \vec{F} \circ T^{- 1} ((\varphi + t)(u))
+        \mathbf{F} \circ T^{- 1} ((\varphi + t)(u))
         \cdot
         \nu(D (\varphi + t)(u))
         g(D (\varphi + t)(u))
@@ -1279,7 +1278,7 @@
       \\
       &=
       \int_U
-        \vec{F} \circ T^{- 1} ((T \varphi)(u))
+        \mathbf{F} \circ T^{- 1} ((T \varphi)(u))
         \cdot
         \nu(D (T \varphi)(u))
         g(D (T \varphi)(u))
@@ -1291,11 +1290,11 @@
   \begin{lemma}
     \label{lemma:localDivergenceTheorem}
     Sea \(D\) un dominio regular en \(\realNumbers^n\) con clausura \(\overline{D} = D \cup \partial D\) compacta.
-    Entonces dado \(x_0 \in \overline{D}\) existe un entorno \(U\) de \(x_0\) tal que para todo campo \(\vec{F}\) continuamente diferenciable y soportado en \(U\), se verifica
+    Entonces dado \(x_0 \in \overline{D}\) existe un entorno \(U\) de \(x_0\) tal que para todo campo \(\mathbf{F}\) continuamente diferenciable y soportado en \(U\), se verifica
     \begin{align}
-      \int_D \nabla \cdot \vec{F} d x
+      \int_D \nabla \cdot \mathbf{F} d x
       =
-      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \nu d \sigma
     \end{align}
   \end{lemma}
   \begin{proof}
@@ -1310,23 +1309,23 @@
       \subseteq
       D
     \end{align}
-    Sea \(\vec{F}\) un campo continuamente diferenciable en \(D\).
-    Si su soporte se encuentra contenido en \(B(x_0, r)\), entonces \(\support \vec{F}\) se encuentra a una distacia positiva del complemento de dicha bola.
-    Luego, extender \(\vec{F} : D \rightarrow \realNumbers^n\) por cero fuera de la bola, lo convierte en un campo \(\tilde{F} : \realNumbers^n \rightarrow \realNumbers^n\) continuamente diferenciable y con soporte compacto.
+    Sea \(\mathbf{F}\) un campo continuamente diferenciable en \(D\).
+    Si su soporte se encuentra contenido en \(B(x_0, r)\), entonces \(\support \mathbf{F}\) se encuentra a una distacia positiva del complemento de dicha bola.
+    Luego, extender \(\mathbf{F} : D \rightarrow \realNumbers^n\) por cero fuera de la bola, lo convierte en un campo \(\tilde{F} : \realNumbers^n \rightarrow \realNumbers^n\) continuamente diferenciable y con soporte compacto.
     Por \eqref{equation:compactlySupportedFieldsHaveNullTotalDivergence} para tal campo se tiene
     \begin{align}
       \int_{\realNumbers^n} \nabla \cdot \tilde{F} dx
       =
-      \int_D \nabla \cdot \vec{F} dx
+      \int_D \nabla \cdot \mathbf{F} dx
       =
       0
       =
-      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \nu d \sigma
     \end{align}
     Es decir, si \(x_0 \in D\) se tiene demostrado el lema.
 
     Supongamos ahora que \(x_0 \in \partial D\).
-    La estrategia es probar que fijada una dirección coordenada, \(i = 1, \dots, n\) se puede construir un entorno \(U_i\) en la topología relativa a la de \(\realNumbers^n\) en \(\overline{D}\), tal que si un campo \(\vec{F}\) continuamente diferenciable en \(D\), está soportado en \(U_i\), entonces
+    La estrategia es probar que fijada una dirección coordenada, \(i = 1, \dots, n\) se puede construir un entorno \(U_i\) en la topología relativa a la de \(\realNumbers^n\) en \(\overline{D}\), tal que si un campo \(\mathbf{F}\) continuamente diferenciable en \(D\), está soportado en \(U_i\), entonces
     \begin{align}
       \label{equation:divergenceTheoremInTheIthDirection}
       \int_{\partial D}
@@ -1337,7 +1336,7 @@
         \frac{\partial F_i}{\partial x_i}
       dx
     \end{align}
-    siendo \(F_i\) la coordenada \(i\)--ésima de \(\vec{F}\) y \(\nu_i\) la correspondiente componente de la normal exterior a \(\partial D\).
+    siendo \(F_i\) la coordenada \(i\)--ésima de \(\mathbf{F}\) y \(\nu_i\) la correspondiente componente de la normal exterior a \(\partial D\).
     De esta forma considerando \(U = \bigcap_{i = 1}^n U_i\), se tendrá probado el lema.
 
     Probaremos para \(i = n\), tratándose de igual manera el resto de las coordenadas.
@@ -1401,12 +1400,12 @@
   Queda ahora por globalizar el resultado y así obtener el teorema de Gauss.
 
   \begin{theorem}
-    Sea \(D\) dominio regular y \(\vec{F} \in C^1\left(\overline{D}\right)\) un campo de vectores.
+    Sea \(D\) dominio regular y \(\mathbf{F} \in C^1\left(\overline{D}\right)\) un campo de vectores.
     Entonces
     \begin{align}
-      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \nu d \sigma
       =
-      \int_D \nabla \cdot \vec{F} dx
+      \int_D \nabla \cdot \mathbf{F} dx
     \end{align}
   \end{theorem}
   \begin{proof}
@@ -1422,30 +1421,30 @@
     \end{enumerate}
     Las familias \(\{\phi_1, \dots, \phi_r\}\) de funciones regulares que verifican estas tres propiedades reciben el nombre de \emph{particiones de la unidad subordinadas al cubrimiento} \(\{U_1, \dots, U_r\}\).
 
-    Sea \(\vec{F} \in C^1(\overline{D})\) un campo;
+    Sea \(\mathbf{F} \in C^1(\overline{D})\) un campo;
     si consideramos la partición de la unidad \(\{\phi_1, \dots, \phi_r\}\), tenemos
     \(
-      \vec{F}
+      \mathbf{F}
       =
-      \sum_{i = 1}^r \phi_i \vec{F}
+      \sum_{i = 1}^r \phi_i \mathbf{F}
       =
-      \sum_{i = 1}^r \vec{F}_i
+      \sum_{i = 1}^r \mathbf{F}_i
     \).
-    Ahora \(\vec{F}_i = \phi_i \vec{F}\) está soportado en \(U_{x_i}\) y por construcción se tiene:
+    Ahora \(\mathbf{F}_i = \phi_i \mathbf{F}\) está soportado en \(U_{x_i}\) y por construcción se tiene:
     \(
-      \int_D \nabla \cdot \vec{F}_i dx
+      \int_D \nabla \cdot \mathbf{F}_i dx
       =
-      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \nu d \sigma
     \).
     Por tanto
     \begin{align}
-      \int_D \nabla \cdot \vec{F} dx
+      \int_D \nabla \cdot \mathbf{F} dx
       =
-      \sum_{i = 1}^r \int_D \nabla \cdot \vec{F}_i dx
+      \sum_{i = 1}^r \int_D \nabla \cdot \mathbf{F}_i dx
       =
-      \sum_{i = 1}^r \int_{\partial D} \vec{F}_i \cdot \nu d \sigma
+      \sum_{i = 1}^r \int_{\partial D} \mathbf{F}_i \cdot \nu d \sigma
       =
-      \int_{\partial D} \vec{F} \cdot \nu d \sigma
+      \int_{\partial D} \mathbf{F} \cdot \nu d \sigma
     \end{align}
     Módulo la construcción de particiones de la unidad hemos probado el teorema
   \end{proof}
