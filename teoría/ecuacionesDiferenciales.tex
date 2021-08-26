@@ -32,6 +32,7 @@
 \newcommand{\closure}[1]{\bar{1}}
 
 \newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolario}
 \newtheorem{myLemma}{Lema propio}
 \newtheorem{lemma}{Lema}
 \theoremstyle{definition}
@@ -1075,10 +1076,14 @@
     \overline{\{x : f(x) \neq 0\}}
   \end{align}
 
+  \subsection{Dominios regulares}
+
   Hay que explicar ahora lo que entenderemos por un dominio regular y lo que se entiende por entorno de los puntos del dominio.
 
-  Dado \(D \subseteq \realNumbers^n\), diremos que es un \emph{dominio} si es abierto y es conexo;
-  \(\partial D\) denotará su frontera.
+  \begin{definition}
+    Dado \(D \subseteq \realNumbers^n\), diremos que es un \emph{dominio} si es abierto y es conexo;
+    \(\partial D\) denotará su frontera.
+  \end{definition}
 
   \begin{theorem}
     Todo dominio \(D \subseteq \realNumbers^n\) es una variedad \(C^{\infty}\) de dimensión \(n\).
@@ -1118,14 +1123,14 @@
   \end{notation}
 
   \begin{theorem}[de la Función Implícita]
-    Sea \(\phi\) una aplicación \(C^1\) de un abierto \(E \subseteq \realNumbers^{l + m}\) en \(\realNumbers^l\), tal que \(\phi(\mathbf{a}, \mathbf{b}) = 0\) para algún punto \((\mathbf{a}, \mathbf{b}) \in E\).
+    Sea \(\phi\) una aplicación \(C^1\) de un abierto \(E \subseteq \realNumbers^{l + m}\) en \(\realNumbers^l\), tal que \(\phi(\mathbf{a}, \mathbf{b}) = 0\) para algún punto \((\mathbf{a}, \mathbf{b}) \in E\) con \(\mathbf{a} \in \realNumbers^l\), \(\mathbf{b} \in \realNumbers^m\).
 
     Denotamos \(A = \phi'(\mathbf{a}, \mathbf{b}) \in L(\realNumbers^{l + m}, \realNumbers^l)\) y asumimos que \(A_x \in L(\realNumbers^l)\) es invertible.
 
     Entonces existen conjuntos abiertos \(U \subseteq \realNumbers^{l + m}\) y \(W \subseteq \realNumbers^m\), con \((\mathbf{a}, \mathbf{b}) \in U\) y \(\mathbf{b} \in W\), con la siguiente propiedad:
 
-    A cada \(y \in W\) le corresponde un único \(\mathbf{x}\) tal que \((\mathbf{x}, \mathbf{y}) \in U\) y \(f(\mathbf{x}, \mathbf{y}) = 0\).
-    Si este \(\mathbf{x}\) se define como \(\mathbf{X}(\mathbf{y})\), entonces \(\mathbf{X}\) es una aplicación \(C^1\) de \(W\) en \(\realNumbers^n\), que verifica las propiedades
+    A cada \(\mathbf{y} \in W\) le corresponde un único \(\mathbf{x}\) tal que \((\mathbf{x}, \mathbf{y}) \in U\) y \(f(\mathbf{x}, \mathbf{y}) = 0\).
+    Si este \(\mathbf{x}\) se define como \(\mathbf{X}(\mathbf{y})\), entonces \(\mathbf{X}\) es una aplicación \(C^1\) de \(W\) en \(\realNumbers^l\), que verifica las propiedades
     \begin{enumerate*}
       \item \(\mathbf{X}(\mathbf{b}) = \mathbf{a}\);
       \item \(\phi(\mathbf{X}(\mathbf{y}), \mathbf{y}) = 0\) para todo \(\mathbf{y} \in W\);
@@ -1133,7 +1138,83 @@
     \end{enumerate*}
   \end{theorem}
 
+  \begin{notation}
+    Sea \(I = \{i_1, \dots, i_h\}\) (con \(i_1 < \cdots < i_h\)) un subconjunto \(I \subseteq \{1, \dots, n\}\) de índices.
+    Si \(\mathbf{x} \in \realNumbers^n\), escribiremos \(\mathbf{x}_I\) para denotar al vector
+    \begin{align}
+      \mathbf{x}_I
+      =
+      (x_{i_1}, x_{i_2}, \dots, x_{i_h})
+      \in
+      \realNumbers^l
+    \end{align}
+    En sentido contrario, si \(\mathbf{u} \in \realNumbers^l\), escribiremos \(\mathbf{u}^I\) para denotar al vector en \(\realNumbers^n\) determinado por las ecuaciones
+    \begin{align}
+      u^I_{i_1} = u_1,
+      u^I_{i_2} = u_2,
+      \dots,
+      u^I_{i_h} = u_h
+      &&
+      u^I_i = 0
+      \text{ si }
+      i \notin I
+    \end{align}
+    Observar como \((\mathbf{u}^I)_I = \mathbf{u}\) para todo \(\mathbf{u} \in \realNumbers^l\).
+    Además, si \(I^c = \{1, \dots, n\} \setminus I\) entonces \(\mathbf{x} = (\mathbf{x}_I)^I + (\mathbf{x}_{I^c})^{I^c}\) para todo \(\mathbf{x} \in \realNumbers^n\).
+
+    Si \(A \in \realNumbers^{n \times m}\) es una matriz e \(I = \{i_1, \dots, i_h\}\) (con \(i_1 < \cdots < i_h\)), \(J = \{j_1, \dots, j_k\}\)  (con \(j_1 < \cdots < j_k\)) son subconjuntos \(I \subseteq \{1, \dots, n\}\), \(J \subseteq \{1, \dots, m\}\) de índices, escribiremos \(A_{I, J}\) para denotar la matriz
+    \begin{align}
+      A_{I, J}
+      =
+      \begin{pmatrix}
+        a_{i_1, j_1} &\cdots &a_{i_1, j_k}
+        \\
+        \vdots &\ddots &\vdots
+        \\
+        a_{i_h, j_1} &\cdots &a_{i_h, j_k}
+      \end{pmatrix}
+      \in
+      \realNumbers^{h \times k}
+    \end{align}
+  \end{notation}
+
+  \begin{corollary}
+    Sea \(\phi\) una aplicación \(C^1\) de un abierto \(E \subseteq \realNumbers^{l + m}\) en \(\realNumbers^l\), tal que \(\phi(\mathbf{x}) = 0\) para algún punto \(\mathbf{x} \in E\).
+
+    Denotamos \(A = \phi'(\mathbf{x}) \in L(\realNumbers^{l + m}, \realNumbers^l)\) y asumimos que \(A\) tiene rango \(l\).
+    Es decir, que existe un conjunto de \(l\) índices \(J \subset \{1, \dots, l + m\}\) tal que \(A_{I, J}\) (con \(I = \{1, \dots, l\}\)) es invertible (tiene determinante nonulo).
+
+    Entonces existen conjuntos abiertos \(U \subseteq \realNumbers^{l + m}\) y \(W \subseteq \realNumbers^m\), con \(\mathbf{x} = (\mathbf{x}_J)^J + (\mathbf{x}_{J^c})^{J^c} \in U\) y \(\mathbf{x}_{J^c} \in W\), con la siguiente propiedad:
+
+    A cada \(\mathbf{w} \in W\) le corresponde un único \(\mathbf{v} \in \realNumbers^l\) tal que \(\mathbf{v}^J + \mathbf{w}^{J^c} \in U\) y \(f(\mathbf{v}^J + \mathbf{w}^{J^c}) = 0\).
+    Si este \(\mathbf{v}\) se define como \(\mathbf{V}(\mathbf{w})\),
+    entonces \(\mathbf{X}\) es una aplicación \(C^1\) de \(W\) en \(\realNumbers^l\), que verifica las propiedades
+    \begin{enumerate*}
+      \item \(\mathbf{V}(\mathbf{x}_{J^c}) = \mathbf{x}_J\);
+      \item \(\phi(\mathbf{V}(\mathbf{w}), \mathbf{y}) = 0\) para todo \(\mathbf{y} \in W\);
+      \item y \(\mathbf{V}'(\mathbf{x}_{J^c}) = - A_{I, J}^{- 1} A_{I, J^c}\).
+    \end{enumerate*}
+  \end{corollary}
+
   Lo que establece la definición anterior es que un dominio regular tiene su frontera definida localmente por ceros de funciones continuamente diferenciales, es decir, por trozos de superficies diferenciables en \(\realNumbers^n\) definidas implicitamente.
+
+  \begin{theorem}
+    La frontera \(\partial D\) de un dominio acotado regular \(D \subseteq \realNumbers^n\) es una variedad \(C^1\) de dimensión \(n - 1\).
+  \end{theorem}
+  \begin{proof}
+    Consideremos un punto arbitrario \(\mathbf{x} \in \partial D\).
+    Porque \(D\) es regular, existen un entorno \(V_0\) de \(\mathbf{x}\) en \(\realNumbers^n\), y una función \(\phi : V_0 \rightarrow \realNumbers\) de clase \(C^1\), de forma que
+    \begin{enumerate}
+      \item \(\nabla \phi (\mathbf{y}) \neq 0\) para todo \(\mathbf{y} \in V_0\);
+      \item \(\partial D \cap V_0 = \{\mathbf{y} \in V_0 : \phi(\mathbf{y}) = 0\}\);
+      \item \(D \cap V_0 = \{\mathbf{y} \in V_0 : \phi(\mathbf{y}) < 0\}\)
+    \end{enumerate}
+
+    Definiendo \(m = n - 1\), la aplicación \(\phi\) tiene como dominio un abierto \(V_0 \subseteq \realNumbers^{1 + m}\) y su codominio es \(\realNumbers^1\).
+    Denotamos \(A = \nabla \phi(x)\).
+    Por hipótesis \(A \neq 0\)
+
+  \end{proof}
 
   Sea \(D\) un dominio regular y sea \(x \in \partial D\).
   Un vector normal a \(\partial D\) en \(x\) viene dado por \(n = \nabla \phi(x)\), donde \(\phi\) es una función que define \(\partial D\) en el entorno de \(x\) como en la definición de regularidad.
